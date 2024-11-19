@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import spinning-record from './spinning-record.png';
 import './App.css';
 
 function App() {
