@@ -1,11 +1,11 @@
-import spinning-record from './spinning-record.png';
+import spinningRecord from './spinning-record.png';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={spinningRecord} className="App-logo" alt="spinning record" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
