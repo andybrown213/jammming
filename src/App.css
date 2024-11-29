@@ -1,34 +1,79 @@
-.App {
-  text-align: center;
+.app {
+  background-color: #282c34;
+  min-height: 99.8vh;
+  min-width: 99.8vw;
+  display: grid;
+  grid-template-columns: 30% 39.5% 30%;
+  grid-template-rows: 30% 39.5% 30%;
+  font-size: calc(10px + 2vmin);
+  color: rgb(247, 247, 247);
+  border: 1px solid red;
+  justify-self: center;
 }
 
-.App-logo {
-  height: 40vmin;
+header {
+  grid-row: 1;
+  grid-column: 2;
+  border: 0px solid blue;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+
+header h1 {
+  color: rgb(247, 247, 247);
+}
+
+header button {
+  width: 50%;
+  height: 30%;
+  background-color: rgb(213, 36, 35);
+  font-size: large;
+  font-weight: bold;
+  color: rgb(248, 248, 248);
+  border: 3px solid black;
+  display: block;
+  margin: auto;
+}
+
+header button:hover {
+  background-color:rgb(170, 29, 29);
+}
+
+header button:active {
+  transform: scale(.99);
+  border: 2px solid black;
+}
+
+.left-navigation {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  border: 1px solid black;
+}
+
+.right-navigation {
+  grid-column: 3;
+  grid-row: 1 / span 3;
+  border: 1px solid black;
+}
+
+.spinning-record {
+  grid-row: 2;
+  grid-column: 2;
+  max-height: 40vh;
+  max-width: 40vw;
   pointer-events: none;
+  border: 0px solid green;
+  justify-self: center;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  .spinning-record {
+    animation: spinning-record-spin infinite 25s linear;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+@keyframes spinning-record-spin {
   from {
     transform: rotate(0deg);
   }
@@ -36,3 +81,9 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+
+
