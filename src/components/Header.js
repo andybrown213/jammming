@@ -2,7 +2,7 @@ import React from 'react';
 
 function Header() {
 
-    const randomStringGenerator = (length) => {
+    /* const randomStringGenerator = (length) => {
         const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~';
         const values = crypto.getRandomValues(new Uint8Array(length));
         return values.reduce((acc, x) => acc + possible[x % possible.length], "");
@@ -29,7 +29,7 @@ function Header() {
     async function userConnect() {
         const authUrl = new URL("https://accounts.spotify.com/authorize");
         
-    }
+    } */
 
     return (
         <header>
