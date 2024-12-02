@@ -5,17 +5,21 @@ function Header(props) {
     
     if (props.loggedIn === true) {
         return (
-            <h1>WELCOME! You are Logged In!</h1>
+            <header>
+                <h1>WELCOME! You are Logged In!</h1>
+            </header>
         )
     } else if (props.loggedIn === 'auth') {
         return (
-            <h1>Authorizing....</h1>
+            <header>
+                <h1>Authorizing....</h1>
+            </header>
         )
     } else {
         return (
-
-            <Login />
-
+            <header>
+                <Login />
+            </header>
         )
     }
 
