@@ -1,16 +1,8 @@
 import React from 'react';
 
-function challengeCreator() {
-
-    const randomStringGenerator = (length) => {
-        const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~';
-        const values = crypto.getRandomValues(new Uint8Array(length));
-        return values.reduce((acc, x) => acc + possible[x % possible.length], "");
-    }
+function challengeCreator(codeVerifier) {
     
-    const codeVerifier = randomStringGenerator(128);
-    
-    const sha256 = async (plain) => {
+    const sha256 = (plain) => {
         const encoder = new TextEncoder();
         const data = encoder.encode(plain);
         return window.crypto.subtle.digest('SHA-256', data);
@@ -31,21 +23,43 @@ function challengeCreator() {
 
 function handleLogin() {
 
-    challengeCreator();
+    const randomStringGenerator = (length) => {
+        const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~';
+        const values = crypto.getRandomValues(new Uint8Array(length));
+        return values.reduce((acc, x) => acc + possible[x % possible.length], "");
+    }
+    
+    const codeVerifier = randomStringGenerator(128);
+    const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
+    const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app';
+    const scope = 'user-modify-playback-state user-read-playback-state user-read-currently-playing playlist-modify-private playlist-modify-public user-library-read user-library-modify user-read-playback-position';
+    const authUrl = new URL('https://accounts.spotify.com/authorize');
 
+    window.sessionStorage.setItem('code_verifier', codeVerifier);
+
+    const codeChallenge = challengeCreator(codeVerifier);
+
+    const params = {
+        response_type: 'code',
+        client_id: clientId,
+        scope,
+        code_challenge_method: 'S256',
+        code_challenge: codeChallenge,
+        redirect_uri: redirectUri
+    }
+
+    authUrl.search = new URLSearchParams(params).toString();
+    window.location.href = authUrl.toString();
 }
 
 function Login() {
 
     return (
-
         <div id='login'>
         <h1>Are you ready to Jammmm?!</h1>
         <button onClick={handleLogin}>Connect Your Spotify</button>
-        </div>
-
+        </div>    
     )
-
 }
 
 export default Login;

@@ -14,17 +14,22 @@
 header {
   grid-row: 1;
   grid-column: 2;
-  border: 0px solid blue;
-  display: flex;
+  border: 1px solid blue;
   text-align: center;
-  flex-direction: column;
+
 }
 
-header h1 {
+h1 {
   color: rgb(247, 247, 247);
 }
 
-header button {
+#login {
+  text-align:center;
+  display: flex;
+  flex-direction: column;
+}
+
+#login button {
   width: 50%;
   height: 30%;
   background-color: rgb(213, 36, 35);
@@ -36,11 +41,11 @@ header button {
   margin: auto;
 }
 
-header button:hover {
+button:hover {
   background-color:rgb(170, 29, 29);
 }
 
-header button:active {
+button:active {
   transform: scale(.99);
   border: 2px solid black;
 }
