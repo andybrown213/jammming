@@ -1,5 +1,6 @@
 import React from 'react';
 import Login from './Login';
+import Logout from './Logout';
 
 function Header(props) {
     
@@ -7,7 +8,7 @@ function Header(props) {
         return (
             <header>
                 <h1>WELCOME! You are Logged In!</h1>
-                
+                <Logout />
             </header>
         )
     } else if (props.loggedIn === 'auth') {
