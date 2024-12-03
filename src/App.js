@@ -50,6 +50,7 @@ function App() {
 
   if (loggedIn === 'auth') {
     getToken(code);
+    window.location.search = '';
     setLoggedIn(true);
   };   
   

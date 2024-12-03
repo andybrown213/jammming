@@ -35,7 +35,7 @@ function handleLogin() {
     const scope = 'user-modify-playback-state user-read-playback-state user-read-currently-playing playlist-modify-private playlist-modify-public user-library-read user-library-modify user-read-playback-position';
     const authUrl = new URL('https://accounts.spotify.com/authorize');
 
-    window.sessionStorage.setItem('code_verifier', codeVerifier);
+    window.localStorage.setItem('code_verifier', codeVerifier);
 
     const codeChallenge = challengeCreator(codeVerifier);
 
