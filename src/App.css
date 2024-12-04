@@ -1,4 +1,5 @@
 .app {
+
   background-color: #282c34;
   min-height: 99.8vh;
   min-width: 99.8vw;
@@ -25,7 +26,17 @@ h1 {
 #login {
   text-align:center;
   display: flex;
+  height: 80%;
   flex-direction: column;
+  border: 1px solid white;
+}
+
+#logout {
+  text-align:center;
+  display: flex;
+  height: 80%;
+  flex-direction: column;
+  border: 1px solid white;
 }
 
 #login button {
@@ -82,28 +93,45 @@ h1 {
   border: 1px solid black;
 }
 
-.spinning-record {
+.record-player {
+  position: relative;
   grid-row: 2;
   grid-column: 2;
-  max-height: 40vh;
-  max-width: 40vw;
-  pointer-events: none;
-  border: 0px solid green;
-  justify-self: center;
+  border: 1px solid yellow;
+  justify-content: center;
+}
+
+#record-player {
+  max-height: 50vh;
+  max-width: 50vw;
+  border: 1px solid green;
+  position: absolute;
+  left: 30%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+}
+
+#spinning-record {
+  max-height: 29vh;
+  max-width: 29vw;
+  border: 1px solid green;
+  position: absolute;
+  left: 30%;
+  top: 50%;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .spinning-record {
-    animation: spinning-record-spin infinite 25s linear;
+  #spinning-record {
+    animation: spinning-record-spin infinite 1.8s linear;
   }
 }
 
 @keyframes spinning-record-spin {
   from {
-    transform: rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 

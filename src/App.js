@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Header from './components/Header';
-import spinningRecord from './spinning-record.png';
+import RecordPlayer from './components/RecordPlayer'
 import './App.css';
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
     const codeVerifier = localStorage.getItem('code_verifier');
     const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
     const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app';
-    const url = 'https://accounts.spotify.com/api/token'
+    const url = 'https://accounts.spotify.com/api/token';
 
     const payload = {
       method: 'POST',
@@ -50,7 +50,6 @@ function App() {
 
   if (loggedIn === 'auth') {
     getToken(code);
-    window.location.search = '';
     setLoggedIn(true);
   };   
   
@@ -63,7 +62,7 @@ function App() {
 
         </div>
 
-        <img src={spinningRecord} className="spinning-record" alt="spinning record" />
+        <RecordPlayer />
 
         <div className="right-navigation">
 
