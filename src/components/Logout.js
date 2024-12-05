@@ -9,6 +9,7 @@ function Logout() {
 
     return (
         <div id='logout'>
+        <h1>WELCOME! You are Logged In!</h1>
         <button onClick={handleLogout}>Logout</button>
         </div>   
     )

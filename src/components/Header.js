@@ -7,7 +7,6 @@ function Header(props) {
     if (props.loggedIn === true) {
         return (
             <header>
-                <h1>WELCOME! You are Logged In!</h1>
                 <Logout />
             </header>
         )

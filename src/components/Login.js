@@ -49,14 +49,14 @@ function handleLogin() {
     }
 
     authUrl.search = new URLSearchParams(params).toString();
-    window.location.href = authUrl.toString();
+    window.open(authUrl.toString(), 'Spotify Authorization Window', 'popup, width=500, height=800');
 }
 
 function Login() {
 
     return (
         <div id='login'>
-        <h1>Are you ready to Jammmm?!</h1>
+        <h1>Are you ready to Jammm?!</h1>
         <button onClick={handleLogin}>Connect Your Spotify</button>
         </div>    
     )

@@ -19,7 +19,7 @@ function App() {
     } else return false;
   }
 
-  const getToken = async code => {
+  async function getToken(code) {
 
     const codeVerifier = localStorage.getItem('code_verifier');
     const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
@@ -40,17 +40,27 @@ function App() {
       })
     }
 
-    const body = await fetch(url, payload);
-    const response = await body.json();
+    const response = await fetch(url, payload);
+    console.log(response)  
+    if (!response.ok) {
+        throw new Error('No Response From Spotify Network. Please Try Again.')
+      }   
 
-    localStorage.setItem('access_token', response.access_token);
+      localStorage.setItem('access_token', response.access_token);
   }
   
   if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
 
   if (loggedIn === 'auth') {
-    getToken(code);
-    setLoggedIn(true);
+    
+    
+    try {
+      getToken(code);
+      
+      setLoggedIn(true);
+    } catch {
+
+    }
   };   
   
   return (
