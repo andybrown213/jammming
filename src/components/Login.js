@@ -31,7 +31,7 @@ function handleLogin() {
     
     const codeVerifier = randomStringGenerator(128);
     const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
-    const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app';
+    const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app/auth';
     const scope = 'user-modify-playback-state user-read-playback-state user-read-currently-playing playlist-modify-private playlist-modify-public user-library-read user-library-modify user-read-playback-position';
     const authUrl = new URL('https://accounts.spotify.com/authorize');
 
