@@ -28,25 +28,28 @@ function Auth() {
         })
         }
 
-    const response = await fetch(url, payload);
-    console.log(response);  
-    
-    if (!response.ok) {
-        throw new Error('No Response From Spotify Network. Please Try Again.')
-    }   
+        let response, json;
 
-    localStorage.setItem('access_token', response.access_token);
+        try {
+            response = await fetch(url, payload);
+            json = await response.json();
+        } catch (error) {
+            console.log(`Fetch Error: ${error}`);
+        }
+        
+        console.log(response);  
+        console.log(json);
+    
+        if (!response.ok) {
+            throw new Error(`No Response From Spotify Network. Please Try Again. Status Code: ${response.status}`);
+        }   
+
+        localStorage.setItem('access_token', json.access_token);
+        document.innerHTML = 'Login Successful! Good Job!';
+
     }
 
-    if (error === null) {
-        try {
-            getToken(code);
-            document.innerHTML = 'login successful';
-        }
-        catch (error) {
-            document.innerHTML = error;
-        }
-    } else document.innerHTML = error;
+    error === null ? getToken(code) : document.innerHTML = error;
 }
 
 export default Auth;
