@@ -40,7 +40,11 @@ async function getCode () {
 
     const codeChallenge = challengeCreator(codeVerifier);
 
-    await setTimeout((codeVerifier) => console.log(`saving verifier ${codeVerifier}`), 10000);
+    function timer(ms) {return new Promise(resolve => setTimeout(resolve, ms))};
+
+    await timer(10000);
+
+    console.log(`saving verifier ${codeVerifier}`);
 
     localStorage.setItem('code verifier', codeVerifier);
 
