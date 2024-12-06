@@ -3,13 +3,24 @@
 
 function Auth() {
     
+    let codeVerifier;
+    
+    window.addEventListener(
+        'message',
+        (event) => {
+            if ((event.origin !== 'https://gorgeous-bombolone-0ba30e.netlify.app') || (typeof event.data !== 'string')) return;
+            codeVerifier = event.data;
+            console.log('verifier received')
+        }
+    )
+
     const urlParams = new URLSearchParams(window.location.search);
+
     let code = urlParams.get('code');
     let error = urlParams.get('error');
 
     async function getToken(code) {
 
-        const codeVerifier = localStorage.getItem('code_verifier');
         const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
         const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app/auth';
         const url = 'https://accounts.spotify.com/api/token';
@@ -41,7 +52,7 @@ function Auth() {
         console.log(json);
     
         if (!response.ok) {
-            throw new Error(`No Response From Spotify Network. Please Try Again. Status Code: ${response.status}`);
+            throw new Error(`We have encountered an error from Spotify. Status Code: ${response.status} Error: ${json.error} Details: ${json.error_description}`);
         }   
 
         localStorage.setItem('access_token', json.access_token);

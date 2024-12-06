@@ -35,8 +35,6 @@ function handleLogin() {
     const scope = 'user-modify-playback-state user-read-playback-state user-read-currently-playing playlist-modify-private playlist-modify-public user-library-read user-library-modify user-read-playback-position';
     const authUrl = new URL('https://accounts.spotify.com/authorize');
 
-    window.localStorage.setItem('code_verifier', codeVerifier);
-
     const codeChallenge = challengeCreator(codeVerifier);
 
     const params = {
@@ -49,7 +47,9 @@ function handleLogin() {
     }
 
     authUrl.search = new URLSearchParams(params).toString();
-    window.open(authUrl.toString(), 'Spotify Authorization Window', 'popup, width=500, height=800');
+    const authWindow = window.open(authUrl.toString(), 'Spotify Authorization Window', 'popup, width=500, height=800');
+
+    authWindow.postMessage(codeVerifier, 'https://gorgeous-bombolone-0ba30e.netlify.app');
 }
 
 function Login() {
