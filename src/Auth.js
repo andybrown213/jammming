@@ -58,7 +58,7 @@ function getCode () {
     }
 
     authUrl.search = new URLSearchParams(params).toString();
-    // document.location.href = authUrl.toString();
+    document.location.href = authUrl.toString();
 }
 
 async function getToken(code) {
