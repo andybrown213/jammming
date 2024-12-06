@@ -40,11 +40,7 @@ function getCode () {
 
     const codeChallenge = challengeCreator(codeVerifier);
 
-    function timer(ms) {return new Promise(resolve => setTimeout(resolve, ms))};
-
-    timer(10000);
-
-    console.log(`saving verifier ${codeVerifier}`);
+    alert(`saving verifier ${codeVerifier}`);
 
     localStorage.setItem('code verifier', codeVerifier);
 
