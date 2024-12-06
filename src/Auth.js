@@ -4,6 +4,8 @@ const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
 const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app/auth';
 
 function getCode () {
+
+    console.log('getting auth code');
     
     const randomStringGenerator = (length) => {
         const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~';
@@ -37,6 +39,9 @@ function getCode () {
     const authUrl = new URL('https://accounts.spotify.com/authorize');
 
     const codeChallenge = challengeCreator(codeVerifier);
+
+    console.log(`saving verifier ${codeVerifier}`);
+
     localStorage.setItem('code verifier', codeVerifier);
 
     const params = {
@@ -55,7 +60,10 @@ function getCode () {
 async function getToken(code) {
 
     const url = 'https://accounts.spotify.com/api/token';
+
     const codeVerifier = localStorage.getItem('code verifier');
+
+    console.log(`retrieved verifier ${codeVerifier}`);
 
     const payload = {
     method: 'POST',
