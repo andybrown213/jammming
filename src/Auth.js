@@ -3,7 +3,7 @@
 const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
 const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app/auth';
 
-async function getCode () {
+function getCode () {
 
     console.log('getting auth code');
     
@@ -40,9 +40,9 @@ async function getCode () {
 
     const codeChallenge = challengeCreator(codeVerifier);
 
-    function timer(ms) {return new Promise(resolve => setTimeout(resolve, ms))};
+    //function timer(ms) {return new Promise(resolve => setTimeout(resolve, ms))};
 
-    await timer(10000);
+    //timer(10000);
 
     console.log(`saving verifier ${codeVerifier}`);
 
