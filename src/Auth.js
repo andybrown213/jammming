@@ -6,9 +6,7 @@ function Auth() {
     const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app/auth';
 
     async function getCode() {
-
-        console.log('creating verifier and challenge');
-    
+   
         const randomStringGenerator = (length) => {
             const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~';
             const values = crypto.getRandomValues(new Uint8Array(length));
@@ -32,22 +30,14 @@ function Auth() {
         
             const hashed = await sha256(codeVerifier);
 
-            console.log(`hash is : ${hashed}`);
-
             const codeChallenge = base64encode(hashed);
-
-            console.log(`challenge created on code verifier ${codeVerifier} inside creation function: ${codeChallenge}`);
-        
+     
             return codeChallenge;
         }
     
         const codeVerifier = randomStringGenerator(128);
 
         const codeChallenge = await challengeCreator(codeVerifier);
-
-        console.log(`code challenge: ${codeChallenge}`);
-
-        console.log(`saving verifier ${codeVerifier}`);
 
         localStorage.setItem('code verifier', codeVerifier);
 
@@ -71,10 +61,8 @@ function Auth() {
     
         const url = 'https://accounts.spotify.com/api/token';
     
-        const codeVerifier = localStorage.getItem('code verifier');
-    
-        console.log(`retrieved verifier ${codeVerifier}`);
-    
+        const codeVerifier = localStorage.getItem('code verifier');   
+   
         const payload = {
         method: 'POST',
         headers: {
@@ -86,10 +74,8 @@ function Auth() {
             code,
             redirect_uri: redirectUri,
             code_verifier: codeVerifier
-        })}
-        
-        console.log(`Payload Verifier: ${payload.body.codeVerifier} Paylod Code: ${payload.body.code}`);
-    
+        })}        
+  
         let response, json;
     
         try {
@@ -98,22 +84,13 @@ function Auth() {
             if (!response.ok) {
                 document.body.innerHTML = `We have encountered an error from Spotify. Status Code: ${response.status} Error: ${json.error} Details: ${json.error_description}`;
             }  
-        } catch (error) {
-            document.body.innerHTML = `Fetch Error: ${error}`;
-        }
-        
-        console.log(response);  
-        console.log(json);
-    
-    
+        } catch (error) {document.body.innerHTML = `Fetch Error: ${error}`}
     
         localStorage.setItem('access token', json.access_token);
 
-        console.log('access token saved');
-
         window.opener.location.reload();
     
-        document.body.innerHTML = 'Login Successful! Good Job!';
+        //window.location.close();
     
     }
     
