@@ -5,7 +5,7 @@ function Auth() {
     const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
     const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app/auth';
 
-    function createChallenge() {
+    async function createChallenge() {
 
         console.log('creating verifier and challenge');
     
@@ -33,6 +33,7 @@ function Auth() {
             const hashed = await sha256(codeVerifier);
 
             console.log(`hash is : ${hashed}`);
+
             const codeChallenge = base64encode(hashed);
 
             console.log(`challenge created on code verifier ${codeVerifier} inside creation function: ${codeChallenge}`);
@@ -42,7 +43,7 @@ function Auth() {
     
         const codeVerifier = randomStringGenerator(128);
 
-        const codeChallenge = challengeCreator(codeVerifier);
+        const codeChallenge = await challengeCreator(codeVerifier);
 
         console.log(`code challenge: ${codeChallenge}`);
 
