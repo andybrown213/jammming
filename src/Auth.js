@@ -110,11 +110,13 @@ function Auth() {
         
         const authServer = getCode();
 
+        console.log(authServer);
+
         return (
 
         <>
         <h3>Ready to request a code? Press the button!</h3>
-        <button onClick={window.location.href = authServer}>BUTTON</button>
+        <button onClick={window.location.href = '123456'}>BUTTON</button>
         </>
 
     )}
