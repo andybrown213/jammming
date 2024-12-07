@@ -82,14 +82,18 @@ async function getToken(code) {
         code,
         redirect_uri: redirectUri,
         code_verifier: codeVerifier
-    })
-    }
+    })}
+    
+    console.log(`Payload: ${payload}`);
 
     let response, json;
 
     try {
         response = await fetch(url, payload);
         json = await response.json();
+        if (!response.ok) {
+            throw new Error(`We have encountered an error from Spotify. Status Code: ${response.status} Error: ${json.error} Details: ${json.error_description}`);
+        }  
     } catch (error) {
         console.log(`Fetch Error: ${error}`);
     }
@@ -97,10 +101,7 @@ async function getToken(code) {
     console.log(response);  
     console.log(json);
 
-    if (!response.ok) {
-            const error = `We have encountered an error from Spotify. Status Code: ${response.status} Error: ${json.error} Details: ${json.error_description}`;
-            document.innerHTML = error;
-    }  
+
 
     localStorage.setItem('access_token', json.access_token);
 
@@ -111,8 +112,7 @@ async function getToken(code) {
 
 function Auth() {
     
-    if (window.location.search === '') {
-        
+    if (window.location.search === '') {   
 
         return (
 
@@ -122,15 +122,21 @@ function Auth() {
         <button onClick={getCode}>BUTTON</button>
         </>
 
-    )}
+    )} else {
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        let code = urlParams.get('code');
+        let error = urlParams.get('error');
     
+        return (
 
-    const urlParams = new URLSearchParams(window.location.search);
-    let code = urlParams.get('code');
-    let error = urlParams.get('error');
+            <>
+            <h3>code retreived from URL: {code}</h3>
+            <h3>error retrieved from URL: {error}</h3>
+            <button onClick={getToken}>LETS GET THAT TOKEN</button>
+            </>
 
-    if ((code !== null) && (error === null)) {getToken(code)} else {document.innerHTML = error};
-
+    )}    
 }
 
 export default Auth;
