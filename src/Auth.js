@@ -54,8 +54,8 @@ function getCode () {
     }
 
     authUrl.search = new URLSearchParams(params).toString();
-    const authServer = authUrl.toString();
-    return authServer;
+    document.location.href = authUrl.toString();
+
 }
 
 async function getToken(code) {
@@ -108,15 +108,12 @@ function Auth() {
     
     if (window.location.search === '') {
         
-        const authServer = getCode();
-
-        console.log(authServer);
 
         return (
 
         <>
         <h3>Ready to request a code? Press the button!</h3>
-        <button onClick={window.location.href = '123456'}>BUTTON</button>
+        <button onClick={getCode}>BUTTON</button>
         </>
 
     )}
