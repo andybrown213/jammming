@@ -10,12 +10,6 @@ function Header(props) {
                 <Logout />
             </header>
         )
-    } else if (props.loggedIn === 'auth') {
-        return (
-            <header>
-                <h1>Authorizing....</h1>
-            </header>
-        )
     } else {
         return (
             <header>
