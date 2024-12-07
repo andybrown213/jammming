@@ -2,10 +2,11 @@
 
 const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
 const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app/auth';
+let codeChallenge;
 
-function getCode () {
+function createChallenge() {
 
-    console.log('getting auth code');
+    console.log('creating verifier and challenge');
     
     const randomStringGenerator = (length) => {
         const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~';
@@ -35,14 +36,18 @@ function getCode () {
     }
     
     const codeVerifier = randomStringGenerator(128);
-    const scope = 'user-modify-playback-state user-read-playback-state user-read-currently-playing playlist-modify-private playlist-modify-public user-library-read user-library-modify user-read-playback-position';
-    const authUrl = new URL('https://accounts.spotify.com/authorize');
 
-    const codeChallenge = challengeCreator(codeVerifier);
+    codeChallenge = challengeCreator(codeVerifier);
 
     console.log(`saving verifier ${codeVerifier}`);
 
     localStorage.setItem('code verifier', codeVerifier);
+}
+
+function getCode () {
+
+    const scope = 'user-modify-playback-state user-read-playback-state user-read-currently-playing playlist-modify-private playlist-modify-public user-library-read user-library-modify user-read-playback-position';
+    const authUrl = new URL('https://accounts.spotify.com/authorize');
 
     const params = {
         response_type: 'code',
@@ -112,6 +117,7 @@ function Auth() {
         return (
 
         <>
+        <button onClick={createChallenge}>Create Verifier and Challenge</button>
         <h3>Ready to request a code? Press the button!</h3>
         <button onClick={getCode}>BUTTON</button>
         </>
