@@ -113,7 +113,7 @@ function Auth() {
     
     
     
-        localStorage.setItem('access_token', json.access_token);
+        localStorage.setItem('access token', json.access_token);
 
         console.log('access token saved');
 
