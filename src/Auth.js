@@ -46,70 +46,70 @@ function Auth() {
         localStorage.setItem('code verifier', codeVerifier);
     }
 
-function getCode () {
+    function getCode () {
 
-    const scope = 'user-modify-playback-state user-read-playback-state user-read-currently-playing playlist-modify-private playlist-modify-public user-library-read user-library-modify user-read-playback-position';
-    const authUrl = new URL('https://accounts.spotify.com/authorize');
-
-    const params = {
-        response_type: 'code',
-        client_id: clientId,
-        scope,
-        code_challenge_method: 'S256',
-        code_challenge: codeChallenge,
-        redirect_uri: redirectUri
-    }
-
-    authUrl.search = new URLSearchParams(params).toString();
-    document.location.href = authUrl.toString();
-
-}
-
-async function getToken(code) {
-
-    const url = 'https://accounts.spotify.com/api/token';
-
-    const codeVerifier = localStorage.getItem('code verifier');
-
-    console.log(`retrieved verifier ${codeVerifier}`);
-
-    const payload = {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({
-        client_id: clientId,
-        grant_type: 'authorization_code',
-        code,
-        redirect_uri: redirectUri,
-        code_verifier: codeVerifier
-    })}
+        const scope = 'user-modify-playback-state user-read-playback-state user-read-currently-playing playlist-modify-private playlist-modify-public user-library-read user-library-modify user-read-playback-position';
+        const authUrl = new URL('https://accounts.spotify.com/authorize');
     
-    console.log(`Payload: ${payload.code_verifier}`);
-
-    let response, json;
-
-    try {
-        response = await fetch(url, payload);
-        json = await response.json();
-        if (!response.ok) {
-            throw new Error(`We have encountered an error from Spotify. Status Code: ${response.status} Error: ${json.error} Details: ${json.error_description}`);
-        }  
-    } catch (error) {
-        document.innerHTML = `Fetch Error: ${error}`;
+        const params = {
+            response_type: 'code',
+            client_id: clientId,
+            scope,
+            code_challenge_method: 'S256',
+            code_challenge: codeChallenge,
+            redirect_uri: redirectUri
+        }
+    
+        authUrl.search = new URLSearchParams(params).toString();
+        document.location.href = authUrl.toString();
+    
     }
     
-    console.log(response);  
-    console.log(json);
-
-
-
-    localStorage.setItem('access_token', json.access_token);
-
-    document.innerHTML = 'Login Successful! Good Job!';
-
-}
+    async function getToken(code) {
+    
+        const url = 'https://accounts.spotify.com/api/token';
+    
+        const codeVerifier = localStorage.getItem('code verifier');
+    
+        console.log(`retrieved verifier ${codeVerifier}`);
+    
+        const payload = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            client_id: clientId,
+            grant_type: 'authorization_code',
+            code,
+            redirect_uri: redirectUri,
+            code_verifier: codeVerifier
+        })}
+        
+        console.log(`Payload Verifier: ${payload.body.codeVerifier} Paylod Code: ${payload.body.code}`);
+    
+        let response, json;
+    
+        try {
+            response = await fetch(url, payload);
+            json = await response.json();
+            if (!response.ok) {
+                document.innerHTML = `We have encountered an error from Spotify. Status Code: ${response.status} Error: ${json.error} Details: ${json.error_description}`;
+            }  
+        } catch (error) {
+            document.innerHTML = `Fetch Error: ${error}`;
+        }
+        
+        console.log(response);  
+        console.log(json);
+    
+    
+    
+        localStorage.setItem('access_token', json.access_token);
+    
+        document.innerHTML = 'Login Successful! Good Job!';
+    
+    }
     
     if (window.location.search === '') {   
 
