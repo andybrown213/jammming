@@ -133,7 +133,7 @@ function Auth() {
             <>
             <h3>code retreived from URL: {code}</h3>
             <h3>error retrieved from URL: {error}</h3>
-            <button onClick={getToken}>LETS GET THAT TOKEN</button>
+            <button onClick={() => getToken(code)}>LETS GET THAT TOKEN</button>
             </>
 
     )}    
