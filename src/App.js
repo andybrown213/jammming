@@ -11,6 +11,7 @@ function App() {
 
   const checkAccess = () => {
     let accessToken = localStorage.getItem('access token');
+    console.log(accessToken);
     if (accessToken !== null) {
       console.log('we found a token!');
       return true;
