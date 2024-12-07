@@ -1,48 +1,50 @@
-//import React from 'react';
+import React from 'react';
 
-const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
-const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app/auth';
-let codeChallenge;
+function Auth() {
 
-function createChallenge() {
+    const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
+    const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app/auth';
+    let codeChallenge;
 
-    console.log('creating verifier and challenge');
+    function createChallenge() {
+
+        console.log('creating verifier and challenge');
     
-    const randomStringGenerator = (length) => {
-        const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~';
-        const values = crypto.getRandomValues(new Uint8Array(length));
-        return values.reduce((acc, x) => acc + possible[x % possible.length], "");
-    }
-
-    function challengeCreator(codeVerifier) {
-    
-        const sha256 = (plain) => {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(plain);
-            return window.crypto.subtle.digest('SHA-256', data);
+        const randomStringGenerator = (length) => {
+            const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.~';
+            const values = crypto.getRandomValues(new Uint8Array(length));
+            return values.reduce((acc, x) => acc + possible[x % possible.length], "");
         }
-        
-        const base64encode = (input) => {
-            return btoa(String.fromCharCode(...new Uint8Array(input)))
-              .replace(/=/g, '')
-              .replace(/\+/g, "-")
-              .replace(/\//g, '_');
-        }
-        
-        const hashed = sha256(codeVerifier);
-        const codeChallenge = base64encode(hashed);
-        
-        return codeChallenge;
-    }
+
+        function challengeCreator(codeVerifier) {
     
-    const codeVerifier = randomStringGenerator(128);
+            const sha256 = (plain) => {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(plain);
+                return window.crypto.subtle.digest('SHA-256', data);
+            }
+        
+            const base64encode = (input) => {
+                return btoa(String.fromCharCode(...new Uint8Array(input)))
+                .replace(/=/g, '')
+                .replace(/\+/g, "-")
+                .replace(/\//g, '_');
+            }
+        
+            const hashed = sha256(codeVerifier);
+            const codeChallenge = base64encode(hashed);
+        
+            return codeChallenge;
+        }
+    
+        const codeVerifier = randomStringGenerator(128);
 
-    codeChallenge = challengeCreator(codeVerifier);
+        codeChallenge = challengeCreator(codeVerifier);
 
-    console.log(`saving verifier ${codeVerifier}`);
+        console.log(`saving verifier ${codeVerifier}`);
 
-    localStorage.setItem('code verifier', codeVerifier);
-}
+        localStorage.setItem('code verifier', codeVerifier);
+    }
 
 function getCode () {
 
@@ -95,7 +97,7 @@ async function getToken(code) {
             throw new Error(`We have encountered an error from Spotify. Status Code: ${response.status} Error: ${json.error} Details: ${json.error_description}`);
         }  
     } catch (error) {
-        console.log(`Fetch Error: ${error}`);
+        document.innerHTML = `Fetch Error: ${error}`;
     }
     
     console.log(response);  
@@ -108,9 +110,6 @@ async function getToken(code) {
     document.innerHTML = 'Login Successful! Good Job!';
 
 }
-
-
-function Auth() {
     
     if (window.location.search === '') {   
 
