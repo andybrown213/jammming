@@ -4,7 +4,6 @@ function Auth() {
 
     const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
     const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app/auth';
-    let codeChallenge;
 
     function createChallenge() {
 
@@ -41,20 +40,22 @@ function Auth() {
     
         const codeVerifier = randomStringGenerator(128);
 
-        codeChallenge = challengeCreator(codeVerifier);
+        const codeChallenge = challengeCreator(codeVerifier);
 
         console.log(`code challenge: ${codeChallenge}`);
 
         console.log(`saving verifier ${codeVerifier}`);
 
         localStorage.setItem('code verifier', codeVerifier);
+        localStorage.setItem('code challenge', codeChallenge);
     }
 
     function getCode () {
 
         const scope = 'user-modify-playback-state user-read-playback-state user-read-currently-playing playlist-modify-private playlist-modify-public user-library-read user-library-modify user-read-playback-position';
         const authUrl = new URL('https://accounts.spotify.com/authorize');
-    
+        const codeChallenge = localStorage.getItem('code challenge');
+        
         const params = {
             response_type: 'code',
             client_id: clientId,
