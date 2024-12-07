@@ -102,10 +102,10 @@ function Auth() {
             response = await fetch(url, payload);
             json = await response.json();
             if (!response.ok) {
-                document.innerHTML = `We have encountered an error from Spotify. Status Code: ${response.status} Error: ${json.error} Details: ${json.error_description}`;
+                document.body.innerHTML = `We have encountered an error from Spotify. Status Code: ${response.status} Error: ${json.error} Details: ${json.error_description}`;
             }  
         } catch (error) {
-            document.innerHTML = `Fetch Error: ${error}`;
+            document.body.innerHTML = `Fetch Error: ${error}`;
         }
         
         console.log(response);  
@@ -114,8 +114,12 @@ function Auth() {
     
     
         localStorage.setItem('access_token', json.access_token);
+
+        console.log('access token saved');
+
+        window.opener.location.reload();
     
-        document.innerHTML = 'Login Successful! Good Job!';
+        document.body.innerHTML = 'Login Successful! Good Job!';
     
     }
     
