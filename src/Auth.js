@@ -40,7 +40,7 @@ function getCode () {
 
     const codeChallenge = challengeCreator(codeVerifier);
 
-    alert(`saving verifier ${codeVerifier}`);
+    console.log(`saving verifier ${codeVerifier}`);
 
     localStorage.setItem('code verifier', codeVerifier);
 
@@ -124,7 +124,7 @@ function Auth() {
     let code = urlParams.get('code');
     let error = urlParams.get('error');
 
-    error === null ? getToken(code) : document.innerHTML = error;
+    if ((code !== null) && (error === null)) {getToken(code)} else {document.innerHTML = error};
 
 }
 
