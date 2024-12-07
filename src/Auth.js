@@ -15,7 +15,7 @@ function Auth() {
             return values.reduce((acc, x) => acc + possible[x % possible.length], "");
         }
 
-        function challengeCreator(codeVerifier) {
+        async function challengeCreator(codeVerifier) {
     
             const sha256 = (plain) => {
                 const encoder = new TextEncoder();
@@ -30,7 +30,7 @@ function Auth() {
                 .replace(/\//g, '_');
             }
         
-            const hashed = sha256(codeVerifier);
+            const hashed = await sha256(codeVerifier);
 
             console.log(`hash is : ${hashed}`);
             const codeChallenge = base64encode(hashed);
