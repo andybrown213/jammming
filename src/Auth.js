@@ -90,7 +90,7 @@ function Auth() {
 
         window.opener.location.reload();
     
-        //window.location.close();
+        window.close();
     
     }
     
