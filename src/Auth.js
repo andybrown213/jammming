@@ -41,6 +41,8 @@ function Auth() {
 
         codeChallenge = challengeCreator(codeVerifier);
 
+        console.log(`code challenge: ${codeChallenge}`);
+
         console.log(`saving verifier ${codeVerifier}`);
 
         localStorage.setItem('code verifier', codeVerifier);
