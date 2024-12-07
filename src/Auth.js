@@ -84,7 +84,7 @@ async function getToken(code) {
         code_verifier: codeVerifier
     })}
     
-    console.log(`Payload: ${payload}`);
+    console.log(`Payload: ${payload.code_verifier}`);
 
     let response, json;
 
