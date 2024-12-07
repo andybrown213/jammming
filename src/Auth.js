@@ -5,7 +5,7 @@ function Auth() {
     const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
     const redirectUri = 'https://gorgeous-bombolone-0ba30e.netlify.app/auth';
 
-    async function createChallenge() {
+    async function getCode() {
 
         console.log('creating verifier and challenge');
     
@@ -50,14 +50,9 @@ function Auth() {
         console.log(`saving verifier ${codeVerifier}`);
 
         localStorage.setItem('code verifier', codeVerifier);
-        localStorage.setItem('code challenge', codeChallenge);
-    }
-
-    function getCode () {
 
         const scope = 'user-modify-playback-state user-read-playback-state user-read-currently-playing playlist-modify-private playlist-modify-public user-library-read user-library-modify user-read-playback-position';
         const authUrl = new URL('https://accounts.spotify.com/authorize');
-        const codeChallenge = localStorage.getItem('code challenge');
         
         const params = {
             response_type: 'code',
@@ -70,7 +65,6 @@ function Auth() {
     
         authUrl.search = new URLSearchParams(params).toString();
         document.location.href = authUrl.toString();
-    
     }
     
     async function getToken(code) {
@@ -125,29 +119,18 @@ function Auth() {
     
     if (window.location.search === '') {   
 
-        return (
+        getCode();
 
-        <>
-        <button onClick={createChallenge}>Create Verifier and Challenge</button>
-        <h3>Ready to request a code? Press the button!</h3>
-        <button onClick={getCode}>BUTTON</button>
-        </>
-
-    )} else {
+    } else {
         
         const urlParams = new URLSearchParams(window.location.search);
         let code = urlParams.get('code');
         let error = urlParams.get('error');
     
-        return (
-
-            <>
-            <h3>code retreived from URL: {code}</h3>
-            <h3>error retrieved from URL: {error}</h3>
-            <button onClick={() => getToken(code)}>LETS GET THAT TOKEN</button>
-            </>
-
-    )}    
+        if (error !== null) {return (<h3>{error}</h3>)};
+        
+        getToken(code);
+    }    
 }
 
 export default Auth;
