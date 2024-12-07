@@ -31,6 +31,8 @@ function Auth() {
             }
         
             const hashed = sha256(codeVerifier);
+
+            console.log(`hash is : ${hashed}`);
             const codeChallenge = base64encode(hashed);
 
             console.log(`challenge created on code verifier ${codeVerifier} inside creation function: ${codeChallenge}`);
