@@ -25,9 +25,9 @@ function Logout() {
 
     }
 
-    const profile = getProfile(accessToken).then(
-            (response) => {return response}
-        )
+    const profile = getProfile(accessToken).then(((response) => {return response}));
+
+    console.log(profile)
 
     return (
         <div id='logout'>
