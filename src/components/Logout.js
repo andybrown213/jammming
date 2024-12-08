@@ -15,7 +15,13 @@ function Logout() {
             method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
         });
 
-        return await result.json();
+        const json = await result.json();
+
+        console.log(result);
+        console.log(json);
+        
+
+        return json;
 
     }
 
