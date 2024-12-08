@@ -7,23 +7,13 @@ function App() {
   
   const [loggedIn, setLoggedIn] = useState(false);
 
-  console.log(`loading.. current logged in status is ${loggedIn}`);
-
   const checkAccess = () => {
     let accessToken = localStorage.getItem('access token');
-    console.log(accessToken);
-    if (accessToken !== null) {
-      console.log('we found a token!');
-      return true;
-    } else return false;
+    if (accessToken !== null) {return true} else return false;
   }
 
-
-
-   
   if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
 
-  
   return (
     <div className="app">
 

@@ -2,14 +2,28 @@ import React from 'react';
 
 function handleLogout() {
     window.localStorage.clear();
-    window.location.href = 'https://gorgeous-bombolone-0ba30e.netlify.app';
+    window.location.reload();
 }
 
 function Logout() {
 
+    const accessToken = localStorage.getItem('access token');
+
+    async function getProfile(accessToken) {
+
+        const result = await fetch('https://api.spitify.v1.me', {
+            method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
+        });
+
+        return await result.json();
+
+    }
+
+    const profile = getProfile(accessToken);
+
     return (
         <div id='logout'>
-        <h1>WELCOME! You are Logged In!</h1>
+        <h2>Welcome, {profile.id}!</h2>
         <button onClick={handleLogout}>Logout</button>
         </div>   
     )
