@@ -5,7 +5,7 @@ function handleLogout() {
     window.location.reload();
 }
 
-async function Logout() {
+function Logout() {
 
     const accessToken = localStorage.getItem('access token');
 
@@ -25,7 +25,9 @@ async function Logout() {
 
     }
 
-    const profile = await getProfile(accessToken);
+    const profile = getProfile(accessToken).then(
+            (response) => {return response}
+        )
 
     return (
         <div id='logout'>
