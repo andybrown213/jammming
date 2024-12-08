@@ -11,7 +11,7 @@ function Logout() {
 
     async function getProfile(accessToken) {
 
-        const result = await fetch('https://api.spitify.v1.me', {
+        const result = await fetch('https://api.spotify.v1.me', {
             method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
         });
 
