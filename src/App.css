@@ -24,17 +24,20 @@ header img {
   height: 30%;
   display: block;
   margin: auto;
+  padding-top: 5%;
   border: 1px solid green;
 }
 
 header h1, h3 {
   color: rgb(247, 247, 247);
   padding-top: 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   border: 1px solid white;
 }
 
 header button {
-  width: 50%;
+  width: 40%;
   height: 30%;
   background-color: rgb(213, 36, 35);
   font-size: large;
@@ -42,7 +45,7 @@ header button {
   color: rgb(248, 248, 248);
   border: 3px solid black;
   display: block;
-  margin: auto;
+  margin: 20px auto 20px auto;
   z-index: 5;
 }
 
