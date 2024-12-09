@@ -22,7 +22,7 @@ function Header(props) {
         return (
             <header>
                 <img src={profilePicture ? profilePicture : ''} alt='profile' />
-                <h2>{profileName ? `, ${profileName}` : ''}</h2>
+                <h2>{profileName ? profileName : ''}</h2>
                 <button onClick={handleLogout}>Logout</button>
             </header>
         )
