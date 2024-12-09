@@ -22,12 +22,11 @@ header {
 
 header img {
   height: 20%;
-  width: 10%;
   display: block;
   margin: auto;
 }
 
-h1, h2 {
+h1, h3 {
   color: rgb(247, 247, 247);
 }
 
