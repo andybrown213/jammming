@@ -24,11 +24,13 @@ header img {
   height: 30%;
   display: block;
   margin: auto;
+  border: 1px solid green;
 }
 
 header h1, h3 {
   color: rgb(247, 247, 247);
   padding-top: 0px;
+  border: 1px solid white;
 }
 
 header button {
