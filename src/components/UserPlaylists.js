@@ -2,20 +2,32 @@ import React from 'react';
 
 function UserPlaylists (props) {
 
-    console.log(props.userPlaylists);
+    if ((props.userPlaylists) && (props.loggedIn)) {
+
+        console.log(props.userPlaylists);
+
+        return (
+            <div className='user-playlists'>
     
-    return (
-        <div className='user-playlists'>
+                {props.userPlaylists.map.items((item) => {
+                    <div id='playlist'>
+                        <h3>{item.id}</h3>
+                        <h4>Owner: {item.owner}</h4>
+                    </div>
+                })}
+    
+            </div>
+        )
+    } else {
 
-            {props.userPlaylists.map.items((item) => {
-                <div id='playlist'>
-                    <h3>{item.id}</h3>
-                    <h4>Owner: {item.owner}</h4>
-                </div>
-            })}
+        return (
 
-        </div>
-    )
+            <div className='user-playlists'>
+                <h3>Log in to see your playlists!</h3>
+            </div>
+
+        )
+    }
 }
 
 export default UserPlaylists;
