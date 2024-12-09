@@ -11,7 +11,12 @@ function handleLogin() {
 
 function Header(props) {
 
-    const profilePicture = props.userProfile.images[0], profileName = props.userProfile.display_name;
+    let profilePicture, profileName;
+
+    if (props.userProfile) {
+        profilePicture = props.userProfile.images[0];
+        profileName = props.userProfile.display_name;
+    }
     
     if (props.loggedIn === true) {
         return (
