@@ -13,11 +13,15 @@ function Logout() {
 
     async function getProfile(accessToken) {
 
-        const result = await fetch('https://api.spotify.com/v1/me', {
+        const response = await fetch('https://api.spotify.com/v1/me', {
             method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
         });
 
-        return await result.json();
+        const json = await response.json();
+
+        if (!response.ok) {
+            throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
+        } else return json;
 
     }
 
