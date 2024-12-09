@@ -86,7 +86,8 @@ function Auth() {
             }  
         } catch (error) {document.body.innerHTML = `Fetch Error: ${error}`}
     
-        localStorage.setItem('access token', json.access_token);
+        localStorage.setItem('access token', [json.access_token, Date.now()]);
+        localStorage.setItem('access expiration', json.expires_in)
 
         window.opener.location.reload();
     

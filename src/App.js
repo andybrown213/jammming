@@ -12,7 +12,7 @@ function App() {
 
   const checkAccess = () => {
     let accessToken = localStorage.getItem('access token');
-    if (accessToken !== null) {return true} else return false;
+    if ((accessToken[0] !== null) && ((Date.now() - accessToken[1]) < 3600)) {return true} else return false;
   }
 
   async function populateUI () {
@@ -25,7 +25,7 @@ function App() {
 
         try {
             const response = await fetch('https://api.spotify.com/v1/me', {
-                method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
+                method: 'get', headers: {Authorization: `Bearer ${accessToken[0]}`}           
             });
             json = await response.json();         
     
@@ -43,7 +43,7 @@ function App() {
 
       try {
           const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
-              method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
+              method: 'get', headers: {Authorization: `Bearer ${accessToken[0]}`}           
           });
           json = await response.json();         
   
@@ -69,7 +69,7 @@ function App() {
 
   if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
 
-  useEffect(() => {if (loggedIn === true) {populateUI()}});
+  useEffect(() => {if (loggedIn) {populateUI()}});
 
   return (
     <div className="app">
