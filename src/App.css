@@ -28,7 +28,15 @@ header img {
   border: 3px solid rgb(0, 0, 0);
 }
 
-header h1, h3 {
+header h1 {
+  color: rgb(247, 247, 247);
+  padding-top: 0px;
+  margin-top: 10%;
+  margin-bottom: 0px;
+  border: 1px solid white;
+}
+
+header h3 {
   color: rgb(247, 247, 247);
   padding-top: 0px;
   margin-top: 0px;
