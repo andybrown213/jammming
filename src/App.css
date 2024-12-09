@@ -1,5 +1,4 @@
 .app {
-
   background-color: #282c34;
   min-height: 99.8vh;
   min-width: 99.8vw;
@@ -17,29 +16,15 @@ header {
   grid-column: 2;
   border: 1px solid blue;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
-h1 {
+h1, h2 {
   color: rgb(247, 247, 247);
 }
 
-#login {
-  text-align:center;
-  display: flex;
-  height: 80%;
-  flex-direction: column;
-  border: 1px solid white;
-}
-
-#logout {
-  text-align:center;
-  display: flex;
-  height: 80%;
-  flex-direction: column;
-  border: 1px solid white;
-}
-
-#login button {
+header button {
   width: 50%;
   height: 50%;
   background-color: rgb(213, 36, 35);
@@ -52,33 +37,11 @@ h1 {
   z-index: 5;
 }
 
-#logout button {
-  width: 50%;
-  height: 50%;
-  background-color: rgb(213, 36, 35);
-  font-size: large;
-  font-weight: bold;
-  color: rgb(248, 248, 248);
-  border: 3px solid black;
-  display: block;
-  margin: auto;
-  z-index: 5;
-}
-
-#login button:hover {
+header button:hover {
   background-color:rgb(170, 29, 29);
 }
 
-#logout button:hover {
-  background-color:rgb(170, 29, 29);
-}
-
-#login button:active {
-  transform: scale(.99);
-  border: 2px solid black;
-}
-
-#logout button:active {
+header button:active {
   transform: scale(.99);
   border: 2px solid black;
 }
