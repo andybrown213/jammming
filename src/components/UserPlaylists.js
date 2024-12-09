@@ -9,12 +9,12 @@ function UserPlaylists (props) {
         return (
             <div className='user-playlists'>
     
-                {props.userPlaylists.map.items((item) => {
-                    <div id='playlist'>
+                {props.userPlaylists.items.map((item) => (
+                    <div className='playlist'>
                         <h3>{item.id}</h3>
                         <h4>Owner: {item.owner}</h4>
                     </div>
-                })}
+                ))}
     
             </div>
         )
