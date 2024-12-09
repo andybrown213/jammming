@@ -10,12 +10,14 @@ function handleLogin() {
 }
 
 function Header(props) {
+
+    const profilePicture = props.userProfile.images[0], profileName = props.userProfile.display_name;
     
     if (props.loggedIn === true) {
         return (
             <header>
-                <img src={props.userProfile.images[0]} alt='profile'/>
-                <h2>{props.userProfile ? `, ${props.userProfile.display_name}` : ''}</h2>
+                <img src={profilePicture ? profilePicture : ''} alt='profile' />
+                <h2>{profileName ? `, ${profileName}` : ''}</h2>
                 <button onClick={handleLogout}>Logout</button>
             </header>
         )
