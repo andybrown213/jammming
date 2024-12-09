@@ -42,6 +42,7 @@ function App() {
     if (!userProfile) {
         getProfile(accessToken)
           .then(response => setUserProfile(response))
+          .then(console.log(userProfile))
           .catch(error => console.log(`Error fetching user data: ${error}`));
     }
   }
