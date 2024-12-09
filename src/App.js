@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Header from './components/Header';
-import RecordPlayer from './components/RecordPlayer'
+import RecordPlayer from './components/RecordPlayer';
 import './App.css';
 
 function App() {
@@ -13,13 +13,9 @@ function App() {
     if (accessToken !== null) {return true} else return false;
   }
 
-  if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
-
   async function populateUI () {
 
     const accessToken = localStorage.getItem('access token');
-
-    let userProfile;
 
     async function getProfile(accessToken) {
 
@@ -46,7 +42,9 @@ function App() {
     }
   }
 
-  useEffect(() => {populateUI()}, [loggedIn]);
+  if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
+
+  populateUI();
 
   return (
     <div className="app">
