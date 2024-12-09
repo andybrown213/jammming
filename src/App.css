@@ -66,6 +66,11 @@ header button:active {
   border: 2px solid black;
 }
 
+.user-playlists {
+  border: 1px solid yellowgreen;
+  
+}
+
 .left-navigation {
   grid-column: 1;
   grid-row: 1 / span 3;
