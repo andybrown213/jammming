@@ -31,7 +31,7 @@ function Header(props) {
         return (
             <header>
                 <h1>Are you ready to Jammm?!</h1>
-                <button onClick={handleLogin}>Connect Your Spotify</button>  
+                <button onClick={handleLogin}>Connect Your Spotify</button>
             </header>
         )
     }
