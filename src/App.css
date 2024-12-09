@@ -21,13 +21,14 @@ header {
 }
 
 header img {
-  height: 20%;
+  height: 30%;
   display: block;
   margin: auto;
 }
 
-h1, h3 {
+header h1, h3 {
   color: rgb(247, 247, 247);
+  padding-top: 0px;
 }
 
 header button {
