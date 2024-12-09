@@ -17,20 +17,25 @@ function Logout() {
             method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
         });
 
-        userProfile = await result.json();
+        return await result.json();
 
     }
 
-    getProfile(accessToken);
+    if (!userProfile) {
+        getProfile(accessToken)
+        .then(response => userProfile = response)
+        .then(console.log(userProfile))
+        .catch(error => console.log(`Error fetching user data: ${error}`));
+    }
 
-    console.log(userProfile);
+
 
     return (
         <div id='logout'>
-        <h2>Welcome, {userProfile.display_name}!</h2>
+        <h2>Welcome{userProfile ? `, ${userProfile.display_name}` : ''}!</h2>
         <button onClick={handleLogout}>Logout</button>
         </div>   
-    )
+    );
 }
 
 export default Logout;
