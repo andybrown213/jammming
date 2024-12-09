@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from './components/Header';
 import UserPlaylists from './components/UserPlaylists';
 import RecordPlayer from './components/RecordPlayer';
@@ -69,7 +69,8 @@ function App() {
 
   if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
 
-  populateUI();
+    
+  useEffect(() => {populateUI()});
 
   return (
     <div className="app">
