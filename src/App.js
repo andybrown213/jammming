@@ -69,7 +69,7 @@ function App() {
 
   if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
 
-  useEffect(() => {if (loggedIn) populateUI()});
+  useEffect(() => {if (loggedIn === true) {populateUI()}});
 
   return (
     <div className="app">
