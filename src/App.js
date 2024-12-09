@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Header from './components/Header';
+import UserPlaylists from './components/UserPlaylists';
 import RecordPlayer from './components/RecordPlayer';
 import './App.css';
 
@@ -7,6 +8,7 @@ function App() {
   
   const [loggedIn, setLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState();
+  const [userPlaylists, setUserPlaylists] = useState();
 
   const checkAccess = () => {
     let accessToken = localStorage.getItem('access token');
@@ -35,11 +37,34 @@ function App() {
         return json;
     }
 
+    async function getPlaylists(accessToken) {
+
+      let json;
+
+      try {
+          const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
+              method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
+          });
+          json = await response.json();         
+  
+          if (!response.ok) {
+              throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
+          }
+      } catch (error) {console.log(error)};
+
+      return json;
+    }
+
     if (!userProfile) {
         getProfile(accessToken)
           .then(response => setUserProfile(response))
-          .catch(error => console.log(`Error fetching user data: ${error}`));
+          .catch(error => console.log(`Error fetching user profile data: ${error}`));
     }
+
+    getPlaylists(accessToken)
+      .then(response => setUserPlaylists(response))
+      .catch(error => console.log(`Error fetching user playlist data: ${error}`));
+
   }
 
   if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
@@ -51,9 +76,7 @@ function App() {
 
         <Header loggedIn={loggedIn} userProfile={userProfile} />
 
-        <div className="left-navigation">
-
-        </div>
+        <UserPlaylists loggedIn={loggedIn} userPlaylists={userPlaylists} />
 
         <RecordPlayer />
 
