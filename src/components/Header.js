@@ -14,7 +14,8 @@ function Header(props) {
     if (props.loggedIn === true) {
         return (
             <header>
-                <h2>Welcome{props.userProfile ? `, ${props.userProfile.display_name}` : ''}</h2>
+                <img src={props.userProfile.images[0]} alt='profile'/>
+                <h2>{props.userProfile ? `, ${props.userProfile.display_name}` : ''}</h2>
                 <button onClick={handleLogout}>Logout</button>
             </header>
         )
