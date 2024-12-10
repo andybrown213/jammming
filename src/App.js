@@ -13,7 +13,7 @@ function App() {
   const checkAccess = () => {
     let accessToken = localStorage.getItem('access token');
     let tokenExpiration = localStorage.getItem('access expiration');
-    if ((accessToken[0] !== null) && (Date.now() > tokenExpiration)) {return true} else return false;
+    if ((accessToken !== null) && (Date.now() > tokenExpiration)) {return true} else return false;
   }
 
   async function populateUI () {
