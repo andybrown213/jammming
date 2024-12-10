@@ -12,7 +12,8 @@ function App() {
 
   const checkAccess = () => {
     let accessToken = localStorage.getItem('access token');
-    if ((accessToken[0] !== null) && ((Date.now() - accessToken[1]) < 3600)) {return true} else return false;
+    let tokenExpiration = localStorage.getItem('access expiration');
+    if ((accessToken[0] !== null) && (Date.now() > tokenExpiration)) {return true} else return false;
   }
 
   async function populateUI () {
@@ -25,7 +26,7 @@ function App() {
 
         try {
             const response = await fetch('https://api.spotify.com/v1/me', {
-                method: 'get', headers: {Authorization: `Bearer ${accessToken[0]}`}           
+                method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
             });
             json = await response.json();         
     
@@ -43,7 +44,7 @@ function App() {
 
       try {
           const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
-              method: 'get', headers: {Authorization: `Bearer ${accessToken[0]}`}           
+              method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
           });
           json = await response.json();         
   
