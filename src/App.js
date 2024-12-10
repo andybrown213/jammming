@@ -69,7 +69,7 @@ function App() {
 
   if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
 
-  populateUI();
+  if (loggedIn) populateUI();
 
   return (
     <div className="app">
