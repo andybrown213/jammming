@@ -22,8 +22,8 @@ function UserPlaylists (props) {
 
         return (
 
-            <div className='user-playlists-empty'>
-                <h3>Log in to see your playlists!</h3>
+            <div className='user-playlists'>
+                <h3>Log in to see your playlists</h3>
             </div>
 
         )

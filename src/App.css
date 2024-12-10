@@ -68,7 +68,7 @@ header button:active {
 
 .user-playlists {
   border: 1px solid yellowgreen;
-  
+  text-align: center;
 }
 
 .left-navigation {
