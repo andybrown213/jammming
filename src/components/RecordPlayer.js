@@ -11,7 +11,7 @@ function RecordPlayer(props) {
             console.log('render now playing and record player');
 
         }
-    }, [loggedIn])
+    }, [props.loggedIn])
     
     return (
 
