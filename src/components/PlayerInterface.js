@@ -23,13 +23,13 @@ async function getPlayerState () {
     return json;
 }
 
-function playHandler() {setIsPlaying(true)};
-
-function pauseHandler() {setIsPlaying(false)};
-
 export default function PlayerInterface(props) {
     
     const [isPlaying, setIsPlaying ] = useState(false);
+
+    function playHandler() {setIsPlaying(true)};
+
+    function pauseHandler() {setIsPlaying(false)};
 
     useEffect(() => {
 
