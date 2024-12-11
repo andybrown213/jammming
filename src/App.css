@@ -108,8 +108,8 @@ header button:active {
 }
 
 #record-player {
-  max-height: 81%;
-  max-width: 81%;
+  max-height: 85%;
+  max-width: 85%;
   border: 0px solid green;
   position: absolute;
   left: 30%;
