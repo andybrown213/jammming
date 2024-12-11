@@ -110,8 +110,9 @@ header button:active {
 #now-playing {
   border: 1px solid green;
   position: absolute;
+  width: 40%;
   right: 10%;
-  top: 20%;
+  top: 10%;
 }
 
 #record-player {
@@ -119,7 +120,7 @@ header button:active {
   max-width: 90%;
   border: 0px solid green;
   position: absolute;
-  left: 20%;
+  left: 25%;
   top: 40%;
   transform: translate(-50%, -50%) rotate(-15deg);
 }
@@ -129,7 +130,7 @@ header button:active {
   max-width: 54%;
   border: 0px solid green;
   position: absolute;
-  left: 20%;
+  left: 25%;
   top: 40%;
 }
 

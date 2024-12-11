@@ -1,18 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import spinningRecord from '../spinning-record.png';
 import recordPlayer from '../record-player.png'
 
 function RecordPlayer(props) {
     
     
-    if (props.loggedIn) {
+    useEffect(() => {
+        if (props.loggedIn) {
 
-        console.log('render now playing and record player');
+            console.log('render now playing and record player');
 
-
-
-    }
-    
+        }
+    }, [loggedIn])
     
     return (
 
