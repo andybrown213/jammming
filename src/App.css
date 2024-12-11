@@ -81,16 +81,21 @@ header button:active {
 
 .playlist {
   border: 1px solid white;
+  position: relative;
 }
 
 .playlist h4 {
   margin-top: 10px;
   margin-bottom: 0px;
+  position: absolute;
+  left: 40%;
 }
 
 .playlist h5 {
   margin-top: 5px;
   margin-bottom: 10px;
+  position: absolute;
+  left: 45%;
   color: grey;
 }
 
