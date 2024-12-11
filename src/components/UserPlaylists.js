@@ -8,11 +8,13 @@ function UserPlaylists (props) {
 
         return (
             <div className='user-playlists'>
+
+                <h3>Your Playlists</h3>
     
                 {props.userPlaylists.items.map((item) => (
                     <div className='playlist'>
-                        <h3>{item.name ? item.name : 'No Name Playlist..'}</h3>
-                        <h4>Owner: {item.owner.display_name}</h4>
+                        <h4>{item.name ? item.name : 'No Name Playlist..'}</h3>
+                        <h5>Owner: {item.owner.display_name}</h4>
                     </div>
                 ))}
     

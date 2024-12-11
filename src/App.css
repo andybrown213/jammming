@@ -73,15 +73,19 @@ header button:active {
   text-align: center;
 }
 
+user-playlists h3 {
+  color: rgb(213, 36, 35);
+}
+
 .playlist {
   border: 1px solid white;
 }
 
-.playlist h3 {
+.playlist h4 {
   margin-bottom: 0px;
 }
 
-.playlist h4 {
+.playlist h5 {
   margin-top: 5px;
 }
 
