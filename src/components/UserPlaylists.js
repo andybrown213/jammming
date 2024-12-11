@@ -6,18 +6,18 @@ function UserPlaylists (props) {
 
         console.log(props.userPlaylists);
 
-        /* return (
+        return (
             <div className='user-playlists'>
     
                 {props.userPlaylists.items.map((item) => (
                     <div className='playlist'>
-                        <h3>{item.id}</h3>
-                        <h4>Owner: {item.owner}</h4>
+                        <h3>{item.name}</h3>
+                        <h4>Owner: {item.owner.display_name}</h4>
                     </div>
                 ))}
     
             </div>
-        ) */
+        )
     } else {
 
         return (
