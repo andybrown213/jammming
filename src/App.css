@@ -105,7 +105,13 @@ header button:active {
   grid-row: 2;
   grid-column: 2;
   border: 1px solid yellow;
-  justify-content: center;
+}
+
+#now-playing {
+  border: 1px solid green;
+  position: absolute;
+  right: 10%;
+  top: 20%;
 }
 
 #record-player {

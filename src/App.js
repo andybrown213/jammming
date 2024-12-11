@@ -81,7 +81,7 @@ function App() {
 
         <UserPlaylists loggedIn={loggedIn} userPlaylists={userPlaylists} />
 
-        <RecordPlayer />
+        <RecordPlayer loggedIn={loggedIn} />
 
         <div className="right-navigation">
 
