@@ -13,7 +13,7 @@ export default function RecordPlayer(props) {
 
         <>
         <img src={recordPlayer} id='record-player' alt='record player' />
-        <img src={spinningRecord} id="spinning-record" style={{...styles, animation: recordAnimation}} alt="spinning record" />
+        <img src={spinningRecord} id="spinning-record" style={{animation: recordAnimation}} alt="spinning record" />
         </>
 
     )
