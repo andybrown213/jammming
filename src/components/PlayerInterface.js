@@ -9,7 +9,7 @@ async function getPlayerState () {
     let json;
     
     try {
-        const response = fetch('https://api.spotify.com/v1/me/player', {
+        const response = await fetch('https://api.spotify.com/v1/me/player', {
             method: 'get', headers: {Authorization: `Bearer ${accessToken}`}
         })
 
