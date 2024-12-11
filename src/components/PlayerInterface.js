@@ -31,9 +31,11 @@ export default function PlayerInterface(props) {
 
         console.log(getPlayerState());
 
+        let interval;
+        
         if (isPlaying) {
 
-            let interval = setInterval(() => {console.log(getPlayerState())}, 3000);
+            interval = setInterval(() => {console.log(getPlayerState())}, 3000);
 
         }
 
