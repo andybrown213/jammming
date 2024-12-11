@@ -19,13 +19,14 @@ async function getPlayerState () {
             throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
         }
     } catch (error) {console.log(error)};
-
+    
     return json;
 }
 
 export default function PlayerInterface(props) {
     
-    const [isPlaying, setIsPlaying ] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [trackInfo, setTrackInfo] = useState('none')
 
     function playHandler() {setIsPlaying(true)};
 
@@ -33,13 +34,25 @@ export default function PlayerInterface(props) {
 
     useEffect(() => {
 
-        console.log(getPlayerState());
+        getPlayerState()
+            .then((response) => {
+                if (isPlaying !== response.is_playing) {setIsPlaying(response.isPlaying)};
+                if (trackInfo.id !== response.item.id) {setTrackInfo(response.item.id)};
+            })
+            .catch((error) => console.log(`Error retrieving player status: ${error}`));
 
         let interval;
         
         if (isPlaying) {
 
-            interval = setInterval(() => {console.log(getPlayerState())}, 3000);
+            interval = setInterval(() => {
+                getPlayerState()
+                .then((response) => {
+                    if (isPlaying !== response.is_playing) {setIsPlaying(response.isPlaying)};
+                    if (trackInfo.id !== response.item.id) {setTrackInfo(response.item.id)};
+                })
+                .catch((error) => console.log(`Error retrieving player status: ${error}`));
+            }, 3000);
 
         }
 
