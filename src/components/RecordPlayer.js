@@ -1,16 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import spinningRecord from '../spinning-record.png';
 import recordPlayer from '../record-player.png'
 
 function RecordPlayer(props) {
     
-    const [isPlaying, setIsPlaying ] = useState(false);
+    //const [isPlaying, setIsPlaying ] = useState(false);
 
     
     useEffect(() => {
         if (props.loggedIn) {
 
-            console.log('fetch ');
+            console.log('record playing use effect');
 
         }
     }, [props.loggedIn])
