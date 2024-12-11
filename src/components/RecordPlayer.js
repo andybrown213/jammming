@@ -5,7 +5,7 @@ import recordPlayer from '../record-player.png'
 function RecordPlayer(props) {
     
     
-    if props.loggedIn {
+    if (props.loggedIn) {
 
         console.log('render now playing and record player');
 
