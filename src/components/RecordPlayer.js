@@ -5,16 +5,15 @@ import recordPlayer from '../record-player.png'
 
 export default function RecordPlayer(props) {
 
+    let recordAnimation;
     
-    if (props.isPlaying) {
-        document.getElementById('spinning-record').style.animation = 'spinning-record-spin infinite 1.8s linear';
-    } else {document.getElementById('spinning-record').style.animation = 'spinning-record-spin infinite 1.8s linear'}
+    props.isPlaying ? recordAnimation = 'spinning-record-spin infinite 1.8s linear' : recordAnimation = 'spinning-record-spin infinite 30s linear';
     
     return (
 
         <>
         <img src={recordPlayer} id='record-player' alt='record player' />
-        <img src={spinningRecord} id="spinning-record" alt="spinning record" />
+        <img src={spinningRecord} id="spinning-record" style={{...styles, animation: recordAnimation}} alt="spinning record" />
         </>
 
     )
