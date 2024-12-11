@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import RecordPlayer from './RecordPlayer'
 import NowPlaying from './NowPlaying'
 
@@ -10,6 +10,8 @@ export default function PlayerInterface(props) {
 
     async function getPlayerState () {
 
+        let json;
+        
         try {
             const response = fetch('https://api.spotify.com/v1/me/player', {
                 method: 'get', headers: {Authorization: `Bearer ${accessToken}`}
