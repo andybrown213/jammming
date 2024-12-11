@@ -2,30 +2,34 @@ import React, {useState, useEffect} from 'react';
 import RecordPlayer from './RecordPlayer'
 import NowPlaying from './NowPlaying'
 
-export default function PlayerInterface(props) {
-    
-    const [isPlaying, setIsPlaying ] = useState(false);
+async function getPlayerState () {
 
     const accessToken = localStorage.getItem('access token');
 
-    async function getPlayerState () {
-
-        let json;
-        
-        try {
-            const response = fetch('https://api.spotify.com/v1/me/player', {
-                method: 'get', headers: {Authorization: `Bearer ${accessToken}`}
-            })
-
-            json = await response.json();         
+    let json;
     
-            if (!response.ok) {
-                throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
-            }
-        } catch (error) {console.log(error)};
+    try {
+        const response = fetch('https://api.spotify.com/v1/me/player', {
+            method: 'get', headers: {Authorization: `Bearer ${accessToken}`}
+        })
 
-        return json;
-    }
+        json = await response.json();         
+
+        if (!response.ok) {
+            throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
+        }
+    } catch (error) {console.log(error)};
+
+    return json;
+}
+
+function playHandler() {setIsPlaying(true)};
+
+function pauseHandler() {setIsPlaying(false)};
+
+export default function PlayerInterface(props) {
+    
+    const [isPlaying, setIsPlaying ] = useState(false);
 
     useEffect(() => {
 
@@ -45,10 +49,6 @@ export default function PlayerInterface(props) {
 
     
     if (props.loggedIn) {
-
-        function playHandler() {setIsPlaying(true)};
-
-        function pauseHandler() {setIsPlaying(false)};
 
         return (
 
