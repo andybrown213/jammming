@@ -74,7 +74,7 @@ header button:active {
 }
 
 .playlist {
-  border 1px solid white;
+  border: 1px solid white;
 }
 
 .playlist h3 {
