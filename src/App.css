@@ -115,6 +115,15 @@ header button:active {
   top: 10%;
 }
 
+#player-controls {
+  z-index: 5;
+  border: 1px solid blue;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 #record-player {
   max-height: 90%;
   max-width: 90%;
