@@ -58,7 +58,7 @@ export default function PlayerInterface(props) {
 
         return () => {if (interval) clearInterval(interval)};
 
-    }, [isPlaying])
+    }, [isPlaying, trackInfo])
 
     
     if (props.loggedIn) {
