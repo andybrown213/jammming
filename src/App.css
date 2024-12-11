@@ -91,6 +91,7 @@ header button:active {
 .playlist h5 {
   margin-top: 5px;
   margin-bottom: 10px;
+  color: grey;
 }
 
 .right-navigation {
@@ -108,8 +109,8 @@ header button:active {
 }
 
 #record-player {
-  max-height: 88%;
-  max-width: 88%;
+  max-height: 90%;
+  max-width: 90%;
   border: 0px solid green;
   position: absolute;
   left: 20%;
