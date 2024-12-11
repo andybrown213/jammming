@@ -74,6 +74,8 @@ header button:active {
 }
 
 .user-playlists h3 {
+  margin-top: 20px;
+  margin-bottom: 20px;
   color: rgb(213, 36, 35);
 }
 
@@ -82,11 +84,13 @@ header button:active {
 }
 
 .playlist h4 {
+  margin-top: 10px;
   margin-bottom: 0px;
 }
 
 .playlist h5 {
   margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .right-navigation {
