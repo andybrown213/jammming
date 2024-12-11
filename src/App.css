@@ -108,12 +108,12 @@ header button:active {
 }
 
 #record-player {
-  max-height: 85%;
-  max-width: 85%;
+  max-height: 88%;
+  max-width: 88%;
   border: 0px solid green;
   position: absolute;
-  left: 30%;
-  top: 50%;
+  left: 20%;
+  top: 40%;
   transform: translate(-50%, -50%) rotate(-15deg);
 }
 
@@ -122,8 +122,8 @@ header button:active {
   max-width: 54%;
   border: 0px solid green;
   position: absolute;
-  left: 30%;
-  top: 50%;
+  left: 20%;
+  top: 40%;
 }
 
 @media (prefers-reduced-motion: no-preference) {
