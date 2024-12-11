@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Header from './components/Header';
 import UserPlaylists from './components/UserPlaylists';
-import RecordPlayer from './components/PlayerInterface';
+import PlayerInterface from './components/PlayerInterface';
 import './App.css';
 
 function App() {
@@ -81,7 +81,7 @@ function App() {
 
         <UserPlaylists loggedIn={loggedIn} userPlaylists={userPlaylists} />
 
-        <RecordPlayer loggedIn={loggedIn} />
+        <PlayerInterface loggedIn={loggedIn} />
 
         <div className="right-navigation">
 
