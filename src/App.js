@@ -10,6 +10,10 @@ function App() {
   const [userProfile, setUserProfile] = useState();
   const [userPlaylists, setUserPlaylists] = useState();
 
+  useEffect(() => { 
+    if (loggedIn) populateUI();
+  }, [loggedIn])
+
   const checkAccess = () => {
     let accessToken = localStorage.getItem('access token');
     let tokenExpiration = localStorage.getItem('access expiration');
@@ -56,11 +60,11 @@ function App() {
       return json;
     }
 
-    if (!userProfile) {
-        getProfile(accessToken)
-          .then(response => setUserProfile(response))
-          .catch(error => console.log(`Error fetching user profile data: ${error}`));
-    }
+    
+    getProfile(accessToken)
+      .then(response => setUserProfile(response))
+      .catch(error => console.log(`Error fetching user profile data: ${error}`));
+    
 
     getPlaylists(accessToken)
       .then(response => setUserPlaylists(response))
@@ -69,8 +73,6 @@ function App() {
   }
 
   if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
-
-  if (loggedIn) populateUI();
 
   return (
     <div className="app">
