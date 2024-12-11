@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import RecordPlayer from './RecordPlayer'
 import NowPlaying from './NowPlaying'
 
-function PlayerInterface(props) {
+export default function PlayerInterface(props) {
     
     const [isPlaying, setIsPlaying ] = useState(false);
 
@@ -37,4 +37,3 @@ function PlayerInterface(props) {
     } 
 }
 
-export default RecordPlayer;
