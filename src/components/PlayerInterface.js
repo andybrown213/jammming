@@ -6,14 +6,45 @@ export default function PlayerInterface(props) {
     
     const [isPlaying, setIsPlaying ] = useState(false);
 
+    const accessToken = localStorage.getItem('access token');
+
+    async function getPlayerState () {
+
+        try {
+            const response = fetch('https://api.spotify.com/v1/me/player', {
+                method: 'get', headers: {Authorization: `Bearer ${accessToken}`}
+            })
+
+            json = await response.json();         
+    
+            if (!response.ok) {
+                throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
+            }
+        } catch (error) {console.log(error)};
+
+        return json;
+    }
+
+    useEffect(() => {
+
+        console.log(getPlayerState());
+
+        if (isPlaying) {
+
+            let interval = setInterval(() => {console.log(getPlayerState())}, 3000);
+
+        }
+
+        return () => {if (interval) clearInterval(interval)};
+
+    }, [isPlaying])
+
     
     if (props.loggedIn) {
 
         function playHandler() {setIsPlaying(true)};
 
         function pauseHandler() {setIsPlaying(false)};
-
-        console.log('render record player and now playing info');
 
         return (
 
