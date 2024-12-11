@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import spinningRecord from '../spinning-record.png';
 import recordPlayer from '../record-player.png'
 
