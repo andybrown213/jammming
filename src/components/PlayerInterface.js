@@ -29,7 +29,6 @@ function PlayerInterface(props) {
                     <button onClick={isPlaying ? pauseHandler : playHandler}>{isPlaying ? 'Pause' : 'Play'}</button>
                     <button>Next</button>
 
-
                 </div>    
     
             </div>

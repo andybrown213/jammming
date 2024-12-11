@@ -132,13 +132,9 @@ header button:active {
   position: absolute;
   left: 25%;
   top: 40%;
+  animation: spinning-record-spin infinite 1.8s linear;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  #spinning-record {
-    animation: spinning-record-spin infinite 1.8s linear;
-  }
-}
 
 @keyframes spinning-record-spin {
   from {
