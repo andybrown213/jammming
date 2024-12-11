@@ -6,7 +6,7 @@ function UserPlaylists (props) {
 
         console.log(props.userPlaylists);
 
-        return (
+        /* return (
             <div className='user-playlists'>
     
                 {props.userPlaylists.items.map((item) => (
@@ -17,7 +17,7 @@ function UserPlaylists (props) {
                 ))}
     
             </div>
-        )
+        ) */
     } else {
 
         return (
