@@ -7,7 +7,7 @@ export default function RecordPlayer(props) {
 
     let recordAnimation;
     
-    props.isPlaying ? recordAnimation = 'spinning-record-spin infinite 1.8s linear' : recordAnimation = 'spinning-record-spin infinite 30s linear';
+    props.isPlaying ? recordAnimation = 'spinning-record-spin infinite 1.8s linear running' : recordAnimation = 'spinning-record-spin infinite 1.8s linear paused';
     
     return (
 

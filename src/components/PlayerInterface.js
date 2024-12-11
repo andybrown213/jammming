@@ -19,7 +19,7 @@ export default function PlayerInterface(props) {
 
             <div className="player-interface">
     
-                <RecordPlayer isPlaying={isPlaying} />;
+                <RecordPlayer isPlaying={isPlaying} />
     
                 <NowPlaying />
 
