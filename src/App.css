@@ -81,22 +81,31 @@ header button:active {
 
 .playlist {
   border: 1px solid white;
-  position: static;
+  display: grid;
+  grid-template-columns: 80% 20%;
 }
 
 .playlist h4 {
   margin-top: 10px;
   margin-bottom: 0px;
-  position: absolute;
-  left: 10%;
+  grid-column: 1;
 }
 
 .playlist h5 {
   margin-top: 5px;
   margin-bottom: 10px;
-  position: absolute;
-  left: 15%;
+  grid-column: 1;
   color: grey;
+}
+
+.playlist button {
+  grid-column: 2;
+  margin: auto;
+  background-color: rgb(213, 36, 35);
+  font-size: large;
+  font-weight: bold;
+  color: rgb(248, 248, 248);
+  border: 3px solid black;
 }
 
 .right-navigation {
