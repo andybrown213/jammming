@@ -1,14 +1,16 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import spinningRecord from '../spinning-record.png';
 import recordPlayer from '../record-player.png'
 
 function RecordPlayer(props) {
     
+    const [isPlaying, setIsPlaying ] = useState(false);
+
     
     useEffect(() => {
         if (props.loggedIn) {
 
-            console.log('render now playing and record player');
+            console.log('fetch ');
 
         }
     }, [props.loggedIn])
@@ -24,8 +26,8 @@ function RecordPlayer(props) {
             <div id='now-playing'>
 
                 <h5>Current Song</h5>
-                <h6>Album</h6>
                 <h6>Artist</h6>
+                <h6>Album</h6>
 
             </div>
 
