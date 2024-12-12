@@ -33,6 +33,16 @@ async function getPlayerState () {
     
 }
 
+function syncInterface(current, updater) {
+
+    getPlayerState()
+    .then((response) => {
+        if (current.isPlaying !== response.is_playing) {updater.setIsPlaying(response.is_playing)};
+        if (current.trackInfo.id !== response.item.id) {updater.setTrackInfo(response.item)};
+    })
+    .catch((error) => console.log(`Error retrieving player status: ${error}`));
+}
+
 export default function PlayerInterface(props) {
     
     const [isPlaying, setIsPlaying] = useState(false);
@@ -42,14 +52,6 @@ export default function PlayerInterface(props) {
 
     function pauseHandler() {setIsPlaying(false)};
 
-    function syncInterface() {
-        getPlayerState()
-        .then((response) => {
-            if (response.is_playing && (isPlaying !== response.is_playing)) {setIsPlaying(response.is_playing)};
-            if (response.item && (trackInfo.id !== response.item.id)) {setTrackInfo(response.item)};
-        })
-        .catch((error) => console.log(`Error retrieving player status: ${error}`));
-    }
 
     useEffect(() => {
         
@@ -57,15 +59,17 @@ export default function PlayerInterface(props) {
         
         if (props.loggedIn) {
 
-            syncInterface();
+            const current = {isPlaying, trackInfo}, const updater = {setIsPlaying, setTrackInfo};
+
+            syncInterface(current, updater);
         
-            if (isPlaying) {interval = setInterval(() => {syncInterface()}, 3000)};
+            if (isPlaying) {interval = setInterval(() => {syncInterface(current, updater)}, 3000)};
 
         }   
 
         return () => {if (interval) clearInterval(interval)};
 
-    }, [isPlaying, trackInfo])
+    }, [isPlaying, trackInfo, props.loggedIn])
 
     
     if (props.loggedIn) {
