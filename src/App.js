@@ -50,7 +50,7 @@ async function getProfile(accessToken) {
       json = await response.json();         
 
       if (!response.ok) {
-          throw new Error(`status code: ${response.status} Error: ${response.message}`);
+          throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response.message)}`);
       }
   } catch (error) {console.log(error)};
 
