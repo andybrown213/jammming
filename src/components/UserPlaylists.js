@@ -6,13 +6,13 @@ async function playHandler(uri) {
     const accessToken = localStorage.getItem('access_token')
     
     try{
-        await fetch('https://api.spotify.com/v1/me/player/play', {
+        const response = await fetch('https://api.spotify.com/v1/me/player/play', {
             method: 'put', headers: {Authorization: `Bearer ${accessToken}`},
             body: {context_uri: uri}
         })
 
         if (!response.ok) {
-            throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
+            throw new Error(`status code: ${response.status}`)
         }
     } catch (error) {console.log(error)};
 }
