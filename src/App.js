@@ -50,7 +50,7 @@ async function getProfile(accessToken) {
       json = await response.json();         
 
       if (!response.ok) {
-          throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
+          throw new Error(`status code: ${response.status} Error: ${response.message}`);
       }
   } catch (error) {console.log(error)};
 
@@ -68,7 +68,7 @@ try {
     json = await response.json();         
 
     if (!response.ok) {
-        throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
+        throw new Error(`status code: ${response.status} Error: ${response.message}`);
     }
 } catch (error) {console.log(error)};
 

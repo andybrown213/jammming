@@ -16,7 +16,7 @@ async function getPlayerState () {
         console.log(response, (typeof response));
         
         if (response.status === 204) {
-            console.log(`No response from player status. Default Response: ${json}`);
+            console.log(`No response from player status. Default Response: ${JSON.stringify(json)}`);
             return json;
         }
 
@@ -26,7 +26,7 @@ async function getPlayerState () {
         } else {throw new Error('Response is not a JSON. Response: ', response)}       
 
         if (!response.ok) {
-            throw new Error(`status code: ${response.status} Error: ${JSON.stringify(json.error)}`)
+            throw new Error(`status code: ${response.status} Error: ${response.message}`)
         }
 
     } catch (error) {
