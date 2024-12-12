@@ -24,7 +24,7 @@ async function getPlayerState () {
         } else {console.log('There was an error with your request: ', error)}
     };
 
-    if (json.isPlaying !== true) {json.isPlaying = false};
+    if (json.is_playing !== true) {json.is_playing = false};
     if (json.trackInfo === undefined | null) {json.trackInfo = {item: {name: 'Find a Song!', artist: '', album: ''}}};
     
     return json;
@@ -41,9 +41,11 @@ export default function PlayerInterface(props) {
 
     useEffect(() => {
 
+        console.log('useffect isPlaying is:', isPlaying);
+        
         getPlayerState()
             .then((response) => {
-                if (response.is_playing && (isPlaying !== response.is_playing)) {setIsPlaying(response.isPlaying)};
+                if (response.is_playing && (isPlaying !== response.is_playing)) {setIsPlaying(response.is_playing)};
                 if (response.is_playing && (trackInfo.id !== response.item.id)) {setTrackInfo(response.item)};
             })
             .catch((error) => console.log(`Error retrieving player status: ${error}`));
