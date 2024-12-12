@@ -23,6 +23,9 @@ async function getPlayerState () {
             console.log('There was a Syntax Error with your request: ', error);
         } else {console.log('There was an error with your request: ', error)}
     };
+
+    if (json.isPlaying !== true) {json.isPlaying = false};
+    if (json.trackInfo === undefined | null) {json.trackInfo = {item: {name: 'Find a Song!', artist: '', album: ''}}};
     
     return json;
 }
@@ -30,7 +33,7 @@ async function getPlayerState () {
 export default function PlayerInterface(props) {
     
     const [isPlaying, setIsPlaying] = useState(false);
-    const [trackInfo, setTrackInfo] = useState('none')
+    const [trackInfo, setTrackInfo] = useState({item: {name: 'Find a Song!', artist: '', album: ''}})
 
     function playHandler() {setIsPlaying(true)};
 
@@ -41,7 +44,7 @@ export default function PlayerInterface(props) {
         getPlayerState()
             .then((response) => {
                 if (response.is_playing && (isPlaying !== response.is_playing)) {setIsPlaying(response.isPlaying)};
-                if (response.is_playing && (trackInfo.id !== response.item.id)) {setTrackInfo(response.item.id)};
+                if (response.is_playing && (trackInfo.id !== response.item.id)) {setTrackInfo(response.item)};
             })
             .catch((error) => console.log(`Error retrieving player status: ${error}`));
 
