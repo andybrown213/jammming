@@ -52,12 +52,12 @@ export default function PlayerInterface(props) {
     }
 
     useEffect(() => {
-
-        if (loggedIn) {
+        
+        let interval;
+        
+        if (props.loggedIn) {
 
             syncInterface();
-
-            let interval;
         
             if (isPlaying) {interval = setInterval(() => {syncInterface()}, 3000)};
 
