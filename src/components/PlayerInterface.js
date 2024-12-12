@@ -6,7 +6,7 @@ async function getPlayerState () {
 
     const accessToken = localStorage.getItem('access token');
 
-    let json = {is_playing: false, item: {name: 'Find a Song!', artist: '', album: ''}};
+    let json = {is_playing: false, {name: 'Find a Song!', artist: '', album: ''}};
     
     try {
         const response = await fetch('https://api.spotify.com/v1/me/player', {
@@ -33,6 +33,7 @@ async function getPlayerState () {
         } else {console.log('There was an error with your request: ', error)}
     }
     
+    console.log(`Player Status Retrieved: ${json}`);
     return json;
     
 }
@@ -76,7 +77,7 @@ function syncInterface(current, updater) {
 export default function PlayerInterface(props) {
     
     const [isPlaying, setIsPlaying] = useState(false);
-    const [trackInfo, setTrackInfo] = useState({item: {name: 'Find a Song!', artist: '', album: ''}})
+    const [trackInfo, setTrackInfo] = useState({name: 'Find a Song!', artist: '', album: ''});
 
     function playHandler() {setIsPlaying(true)};
 
@@ -93,6 +94,8 @@ export default function PlayerInterface(props) {
             syncInterface(current, updater);
         
             if (isPlaying) {interval = setInterval(() => {syncInterface(current, updater)}, 3000)};
+
+            console.log(isPlaying, trackInfo);
         }   
 
         return () => {if (interval) clearInterval(interval)};
