@@ -37,7 +37,7 @@ async function getPlayerState () {
     
 }
 
-function getDevices() {
+async function getDevices() {
 
     let accessToken = localStorage.getItem('access token');
 
