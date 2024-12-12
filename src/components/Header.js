@@ -14,7 +14,9 @@ function Header(props) {
     let profilePicture, profileName;
 
     if ((props.userProfile) && (props.loggedIn)) {
-        profilePicture = props.userProfile.images[0]['url'];
+        if (props.userProfile.images) {
+            profilePicture = props.userProfile.images[0]['url'];
+        } else profilePicture = null;
         profileName = props.userProfile.display_name;
     }
     
