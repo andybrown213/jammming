@@ -6,11 +6,12 @@ async function playHandler(uri) {
     const accessToken = localStorage.getItem('access token')
 
     let json;
+    let reqBody = JSON.stringify({context_uri: uri});
     
     try{
         const response = await fetch('https://api.spotify.com/v1/me/player/play', {
             method: 'put', headers: {Authorization: `Bearer ${accessToken}`},
-            body: {"context_uri": uri}
+            body: reqBody
         })
 
         json = await response.json();
