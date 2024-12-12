@@ -76,7 +76,7 @@ export default function PlayerInterface(props) {
     
                 <RecordPlayer isPlaying={isPlaying} />
     
-                <NowPlaying />
+                <NowPlaying trackInfo={trackInfo} />
 
                 <div id='player-controls'>
 
