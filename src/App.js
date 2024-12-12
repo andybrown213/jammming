@@ -37,6 +37,41 @@ async function reAuth() {
   } catch (error) {console.log(error)};
 }
 
+async function getProfile(accessToken) {
+
+  let json;
+
+  try {
+      const response = await fetch('https://api.spotify.com/v1/me', {
+          method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
+      });
+      json = await response.json();         
+
+      if (!response.ok) {
+          throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
+      }
+  } catch (error) {console.log(error)};
+
+  return json;
+}
+
+async function getPlaylists(accessToken) {
+
+let json;
+
+try {
+    const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
+        method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
+    });
+    json = await response.json();         
+
+    if (!response.ok) {
+        throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
+    }
+} catch (error) {console.log(error)};
+
+return json;
+}
 
 
 function App() {
@@ -61,6 +96,9 @@ function App() {
       }, 30000);
 
     }
+
+    return () => {if (interval) {clearInterval(interval)}};
+    
   }, [loggedIn])
 
   const checkAccess = () => {
@@ -72,44 +110,7 @@ function App() {
   async function populateUI () {
 
     const accessToken = localStorage.getItem('access token');
-
-    async function getProfile(accessToken) {
-
-        let json;
-
-        try {
-            const response = await fetch('https://api.spotify.com/v1/me', {
-                method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
-            });
-            json = await response.json();         
-    
-            if (!response.ok) {
-                throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
-            }
-        } catch (error) {console.log(error)};
-
-        return json;
-    }
-
-    async function getPlaylists(accessToken) {
-
-      let json;
-
-      try {
-          const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
-              method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
-          });
-          json = await response.json();         
-  
-          if (!response.ok) {
-              throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
-          }
-      } catch (error) {console.log(error)};
-
-      return json;
-    }
-
-    
+ 
     getProfile(accessToken)
       .then(response => setUserProfile(response))
       .catch(error => console.log(`Error fetching user profile data: ${error}`));
