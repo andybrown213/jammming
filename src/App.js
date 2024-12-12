@@ -23,7 +23,7 @@ async function reAuth() {
       })
     })
 
-    json = response.json();
+    json = await response.json();
 
     if (!response.ok) {
       throw new Error(`Error during ReAuth process. Status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
@@ -100,7 +100,7 @@ function App() {
         
         console.log(`checking token status.. Token refresh in ${refreshTimer / oneMinute} minutes.`);
 
-        if (refreshTimer < oneMinute) {reAuth()};
+        if (refreshTimer < (oneMinute * 55)) {reAuth()};
 
       }, 30000);
 
