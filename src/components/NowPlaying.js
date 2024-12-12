@@ -4,9 +4,9 @@ export default function NowPlaying(props) {
 
     console.log(props.trackInfo)
     
-    const song = props.trackInfo.item.name;
-    const artist = props.trackInfo.item.artist;
-    const album = props.trackInfo.item.album;
+    const song = props.trackInfo.name;
+    const artist = props.trackInfo.artist;
+    const album = props.trackInfo.album;
     
     return (
 
