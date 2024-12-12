@@ -34,7 +34,7 @@ function UserPlaylists (props) {
                     <div className='playlist'>
                         <h4>{item.name ? item.name : 'No Name Playlist..'}</h4>
                         <h5>owner: {item.owner.display_name}</h5>
-                        <button onClick={(item.uri) => playHandler(item.uri)}>Play</button>
+                        <button onClick={(item) => playHandler(item.uri)}>Play</button>
                     </div>
                 ))}
     
