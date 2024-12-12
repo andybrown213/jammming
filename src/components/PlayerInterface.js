@@ -26,7 +26,7 @@ async function getPlayerState () {
         } else {throw new Error('Response is not a JSON. Response: ', response)}       
 
         if (!response.ok) {
-            throw new Error(`status code: ${response.status} Error: ${response.message}`)
+            throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`)
         }
 
     } catch (error) {

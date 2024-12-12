@@ -12,7 +12,7 @@ async function playHandler(uri) {
         })
 
         if (!response.ok) {
-            throw new Error(`status code: ${response.status} Message: ${response.message}`);
+            throw new Error(`status code: ${response.status} Message: ${JSON.stringify(response)}`);
         }
     } catch (error) {console.log(error)};
 }

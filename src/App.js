@@ -49,8 +49,8 @@ async function getProfile(accessToken) {
       });
       json = await response.json();         
 
-      if (!response.ok) {
-          throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response.message)}`);
+      if (!response.ok || (response.status === 401 | 403 | 429)) {
+          throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
       }
   } catch (error) {console.log(error)};
 
@@ -68,7 +68,7 @@ try {
     json = await response.json();         
 
     if (!response.ok) {
-        throw new Error(`status code: ${response.status} Error: ${response.message}`);
+        throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
     }
 } catch (error) {console.log(error)};
 
