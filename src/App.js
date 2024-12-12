@@ -4,6 +4,41 @@ import UserPlaylists from './components/UserPlaylists';
 import PlayerInterface from './components/PlayerInterface';
 import './App.css';
 
+async function reAuth() {
+
+  const refreshToken = localStorage.getItem('refresh token');
+  const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
+  let json = {};
+
+  try {
+
+    const response = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'post', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: new URLSearchParams({
+        grant_type: 'refresh_token',
+        refresh_token: refreshToken,
+        client_id: clientId
+      })
+    })
+
+    json = response.json();
+
+    if (!response.ok) {
+      throw new Error(`Error during ReAuth process. Status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
+    }
+
+    localStorage.setItem('access token', json.access_token);
+    localStorage.setItem('access expiration', Date.now() + (json.expires_in * 1000));
+    localStorage.setItem('refresh token', json.refresh_token);
+
+    console.log('reAuth process completed');
+
+
+  } catch (error) {console.log(error)};
+}
+
+
+
 function App() {
   
   const [loggedIn, setLoggedIn] = useState(false);
@@ -11,7 +46,21 @@ function App() {
   const [userPlaylists, setUserPlaylists] = useState();
 
   useEffect(() => { 
-    if (loggedIn) populateUI();
+    
+    let interval;
+    
+    if (loggedIn) {
+      
+      populateUI();
+
+      interval = setInterval(() => {
+
+        let tokenExpiration = localStorage.getItem('access expiration');
+        if ((tokenExpiration - Date.now()) < 60000) {reAuth()};
+
+      }, 30000);
+
+    }
   }, [loggedIn])
 
   const checkAccess = () => {

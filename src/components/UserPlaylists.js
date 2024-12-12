@@ -23,8 +23,6 @@ function UserPlaylists (props) {
 
     if ((props.userPlaylists) && (props.loggedIn)) {
 
-        console.log(props.userPlaylists);
-
         return (
             <div className='user-playlists'>
 

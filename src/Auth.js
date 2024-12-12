@@ -88,6 +88,7 @@ function Auth() {
     
         localStorage.setItem('access token', json.access_token);
         localStorage.setItem('access expiration', Date.now() + (json.expires_in * 1000));
+        localStorage.setItem('refresh token', json.refresh_token);
 
         window.opener.location.reload();
     
