@@ -6,7 +6,7 @@ async function getPlayerState () {
 
     const accessToken = localStorage.getItem('access token');
 
-    let json = {is_playing: false, {name: 'Find a Song!', artist: '', album: ''}};
+    let json = {is_playing: false, item: {name: 'Find a Song!', artist: '', album: ''}};
     
     try {
         const response = await fetch('https://api.spotify.com/v1/me/player', {
