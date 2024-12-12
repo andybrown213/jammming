@@ -6,7 +6,7 @@ async function getPlayerState () {
 
     const accessToken = localStorage.getItem('access token');
 
-    let json = {isPlaying: false, item: {name: 'Find a Song!', artist: '', album: ''}};
+    let json = {is_playing: false, item: {name: 'Find a Song!', artist: '', album: ''}};
     
     try {
         const response = await fetch('https://api.spotify.com/v1/me/player', {
@@ -21,7 +21,7 @@ async function getPlayerState () {
         } else {throw new Error('Response is not a JSON. Response: ', response)}       
 
         if (!response.ok) {
-            throw new Error(`status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
+            throw new Error(`status code: ${response.status} Error: ${JSON.stringify(json.error)}`)
         }
     } catch (error) {
         if (error instanceof SyntaxError) {
@@ -42,29 +42,26 @@ export default function PlayerInterface(props) {
 
     function pauseHandler() {setIsPlaying(false)};
 
+    function syncInterface() {
+        getPlayerState()
+        .then((response) => {
+            if (response.is_playing && (isPlaying !== response.is_playing)) {setIsPlaying(response.is_playing)};
+            if (response.item && (trackInfo.id !== response.item.id)) {setTrackInfo(response.item)};
+        })
+        .catch((error) => console.log(`Error retrieving player status: ${error}`));
+    }
+
     useEffect(() => {
 
-        getPlayerState()
-            .then((response) => {
-                if (response.is_playing && (isPlaying !== response.is_playing)) {setIsPlaying(response.is_playing)};
-                if (response.item && (trackInfo.id !== response.item.id)) {setTrackInfo(response.item)};
-            })
-            .catch((error) => console.log(`Error retrieving player status: ${error}`));
+        if (loggedIn) {
 
-        let interval;
+            syncInterface();
+
+            let interval;
         
-        if (isPlaying) {
+            if (isPlaying) {interval = setInterval(() => {syncInterface()}, 3000)};
 
-            interval = setInterval(() => {
-                getPlayerState()
-                .then((response) => {
-                    if (response.is_playing && (isPlaying !== response.is_playing)) {setIsPlaying(response.is_playing)};
-                    if (response.item && (trackInfo.id !== response.item.id)) {setTrackInfo(response.item)};
-                })
-                .catch((error) => console.log(`Error retrieving player status: ${error}`));
-            }, 3000);
-
-        }
+        }   
 
         return () => {if (interval) clearInterval(interval)};
 

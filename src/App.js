@@ -90,6 +90,8 @@ function App() {
 
       interval = setInterval(() => {
 
+        console.log('checking token status');
+
         let tokenExpiration = localStorage.getItem('access expiration');
         if ((tokenExpiration - Date.now()) < 60000) {reAuth()};
 
@@ -98,7 +100,7 @@ function App() {
     }
 
     return () => {if (interval) {clearInterval(interval)}};
-    
+
   }, [loggedIn])
 
   const checkAccess = () => {
