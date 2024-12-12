@@ -6,12 +6,14 @@ async function getPlayerState () {
 
     const accessToken = localStorage.getItem('access token');
 
-    let json;
+    let json = {isPlaying: false, item: {name: 'Find a Song!', artist: '', album: ''}};
     
     try {
         const response = await fetch('https://api.spotify.com/v1/me/player', {
             method: 'get', headers: {Authorization: `Bearer ${accessToken}`}
         })
+
+        if (!response) {return json};
 
         const contentType = response.headers.get('content-type');
         if (contentType && contentType.includes('application/json')) {
@@ -26,11 +28,6 @@ async function getPlayerState () {
             console.log('There was a Syntax Error with your request: ', error);
         } else {console.log('There was an error with your request: ', error)}
     }
-    
-    if (json.is_playing !== true) {json.is_playing = false};
-    if (json.item === undefined | null) {json.item = {name: 'Find a Song!', artist: '', album: ''}};
-
-    console.log(json);
     
     return json;
     
