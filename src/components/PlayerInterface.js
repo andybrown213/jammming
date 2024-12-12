@@ -15,7 +15,7 @@ async function getPlayerState () {
 
         console.log(response, (typeof response));
         
-        if (response.status == 204) {
+        if (response.status === 204) {
             console.log(`No response from player status. Default Response: ${json}`);
             return json;
         }
