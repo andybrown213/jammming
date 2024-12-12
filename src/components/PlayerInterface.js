@@ -24,7 +24,7 @@ async function getPlayerState () {
         } else {console.log('There was an error with your request: ', error)}
     } finally {
     if (json.is_playing !== true) {json.is_playing = false};
-    if (json.item === undefined | null) {json.item = {{name: 'Find a Song!', artist: '', album: ''}}};
+    if (json.item === undefined | null) {json.item = {name: 'Find a Song!', artist: '', album: ''}};
 
     console.log(json);
     
