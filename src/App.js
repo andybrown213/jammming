@@ -96,13 +96,13 @@ function App() {
 
         const refreshTimer = (tokenExpiration - Date.now());
 
-        const oneMinute = 60000, halfMinute = 30000;
+        const oneMinute = 60000;
         
         console.log(`checking token status.. Token refresh in ${refreshTimer / oneMinute} minutes.`);
 
-        if (refreshTImer < oneMinute) {reAuth()};
+        if (refreshTimer < oneMinute) {reAuth()};
 
-      }, halfMinute);
+      }, 30000);
 
     }
 
