@@ -59,7 +59,7 @@ export default function PlayerInterface(props) {
         
         if (props.loggedIn) {
 
-            const current = {isPlaying, trackInfo}, const updater = {setIsPlaying, setTrackInfo};
+            const current = {isPlaying, trackInfo}, updater = {setIsPlaying, setTrackInfo};
 
             syncInterface(current, updater);
         
