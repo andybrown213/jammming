@@ -23,6 +23,7 @@ async function getPlayerState () {
         if (!response.ok) {
             throw new Error(`status code: ${response.status} Error: ${JSON.stringify(json.error)}`)
         }
+        
     } catch (error) {
         if (error instanceof SyntaxError) {
             console.log('There was a Syntax Error with your request: ', error);

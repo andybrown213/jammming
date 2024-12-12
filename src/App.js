@@ -6,6 +6,8 @@ import './App.css';
 
 async function reAuth() {
 
+  console.log('ReAuthorizing...');
+
   const refreshToken = localStorage.getItem('refresh token');
   const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
   let json = {};
@@ -90,12 +92,17 @@ function App() {
 
       interval = setInterval(() => {
 
-        console.log('checking token status');
-
         let tokenExpiration = localStorage.getItem('access expiration');
-        if ((tokenExpiration - Date.now()) < 60000) {reAuth()};
 
-      }, 30000);
+        const refreshTimer = (tokenExpiration - Date.now());
+
+        const oneMinute = 60000, halfMinute = 30000;
+        
+        console.log(`checking token status.. Token refresh in ${refreshTimer / oneMinute} minutes.`);
+
+        if (refreshTImer < oneMinute) {reAuth()};
+
+      }, halfMinute);
 
     }
 
