@@ -13,6 +13,8 @@ async function getPlayerState () {
             method: 'get', headers: {Authorization: `Bearer ${accessToken}`}
         })
 
+        console.log(response, (typeof response));
+        
         if (!response) {console.log('no response from player status'); return json};
 
         const contentType = response.headers.get('content-type');
@@ -23,7 +25,7 @@ async function getPlayerState () {
         if (!response.ok) {
             throw new Error(`status code: ${response.status} Error: ${JSON.stringify(json.error)}`)
         }
-        
+
     } catch (error) {
         if (error instanceof SyntaxError) {
             console.log('There was a Syntax Error with your request: ', error);
@@ -61,11 +63,9 @@ export default function PlayerInterface(props) {
         if (props.loggedIn) {
 
             const current = {isPlaying, trackInfo}, updater = {setIsPlaying, setTrackInfo};
-
             syncInterface(current, updater);
         
             if (isPlaying) {interval = setInterval(() => {syncInterface(current, updater)}, 3000)};
-
         }   
 
         return () => {if (interval) clearInterval(interval)};
