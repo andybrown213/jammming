@@ -36,7 +36,11 @@ async function reAuth() {
     console.log('reAuth process completed');
 
 
-  } catch (error) {console.log(error)};
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      console.log('There was a Syntax Error with your request: ', error);
+    } else {console.log('There was an error with your request: ', error)}
+  }
 }
 
 async function getProfile(accessToken) {
@@ -55,7 +59,11 @@ async function getProfile(accessToken) {
       if (!response.ok || (response.status === 401 | 403 | 429)) {
           throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
       }
-  } catch (error) {console.log(error)};
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      console.log('There was a Syntax Error with your request: ', error);
+    } else {console.log('There was an error with your request: ', error)}
+  }
 
   return json;
 }
@@ -65,15 +73,20 @@ async function getPlaylists(accessToken) {
 let json;
 
 try {
-    const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
-        method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
-    });
-    json = await response.json();         
+  const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
+    method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
+  });
+  
+  json = await response.json();         
 
-    if (!response.ok) {
-        throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
-    }
-} catch (error) {console.log(error)};
+  if (!response.ok) {
+    throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
+  }
+} catch (error) {
+  if (error instanceof SyntaxError) {
+    console.log('There was a Syntax Error with your request: ', error);
+  } else {console.log('There was an error with your request: ', error)}
+}
 
 return json;
 }
