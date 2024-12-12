@@ -76,7 +76,7 @@ try {
   const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
     method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
   });
-  
+
   json = await response.json();         
 
   if (!response.ok) {
@@ -116,7 +116,7 @@ function App() {
         
         console.log(`checking token status.. Token refresh in ${refreshTimer / oneMinute} minutes.`);
 
-        if (refreshTimer < (oneMinute * 55)) {reAuth()};
+        if (refreshTimer < (oneMinute)) {reAuth()};
 
       }, 30000);
 

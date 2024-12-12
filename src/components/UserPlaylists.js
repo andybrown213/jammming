@@ -4,6 +4,8 @@ import React from 'react';
 async function playHandler(uri) {
 
     const accessToken = localStorage.getItem('access token')
+
+    let json;
     
     try{
         const response = await fetch('https://api.spotify.com/v1/me/player/play', {
@@ -11,8 +13,10 @@ async function playHandler(uri) {
             body: {context_uri: uri}
         })
 
+        json = await response.json();
+
         if (!response.ok) {
-            throw new Error(`status code: ${response.status} Message: ${JSON.stringify(response)}`);
+            throw new Error(`status code: ${response.status} Message: ${JSON.stringify(json)}`);
         }
     } catch (error) {console.log(error)};
 }
