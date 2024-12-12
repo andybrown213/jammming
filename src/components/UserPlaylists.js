@@ -3,7 +3,7 @@ import React from 'react';
 
 async function playHandler(uri) {
 
-    const accessToken = localStorage.getItem('access_token')
+    const accessToken = localStorage.getItem('access token')
     
     try{
         const response = await fetch('https://api.spotify.com/v1/me/player/play', {
