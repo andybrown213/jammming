@@ -10,7 +10,7 @@ async function playHandler(uri) {
     
     try{
         const response = await fetch('https://api.spotify.com/v1/me/player/play?device_id=3a9c0ee7381b1d52270601c18a83485d61cc6ddd', {
-            method: 'put', headers: {Authorization: `Bearer ${accessToken}`, device_id},
+            method: 'put', headers: {Authorization: `Bearer ${accessToken}`},
             body: reqBody
         })
 
