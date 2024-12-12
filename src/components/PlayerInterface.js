@@ -13,7 +13,7 @@ async function getPlayerState () {
             method: 'get', headers: {Authorization: `Bearer ${accessToken}`}
         })
 
-        if (!response) {return json};
+        if (!response) {console.log('no response from player status'); return json};
 
         const contentType = response.headers.get('content-type');
         if (contentType && contentType.includes('application/json')) {
