@@ -47,6 +47,9 @@ async function getProfile(accessToken) {
       const response = await fetch('https://api.spotify.com/v1/me', {
           method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
       });
+      
+      console.log(JSON.stringify(response));
+      
       json = await response.json();         
 
       if (!response.ok || (response.status === 401 | 403 | 429)) {
