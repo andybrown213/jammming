@@ -12,11 +12,9 @@ async function getPlayerState () {
         const response = await fetch('https://api.spotify.com/v1/me/player', {
             method: 'get', headers: {Authorization: `Bearer ${accessToken}`}
         })
-
-        console.log(response, (typeof response));
         
         if (response.status === 204) {
-            console.log(`No response from player status. Default Response: ${JSON.stringify(json)}`);
+            console.log(`No response from player status. Default Response: ${JSON.stringify(response)}`);
             return json;
         }
 
@@ -26,7 +24,7 @@ async function getPlayerState () {
         } else {throw new Error('Response is not a JSON. Response: ', response)}       
 
         if (!response.ok) {
-            throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`)
+            throw new Error(`status code: ${response.status} Error: ${JSON.stringify(json)}`)
         }
 
     } catch (error) {
@@ -37,6 +35,32 @@ async function getPlayerState () {
     
     return json;
     
+}
+
+function getDevices() {
+
+    let accessToken = localStorage.getItem('access token');
+
+    let json;
+
+    try {
+        const response = await fetch('https://api.spotify.com/v1/me/player/devices', {
+            method: 'get', headers: {Authorization: `Bearer ${accessToken}`}
+        })
+
+        json = await response.json();
+
+        if (!response.ok) {
+            throw new Error(`status code: ${response.status} Error: ${JSON.stringify(json)}`)
+        }
+
+    } catch (error) {
+        if (error instanceof SyntaxError) {
+            console.log('There was a Syntax Error with your request: ', error);
+        } else {console.log('There was an error with your request: ', error)}
+    }
+
+    console.log(json);
 }
 
 function syncInterface(current, updater) {
@@ -88,6 +112,7 @@ export default function PlayerInterface(props) {
 
                 <div id='player-controls'>
 
+                    <button onClick={getDevices}>Get Devices</button>
                     <button>Previous</button>
                     <button onClick={isPlaying ? pauseHandler : playHandler}>{isPlaying ? 'Pause' : 'Play'}</button>
                     <button>Next</button>
