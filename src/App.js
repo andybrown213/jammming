@@ -52,12 +52,10 @@ async function getProfile(accessToken) {
           method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
       });
       
-      console.log(JSON.stringify(response));
-      
       json = await response.json();         
 
-      if (!response.ok || (response.status === 401 | 403 | 429)) {
-          throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
+      if ((!response.ok) || (response.status === 401)) {
+          throw new Error(`status code: ${response.status} Error: ${JSON.stringify(json)}`);
       }
   } catch (error) {
     if (error instanceof SyntaxError) {
