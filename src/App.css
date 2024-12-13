@@ -132,12 +132,16 @@ header button:active {
 }
 
 #now-playing {
-  border: 1px solid green;
+  border: 0px solid green;
   position: absolute;
   width: 40%;
   right: 5%;
   top: 10%;
   text-align: center;
+}
+
+#now-playing h6 {
+  color: grey;
 }
 
 #player-controls {
@@ -148,6 +152,9 @@ header button:active {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 #player-controls button {

@@ -115,7 +115,7 @@ export default function PlayerInterface(props) {
 
                 <div id='player-controls'>
 
-                    <button onClick={getDevices}>Get Devices</button>
+                    <button onClick={getDevices}>Devices</button>
                     <button>Previous</button>
                     <button onClick={isPlaying ? pauseHandler : playHandler}>{isPlaying ? 'Pause' : 'Play'}</button>
                     <button>Next</button>
