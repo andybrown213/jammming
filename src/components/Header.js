@@ -1,4 +1,5 @@
 import React from 'react';
+import spotifyLogo from './src/Spotify_Primary_logo_RGB_Black.png'
 
 function handleLogout() {
     window.localStorage.clear();
@@ -14,16 +15,14 @@ function Header(props) {
     let profilePicture, profileName;
 
     if ((props.userProfile) && (props.loggedIn)) {
-        if (props.userProfile.images[0]) {
-            profilePicture = props.userProfile.images[0]['url'];
-        } else profilePicture = null;
+        if (props.userProfile.images[0]) {profilePicture = props.userProfile.images[0]['url']}
         profileName = props.userProfile.display_name;
     }
     
     if (props.loggedIn === true) {
         return (
             <header>
-                <img src={profilePicture ? profilePicture : ''} alt='profile' />
+                <img src={profilePicture ? profilePicture : spotifyLogo} alt='profile' />
                 <h3>{profileName ? profileName : ''}</h3>
                 <button onClick={handleLogout}>Logout</button>
             </header>
