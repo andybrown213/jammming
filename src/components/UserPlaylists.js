@@ -43,15 +43,6 @@ function UserPlaylists (props) {
     
             </div>
         )
-    } else {
-
-        return (
-
-            <div className='user-playlists'>
-                <h3>Log in to see your playlists</h3>
-            </div>
-
-        )
     }
 }
 
