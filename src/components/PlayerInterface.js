@@ -77,7 +77,7 @@ function syncInterface(current, updater) {
 export default function PlayerInterface(props) {
     
     const [isPlaying, setIsPlaying] = useState(false);
-    const [trackInfo, setTrackInfo] = useState({name: 'Find a Song!', artist: '', album: ''});
+    const [trackInfo, setTrackInfo] = useState({name: 'Find a Song!', artist: [{name: ''}], album: {name: ''}});
 
     function playHandler() {setIsPlaying(true)};
 
