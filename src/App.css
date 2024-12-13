@@ -7,14 +7,14 @@
   grid-template-rows: 30% 39.5% 30%;
   font-size: calc(10px + 2vmin);
   color: rgb(247, 247, 247);
-  border: 1px solid red;
+  border: 0px solid red;
   justify-self: center;
 }
 
 header {
   grid-row: 1;
   grid-column: 2;
-  border: 1px solid blue;
+  border: 0px solid blue;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -41,7 +41,7 @@ header h3 {
   padding-top: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
-  border: 1px solid white;
+  border: 0px solid white;
 }
 
 header button {
@@ -80,7 +80,7 @@ header button:active {
 }
 
 .playlist {
-  border: 1px solid white;
+  border-bottom: 1px solid rgb(170, 29, 29);
   display: grid;
   grid-template-columns: 80% 20%;
 }
