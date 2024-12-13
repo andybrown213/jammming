@@ -135,7 +135,7 @@ header button:active {
   border: 1px solid green;
   position: absolute;
   width: 40%;
-  right: 10%;
+  right: 5%;
   top: 10%;
   text-align: center;
 }
@@ -147,6 +147,7 @@ header button:active {
   bottom: 10px;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 90%;
 }
 
 #player-controls button {
