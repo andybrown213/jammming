@@ -15,14 +15,14 @@ function Header(props) {
     let profilePicture = 'none', profileName;
 
     if ((props.userProfile) && (props.loggedIn)) {
-        if (props.userProfile.images[0]) {profilePicture = props.userProfile.images[0]['url']}
+        if (props.userProfile.images[0]) {profilePicture = props.userProfile.images[0]['url']} else {profilePicture = spotifyLogo};
         profileName = props.userProfile.display_name;
     }
     
     if (props.loggedIn === true) {
         return (
             <header>
-                <img src={if (profilePicture !== 'none') {profilePicture} else {spotifyLogo}} alt='logo' />
+                <img src={profilePicture} alt='profile logo' />
                 <h3>{profileName ? profileName : ''}</h3>
                 <button onClick={handleLogout}>Logout</button>
             </header>
