@@ -1,5 +1,5 @@
 import React from 'react';
-import spotifyLogo from '.././Spotify_Primary_Logo_RGB_Black.png';
+import spotifyLogo from '../Spotify_Primary_Logo_RGB_Black.png';
 
 function handleLogout() {
     window.localStorage.clear();
