@@ -38,6 +38,16 @@ async function getPlayerState () {
     
 }
 
+function syncInterface(current, updater) {
+
+    getPlayerState()
+    .then((response) => {
+        if (current.isPlaying !== response.is_playing) {updater.setIsPlaying(response.is_playing)};
+        if (current.trackInfo.id !== response.item.id) {updater.setTrackInfo(response.item)};
+    })
+    .catch((error) => console.log(`Error retrieving player status: ${error}`));
+}
+
 async function getDevices() {
 
     let accessToken = localStorage.getItem('access token');
@@ -64,24 +74,37 @@ async function getDevices() {
     console.log(json);
 }
 
-function syncInterface(current, updater) {
+export async function playHandler(uri) {
 
-    getPlayerState()
-    .then((response) => {
-        if (current.isPlaying !== response.is_playing) {updater.setIsPlaying(response.is_playing)};
-        if (current.trackInfo.id !== response.item.id) {updater.setTrackInfo(response.item)};
-    })
-    .catch((error) => console.log(`Error retrieving player status: ${error}`));
+    const accessToken = localStorage.getItem('access token')
+
+    let json;
+    let reqBody = JSON.stringify({context_uri: uri});
+    
+    try{
+        const response = await fetch('https://api.spotify.com/v1/me/player/play?device_id=3a9c0ee7381b1d52270601c18a83485d61cc6ddd', {
+            method: 'put', headers: {Authorization: `Bearer ${accessToken}`},
+            body: reqBody
+        })
+
+        json = await response.json();
+
+        if (!response.ok) {
+            throw new Error(`status code: ${response.status} Message: ${JSON.stringify(json)}`);
+        }
+    } catch (error) {console.log(error)};
 }
+
+const blankTrack = {name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}};
 
 export default function PlayerInterface(props) {
     
     const [isPlaying, setIsPlaying] = useState(false);
-    const [trackInfo, setTrackInfo] = useState({name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}});
-
-    function playHandler() {setIsPlaying(true)};
+    const [trackInfo, setTrackInfo] = useState(blankTrack);
 
     function pauseHandler() {setIsPlaying(false)};
+
+
 
 
     useEffect(() => {
@@ -117,7 +140,7 @@ export default function PlayerInterface(props) {
 
                     <button onClick={getDevices}>Devices</button>
                     <button>Previous</button>
-                    <button onClick={isPlaying ? pauseHandler : playHandler}>{isPlaying ? 'Pause' : 'Play'}</button>
+                    <button onClick={isPlaying ? pauseHandler : () => {playHandler(trackInfo.uri)}}>{isPlaying ? 'Pause' : 'Play'}</button>
                     <button>Next</button>
 
                 </div>    
