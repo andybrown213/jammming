@@ -41,7 +41,7 @@ function Auth() {
 
         localStorage.setItem('code verifier', codeVerifier);
 
-        const scope = 'user-modify-playback-state user-read-playback-state user-read-currently-playing playlist-modify-private playlist-modify-public user-library-read user-library-modify user-read-playback-position';
+        const scope = 'user-read-recently-played user-modify-playback-state user-read-playback-state user-read-currently-playing playlist-modify-private playlist-modify-public user-library-read user-library-modify user-read-playback-position';
         const authUrl = new URL('https://accounts.spotify.com/authorize');
         
         const params = {
