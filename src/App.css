@@ -129,12 +129,14 @@ header button:active {
   border: 0px solid black;
   overflow: auto;
   text-align: center;
+  direction: rtl;
 }
 
 .user-queue h3 {
   margin-top: 20px;
   margin-bottom: 20px;
   color: rgb(213, 36, 35);
+  direction: ltr;
 }
 
 .user-queue h4 {
@@ -154,12 +156,17 @@ header button:active {
 #current-song {
   display: grid;
   grid-template-columns: 20% 80%;
-  background-color:rgb(170, 29, 29);
+  background-color:#1a1d22;
+  direction: ltr;
+  border: 1px solid black;
+  border-bottom: 1px solid rgb(170, 29, 29);
 }
 
 #queued-song {
   display: grid;
   grid-template-columns: 20% 80%;
+  direction: ltr;
+  border-bottom: 1px solid rgb(170, 29, 29);
 }
 
 .player-interface {
