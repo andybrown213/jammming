@@ -5,8 +5,8 @@ export default function UserQueue (props) {
     const [currentSong, setCurrentSong] = useState({name: '', artists: [{name: ''}]});
     const [queuedSongs, setQueuedSongs] = useState([{name: '', artists: [{name: ''}]}])
     
-    if ((props.userQueue) && (props.loggedIn)) {
-        
+    useEffect(() => {
+
         if (props.userQueue.currently_playing !== null) {
             setCurrentSong({
                 name: props.userQueue.currently_playing.name, 
@@ -14,6 +14,11 @@ export default function UserQueue (props) {
         }
 
         if (props.userQueue.queue) {setQueuedSongs(props.userQueue.queue)};
+
+    }, [props.userQueue, props.loggedIn]);    
+    
+    
+    if ((props.userQueue) && (props.loggedIn)) {
 
         return (
 
