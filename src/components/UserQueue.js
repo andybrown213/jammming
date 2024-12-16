@@ -39,8 +39,8 @@ export default function UserQueue (props) {
 
                 {queuedSongs.map((item) => (
                     <div id='queued-song'>
-                        <h4>{item.name}</h4>
-                        <h5>{item.artists.map(artists => {return artists.name}).toString(' ')}</h5>
+                        <h5>{item.name}</h5>
+                        <h6>{item.artists.map(artists => {return artists.name}).toString(' ')}</h6>
                         <button onClick={() => playHandler(item.uri)}>Play</button>
                     </div>
                 ))}           
