@@ -117,6 +117,37 @@ export async function pauseHandler() {
     } catch (error) {console.log(`pause error: ${error}`)};
 }
 
+async function nextHandler() {
+
+    const accessToken = localStorage.getItem('access token');
+
+    try {
+        const response = await fetch('https://api.spotify.com/v1/me/player/next', {
+            method: 'put', headers: {Authorization: `Bearer ${accessToken}`}});
+
+        if (!response.ok) {
+            throw new Error(`status code: ${response.status}`);
+        }
+        
+    } catch (error) {console.log(`Skip to next error: ${error}`)};
+}
+
+async function prevHandler() {
+
+    const accessToken = localStorage.getItem('access token');
+
+    try {
+        const response = await fetch('https://api.spotify.com/v1/me/player/previous', {
+            method: 'put', headers: {Authorization: `Bearer ${accessToken}`}});
+
+        if (!response.ok) {
+            throw new Error(`status code: ${response.status}`);
+        }
+        
+    } catch (error) {console.log(`Skip to previous error: ${error}`)};
+}
+
+
 const blankTrack = {name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}};
 
 export default function PlayerInterface(props) {
@@ -153,12 +184,12 @@ export default function PlayerInterface(props) {
     
                 <NowPlaying trackInfo={trackInfo} />
 
-                <div id='player-controls'>
+                <div className='player-controls'>
 
                     <button onClick={getDevices}>Devices</button>
-                    <button>Previous</button>
+                    <button onClick={prevHandler}>Previous</button>
                     <button onClick={isPlaying ? pauseHandler : () => {playHandler('')}}>{isPlaying ? 'Pause' : 'Play'}</button>
-                    <button>Next</button>
+                    <button onClick={nextHandler}>Next</button>
 
                 </div>    
     

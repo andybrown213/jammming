@@ -1,12 +1,12 @@
 .app {
   background-color: #282c34;
-  min-height: 99.8vh;
-  max-height: 99.8vh;
-  min-width: 99.8vw;
-  max-width: 99.8vw;
+  min-height: 100vh;
+  max-height: 100vh;
+  min-width: 100vw;
+  max-width: 100vw;
   display: grid;
-  grid-template-columns: 30% 39.5% 30%;
-  grid-template-rows: 25% 39.5% 35%;
+  grid-template-columns: 30% 40% 30%;
+  grid-template-rows: 25% 40% 35%;
   font-size: calc(10px + 2vmin);
   color: rgb(247, 247, 247);
   border: 0px solid red;
@@ -211,7 +211,7 @@ header button:active {
   color: grey;
 }
 
-#player-controls {
+.player-controls {
   z-index: 5;
   border: 0px solid blue;
   position: absolute;
