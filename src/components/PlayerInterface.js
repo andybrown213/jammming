@@ -95,12 +95,14 @@ export async function playHandler(uri, setIsPlaying) {
             response = await fetch('https://api.spotify.com/v1/me/player/play?device_id=346b6f8e191335c432116dc4ed9829adbfe95ba8', {
                 method: 'put', headers: {Authorization: `Bearer ${accessToken}`}});
             json = await response.json();
-        }        
+        }
+        
+        setIsPlaying(true);
 
         if (!response.ok) {
             throw new Error(`status code: ${response.status} Message: ${JSON.stringify(json)}`);
-        } else setIsPlaying(true);
-        
+        }
+
     } catch (error) {console.log(`playback error: ${error}`)};
 }
 
@@ -112,11 +114,14 @@ export async function pauseHandler(setIsPlaying) {
     try {
         const response = await fetch('https://api.spotify.com/v1/me/player/pause', {
             method: 'put', headers: {Authorization: `Bearer ${accessToken}`}});
+
         json = await response.json();
+        setIsPlaying(false);
 
         if (!response.ok) {
             throw new Error(`status code: ${response.status} Message: ${JSON.stringify(json)}`);
-        } else setIsPlaying(false);
+        }
+        
     } catch (error) {console.log(`pause error: ${error}`)};
 }
 
