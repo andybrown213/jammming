@@ -27,7 +27,7 @@ export default function UserQueue (props) {
 
     let recentSongs = [{track: {name: '', artists: [{name: ''}]}}];
 
-    if (props.recentlyPlayed) {recentSongs = props.recentlyPlayed.items};
+    //if (props.recentlyPlayed) {recentSongs = props.recentlyPlayed.items};
     
     console.log(recentSongs);
     
