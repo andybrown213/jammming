@@ -142,7 +142,7 @@ header button:active {
 .user-queue h5 {
   margin-top: 10px;
   margin-bottom: 0px;
-  grid-column: 2;
+  grid-column: 1 / span 2;
   color: rgb(248, 248, 248);
 }
 
