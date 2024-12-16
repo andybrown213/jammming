@@ -100,7 +100,23 @@ export async function playHandler(uri) {
         if (!response.ok) {
             throw new Error(`status code: ${response.status} Message: ${JSON.stringify(json)}`);
         }
-    } catch (error) {console.log(error)};
+    } catch (error) {console.log(`playback error: ${error}`)};
+}
+
+export async function pauseHandler() {
+
+    const accessToken = localStorage.getItem('access token');
+    let json;
+
+    try {
+        const response = await fetch('https://api.spotify.com/v1/me/player/pause', {
+            method: 'put', headers: {Authorization: `Bearer ${accessToken}`}});
+        json = await response.json();
+
+        if (!response.ok) {
+            throw new Error(`status code: ${response.status} Message: ${JSON.stringify(json)}`);
+        }
+    } catch (error) {console.log(`pause error: ${error}`)};
 }
 
 const blankTrack = {name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}};
@@ -109,8 +125,6 @@ export default function PlayerInterface(props) {
     
     const [isPlaying, setIsPlaying] = useState(false);
     const [trackInfo, setTrackInfo] = useState(blankTrack);
-
-    function pauseHandler() {setIsPlaying(false)};
 
     useEffect(() => {
         
@@ -145,7 +159,7 @@ export default function PlayerInterface(props) {
 
                     <button onClick={getDevices}>Devices</button>
                     <button>Previous</button>
-                    <button onClick={isPlaying ? pauseHandler : () => {playHandler(trackInfo.uri)}}>{isPlaying ? 'Pause' : 'Play'}</button>
+                    <button onClick={isPlaying ? pauseHandler : () => {playHandler('')}}>{isPlaying ? 'Pause' : 'Play'}</button>
                     <button>Next</button>
 
                 </div>    
