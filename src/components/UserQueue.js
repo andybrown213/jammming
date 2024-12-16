@@ -14,7 +14,7 @@ export default function UserQueue (props) {
             if (props.userQueue.currently_playing) {
                 setCurrentSong({
                     name: props.userQueue.currently_playing.name, 
-                    artists: props.userQueue[0].artists.map(artists => {return artists.name}).toString(' ')});
+                    artists: props.userQueue.currently_playing.artists.map(artists => {return artists.name}).toString(' ')});
             } else setCurrentSong({name: '', artists: [{name: ''}]});
     
             if (props.userQueue.queue) {setQueuedSongs(props.userQueue.queue)} else setQueuedSongs([{name: '', artists: [{name: ''}]}]);
