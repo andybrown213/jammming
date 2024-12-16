@@ -164,7 +164,6 @@ function App() {
       .then(response => setUserProfile(response))
       .catch(error => console.log(`Error fetching user profile data: ${error}`));
     
-
     getPlaylists(accessToken)
       .then(response => setUserPlaylists(response))
       .catch(error => console.log(`Error fetching user playlist data: ${error}`));

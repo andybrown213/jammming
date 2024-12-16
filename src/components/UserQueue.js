@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {playHandler} from './PlayerInterface';
 
 export default function UserQueue (props) {
 
@@ -40,6 +41,7 @@ export default function UserQueue (props) {
                     <div id='queued-song'>
                         <h4>{item.name}</h4>
                         <h5>{item.artists.map(artists => {return artists.name}).toString(' ')}</h5>
+                        <button onClick={() => playHandler(item.uri)}>Play</button>
                     </div>
                 ))}           
 
