@@ -9,6 +9,7 @@
   color: rgb(247, 247, 247);
   border: 0px solid red;
   justify-self: center;
+  overflow: hidden;
 }
 
 header {
