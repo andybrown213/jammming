@@ -74,7 +74,7 @@ async function getDevices() {
     console.log(json);
 }
 
-export async function playHandler(uri, setIsPlaying) {
+export async function playHandler(uri) {
 
     try{
         const accessToken = localStorage.getItem('access token')
@@ -94,8 +94,6 @@ export async function playHandler(uri, setIsPlaying) {
             response = await fetch('https://api.spotify.com/v1/me/player/play?device_id=346b6f8e191335c432116dc4ed9829adbfe95ba8', {
                 method: 'put', headers: {Authorization: `Bearer ${accessToken}`}});
         }
-        
-        setIsPlaying();
 
         if (!response.ok) {
             throw new Error(`status code: ${response.status}`);
@@ -104,7 +102,7 @@ export async function playHandler(uri, setIsPlaying) {
     } catch (error) {console.log(`playback error: ${error}`)};
 }
 
-export async function pauseHandler(setIsPlaying) {
+export async function pauseHandler() {
 
     const accessToken = localStorage.getItem('access token');
 
@@ -159,8 +157,7 @@ export default function PlayerInterface(props) {
 
                     <button onClick={getDevices}>Devices</button>
                     <button>Previous</button>
-                    <button onClick={isPlaying ? () => {pauseHandler(setIsPlaying)}
-                        : () => {playHandler('', setIsPlaying)}}>{isPlaying ? 'Pause' : 'Play'}</button>
+                    <button onClick={isPlaying ? pauseHandler : () => {playHandler('')}}>{isPlaying ? 'Pause' : 'Play'}</button>
                     <button>Next</button>
 
                 </div>    
