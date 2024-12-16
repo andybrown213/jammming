@@ -3,9 +3,7 @@ import {playHandler} from './PlayerInterface';
 
 export default function UserQueue (props) {
 
-    let recentSongs = [{track: {name: '', artists: [{name: ''}]}}];
 
-    if (props.recentlyPlayed) {recentSongs = props.recentlyPlayed.items};
 
     const [currentSong, setCurrentSong] = useState({name: '', artists: [{name: ''}]});
     const [queuedSongs, setQueuedSongs] = useState([{name: '', artists: [{name: ''}]}]);
@@ -26,7 +24,12 @@ export default function UserQueue (props) {
 
         }   
     }, [props]);    
+
+    let recentSongs = [{track: {name: '', artists: [{name: ''}]}}];
+
+    if (props.recentlyPlayed) {recentSongs = props.recentlyPlayed.items};
     
+    console.log(recentSongs);
     
     if ((props.userQueue) && (props.loggedIn)) {
 

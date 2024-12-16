@@ -118,7 +118,7 @@ async function getRecentlyPlayed(accessToken) {
   let json;
 
   try {
-    const response = await fetch(`https://api.spotify.com/v1/me/player/recently-played?limit=50`, {
+    const response = await fetch(`https://api.spotify.com/v1/me/player/recently-played?limit=20`, {
       method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
     });
   
