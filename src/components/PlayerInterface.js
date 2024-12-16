@@ -112,8 +112,6 @@ export async function pauseHandler(setIsPlaying) {
         const response = await fetch('https://api.spotify.com/v1/me/player/pause', {
             method: 'put', headers: {Authorization: `Bearer ${accessToken}`}});
 
-        setIsPlaying(false);
-
         if (!response.ok) {
             throw new Error(`status code: ${response.status}`);
         }
@@ -137,7 +135,7 @@ export default function PlayerInterface(props) {
             const current = {isPlaying, trackInfo}, updater = {setIsPlaying, setTrackInfo};
             syncInterface(current, updater);
         
-            if (isPlaying) {interval = setInterval(() => {syncInterface(current, updater)}, 3000)};
+            interval = setInterval(() => {syncInterface(current, updater)}, 1000);
 
             console.log(isPlaying, trackInfo);
         }   
