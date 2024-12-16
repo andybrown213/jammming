@@ -123,7 +123,7 @@ async function nextHandler() {
 
     try {
         const response = await fetch('https://api.spotify.com/v1/me/player/next', {
-            method: 'put', headers: {Authorization: `Bearer ${accessToken}`}});
+            method: 'post', headers: {Authorization: `Bearer ${accessToken}`}});
 
         if (!response.ok) {
             throw new Error(`status code: ${response.status}`);
@@ -138,7 +138,7 @@ async function prevHandler() {
 
     try {
         const response = await fetch('https://api.spotify.com/v1/me/player/previous', {
-            method: 'put', headers: {Authorization: `Bearer ${accessToken}`}});
+            method: 'post', headers: {Authorization: `Bearer ${accessToken}`}});
 
         if (!response.ok) {
             throw new Error(`status code: ${response.status}`);
