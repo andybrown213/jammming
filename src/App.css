@@ -25,7 +25,7 @@ header {
 
 header img {
   height: 30%;
-  width: 15%;
+  width: 10%;
   display: block;
   margin: 20px auto 20px auto;
   border: 0px solid rgb(0, 0, 0);
@@ -81,7 +81,6 @@ header button:active {
   margin-top: 20px;
   margin-bottom: 20px;
   color: rgb(213, 36, 35);
-  position: fixed;
 }
 
 .playlist {
@@ -141,7 +140,7 @@ header button:active {
   position: absolute;
   width: 40%;
   right: 5%;
-  top: 10%;
+  top: 5%;
   text-align: center;
 }
 

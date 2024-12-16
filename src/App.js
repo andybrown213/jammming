@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Header from './components/Header';
 import UserPlaylists from './components/UserPlaylists';
 import PlayerInterface from './components/PlayerInterface';
+import UserQueue from './components/UserQueue.js';
 import './App.css';
 
 async function reAuth() {
@@ -89,12 +90,37 @@ async function getPlaylists(accessToken) {
   return json;
 }
 
+async function getUserQueue(accessToken) {
+
+  let json;
+
+  try {
+    const response = await fetch(`https://api.spotify.com/v1/me/player/queue`, {
+      method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
+    });
+  
+    json = await response.json();         
+  
+    if (!response.ok) {
+      throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
+    }
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      console.log('There was a Syntax Error with your request: ', error);
+    } else {console.log('There was an error with your request: ', error)}
+  }
+  
+  return json;
+
+}
+
 
 function App() {
   
   const [loggedIn, setLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState();
   const [userPlaylists, setUserPlaylists] = useState();
+  const [userQueue, setUserQueue] = useState();
 
   useEffect(() => { 
     
@@ -143,6 +169,9 @@ function App() {
       .then(response => setUserPlaylists(response))
       .catch(error => console.log(`Error fetching user playlist data: ${error}`));
 
+    getUserQueue(accessToken)
+      .then(response => setUserQueue(response))
+      .catch(error => console.log(`Error fetching user queue data: ${error}`));
   }
 
   if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
@@ -156,9 +185,7 @@ function App() {
 
         <PlayerInterface loggedIn={loggedIn} />
 
-        <div className="right-navigation">
-
-        </div>
+        <UserQueue loggedIn={loggedIn} userQueue={userQueue} />
 
     </div>
   );
