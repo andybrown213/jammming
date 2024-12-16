@@ -74,7 +74,7 @@ async function getDevices() {
     console.log(json);
 }
 
-export async function playHandler(uri) {
+export async function playHandler(uri, setIsPlaying) {
 
     try{
         const accessToken = localStorage.getItem('access token')
@@ -99,11 +99,12 @@ export async function playHandler(uri) {
 
         if (!response.ok) {
             throw new Error(`status code: ${response.status} Message: ${JSON.stringify(json)}`);
-        }
+        } else setIsPlaying(true);
+        
     } catch (error) {console.log(`playback error: ${error}`)};
 }
 
-export async function pauseHandler() {
+export async function pauseHandler(setIsPlaying) {
 
     const accessToken = localStorage.getItem('access token');
     let json;
@@ -115,7 +116,7 @@ export async function pauseHandler() {
 
         if (!response.ok) {
             throw new Error(`status code: ${response.status} Message: ${JSON.stringify(json)}`);
-        }
+        } else setIsPlaying(false);
     } catch (error) {console.log(`pause error: ${error}`)};
 }
 
@@ -159,7 +160,8 @@ export default function PlayerInterface(props) {
 
                     <button onClick={getDevices}>Devices</button>
                     <button>Previous</button>
-                    <button onClick={isPlaying ? pauseHandler : () => {playHandler('')}}>{isPlaying ? 'Pause' : 'Play'}</button>
+                    <button onClick={isPlaying ? () => {pauseHandler(setIsPlaying)}
+                        : () => {playHandler('', setIsPlaying)}}>{isPlaying ? 'Pause' : 'Play'}</button>
                     <button>Next</button>
 
                 </div>    
