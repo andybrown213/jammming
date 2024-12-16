@@ -76,18 +76,26 @@ async function getDevices() {
 
 export async function playHandler(uri) {
 
-    const accessToken = localStorage.getItem('access token')
-
-    let json;
-    let reqBody = JSON.stringify({context_uri: uri});
-    
     try{
-        const response = await fetch('https://api.spotify.com/v1/me/player/play?device_id=346b6f8e191335c432116dc4ed9829adbfe95ba8', {
-            method: 'put', headers: {Authorization: `Bearer ${accessToken}`},
-            body: reqBody
-        })
+        const accessToken = localStorage.getItem('access token')
 
-        json = await response.json();
+        let json, response;
+
+        if (uri) {
+    
+            let reqBody = JSON.stringify({context_uri: uri});
+
+            response = await fetch('https://api.spotify.com/v1/me/player/play?device_id=346b6f8e191335c432116dc4ed9829adbfe95ba8', {
+                method: 'put', headers: {Authorization: `Bearer ${accessToken}`},
+                body: reqBody
+            })
+            json = await response.json();
+
+        } else {
+            response = await fetch('https://api.spotify.com/v1/me/player/play?device_id=346b6f8e191335c432116dc4ed9829adbfe95ba8', {
+                method: 'put', headers: {Authorization: `Bearer ${accessToken}`}});
+            json = await response.json();
+        }        
 
         if (!response.ok) {
             throw new Error(`status code: ${response.status} Message: ${JSON.stringify(json)}`);
@@ -103,9 +111,6 @@ export default function PlayerInterface(props) {
     const [trackInfo, setTrackInfo] = useState(blankTrack);
 
     function pauseHandler() {setIsPlaying(false)};
-
-
-
 
     useEffect(() => {
         

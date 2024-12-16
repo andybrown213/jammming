@@ -68,25 +68,25 @@ async function getProfile(accessToken) {
 
 async function getPlaylists(accessToken) {
 
-let json;
+  let json;
 
-try {
-  const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
-    method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
-  });
-
-  json = await response.json();         
-
-  if (!response.ok) {
-    throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
+  try {
+    const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
+      method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
+    });
+  
+    json = await response.json();         
+  
+    if (!response.ok) {
+      throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
+    }
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      console.log('There was a Syntax Error with your request: ', error);
+    } else {console.log('There was an error with your request: ', error)}
   }
-} catch (error) {
-  if (error instanceof SyntaxError) {
-    console.log('There was a Syntax Error with your request: ', error);
-  } else {console.log('There was an error with your request: ', error)}
-}
-
-return json;
+  
+  return json;
 }
 
 
@@ -114,9 +114,9 @@ function App() {
         
         console.log(`checking token status.. Token refresh in ${refreshTimer / oneMinute} minutes.`);
 
-        if (refreshTimer < (oneMinute)) {reAuth()};
+        if (refreshTimer < (oneMinute*5)) {reAuth()};
 
-      }, 30000);
+      }, 120000);
 
     }
 
