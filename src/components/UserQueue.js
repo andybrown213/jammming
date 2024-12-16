@@ -3,20 +3,23 @@ import React, {useState, useEffect} from 'react';
 export default function UserQueue (props) {
 
     const [currentSong, setCurrentSong] = useState({name: '', artists: [{name: ''}]});
-    const [queuedSongs, setQueuedSongs] = useState([{name: '', artists: [{name: ''}]}])
+    const [queuedSongs, setQueuedSongs] = useState([{name: '', artists: [{name: ''}]}]);
     
     useEffect(() => {
 
         console.log(props.userQueue);
 
-        if (props.userQueue.currently_playing) {
-            setCurrentSong({
-                name: props.userQueue.currently_playing.name, 
-                artists: props.userQueue[0].artists.map(artists => {return artists.name}).toString(' ')});
-        }
+        if (props.userQueue) {
 
-        if (props.userQueue.queue) {setQueuedSongs(props.userQueue.queue)};
+            if (props.userQueue.currently_playing) {
+                setCurrentSong({
+                    name: props.userQueue.currently_playing.name, 
+                    artists: props.userQueue[0].artists.map(artists => {return artists.name}).toString(' ')});
+            } else setCurrentSong({name: '', artists: [{name: ''}]});
+    
+            if (props.userQueue.queue) {setQueuedSongs(props.userQueue.queue)} else setQueuedSongs([{name: '', artists: [{name: ''}]}]);
 
+        }   
     }, [props]);    
     
     
