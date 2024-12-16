@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 export default function UserQueue (props) {
 
@@ -15,7 +15,7 @@ export default function UserQueue (props) {
 
         if (props.userQueue.queue) {setQueuedSongs(props.userQueue.queue)};
 
-    }, [props.userQueue, props.loggedIn]);    
+    }, [props]);    
     
     
     if ((props.userQueue) && (props.loggedIn)) {
