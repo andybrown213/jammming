@@ -7,6 +7,8 @@ export default function UserQueue (props) {
     
     useEffect(() => {
 
+        console.log(props.userQueue);
+        
         if (props.userQueue.currently_playing !== null) {
             setCurrentSong({
                 name: props.userQueue.currently_playing.name, 
