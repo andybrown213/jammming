@@ -1,14 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 export default function UserQueue (props) {
 
+    const [currentSong, setCurrentSong] = useState({name: '', artists: [{name: ''}]});
+    const [queuedSongs, setQueuedSongs] = useState([{name: '', artists: [{name: ''}]}])
+    
     if ((props.userQueue) && (props.loggedIn)) {
-
-        let currentSong = {name: '', artists: ''};
         
         if (props.userQueue.currently_playing !== null) {
-            currentSong = {name: props.userQueue.currently_playing.name, artists: props.userQueue[0].artists.map(artists => {return artists.name}).toString(' ')};
+            setCurrentSong({
+                name: props.userQueue.currently_playing.name, 
+                artists: props.userQueue[0].artists.map(artists => {return artists.name}).toString(' ')});
         }
+
+        if (props.userQueue.queue) {setQueuedSongs(props.userQueue.queue)};
 
         return (
 
@@ -21,7 +26,7 @@ export default function UserQueue (props) {
                     <h5>{currentSong.artists}</h5>
                 </div>
 
-                {props.queue.map((item) => (
+                {queuedSongs.map((item) => (
                     <div id='queued-song'>
                         <h4>{item.name}</h4>
                         <h5>{item.artists.map(artists => {return artists.name}).toString(' ')}</h5>
