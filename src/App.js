@@ -71,7 +71,7 @@ async function getPlaylists(accessToken) {
   let json;
 
   try {
-    const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
+    const response = await fetch(`https://api.spotify.com/v1/me/playlists?limit=50`, {
       method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
     });
   
