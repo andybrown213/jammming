@@ -4,7 +4,7 @@
   min-width: 99.8vw;
   display: grid;
   grid-template-columns: 30% 39.5% 30%;
-  grid-template-rows: 30% 39.5% 30%;
+  grid-template-rows: 25% 39.5% 35%;
   font-size: calc(10px + 2vmin);
   color: rgb(247, 247, 247);
   border: 0px solid red;
@@ -71,6 +71,7 @@ header button:active {
   grid-column: 1;
   grid-row: 1 / span 3;
   text-align: center;
+  overflow: auto;
 }
 
 .user-playlists h3 {
