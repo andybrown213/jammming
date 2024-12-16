@@ -79,7 +79,7 @@ export async function playHandler(uri, setIsPlaying) {
     try{
         const accessToken = localStorage.getItem('access token')
 
-        let json, response;
+        let response;
 
         if (uri) {
     
@@ -89,18 +89,16 @@ export async function playHandler(uri, setIsPlaying) {
                 method: 'put', headers: {Authorization: `Bearer ${accessToken}`},
                 body: reqBody
             })
-            json = await response.json();
 
         } else {
             response = await fetch('https://api.spotify.com/v1/me/player/play?device_id=346b6f8e191335c432116dc4ed9829adbfe95ba8', {
                 method: 'put', headers: {Authorization: `Bearer ${accessToken}`}});
-            json = await response.json();
         }
         
         setIsPlaying(true);
 
         if (!response.ok) {
-            throw new Error(`status code: ${response.status} Message: ${JSON.stringify(json)}`);
+            throw new Error(`status code: ${response.status}`);
         }
 
     } catch (error) {console.log(`playback error: ${error}`)};
@@ -109,17 +107,15 @@ export async function playHandler(uri, setIsPlaying) {
 export async function pauseHandler(setIsPlaying) {
 
     const accessToken = localStorage.getItem('access token');
-    let json;
 
     try {
         const response = await fetch('https://api.spotify.com/v1/me/player/pause', {
             method: 'put', headers: {Authorization: `Bearer ${accessToken}`}});
 
-        json = await response.json();
         setIsPlaying(false);
 
         if (!response.ok) {
-            throw new Error(`status code: ${response.status} Message: ${JSON.stringify(json)}`);
+            throw new Error(`status code: ${response.status}`);
         }
         
     } catch (error) {console.log(`pause error: ${error}`)};
