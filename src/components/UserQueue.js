@@ -10,6 +10,7 @@ export default function UserQueue (props) {
     useEffect(() => {        
 
         if (props.recentlyPlayed) {
+            console.log(props.recentlyPlayed);
             setRecentSongs(props.recentlyPlayed.items);
         } else setRecentSongs([{track: {name: '', artists: [{name: ''}]}}])
         
