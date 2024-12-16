@@ -224,7 +224,7 @@ header button:active {
   justify-content: center;
 }
 
-#player-controls button {
+.player-controls button {
   background-color: rgb(213, 36, 35);
   font-size: large;
   font-weight: bold;
@@ -234,11 +234,11 @@ header button:active {
   width: 100px;
 }
 
-#player-controls button:hover {
+.player-controls button:hover {
   background-color:rgb(170, 29, 29);
 }
 
-#player-controls button:active {
+.player-controls button:active {
   transform: scale(.99);
   border: 2px solid black;
 }
