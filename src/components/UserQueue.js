@@ -3,15 +3,16 @@ import {playHandler} from './PlayerInterface';
 
 export default function UserQueue (props) {
 
-
-
+    const [recentSongs, setRecentSongs] = useState([{track: {name: '', artists: [{name: ''}]}}]);
     const [currentSong, setCurrentSong] = useState({name: '', artists: [{name: ''}]});
     const [queuedSongs, setQueuedSongs] = useState([{name: '', artists: [{name: ''}]}]);
     
     useEffect(() => {        
-        
-        console.log(props.userQueue);
 
+        if (props.recentlyPlayed) {
+            setRecentSongs(props.recentlyPlayed.items);
+        } else setRecentSongs([{track: {name: '', artists: [{name: ''}]}}])
+        
         if (props.userQueue) {
 
             if (props.userQueue.currently_playing) {
@@ -20,16 +21,11 @@ export default function UserQueue (props) {
                     artists: props.userQueue.currently_playing.artists});
             } else setCurrentSong({name: '', artists: [{name: ''}]});
     
-            if (props.userQueue.queue) {setQueuedSongs(props.userQueue.queue)} else setQueuedSongs([{name: '', artists: [{name: ''}]}]);
-
+            if (props.userQueue.queue) {
+                setQueuedSongs(props.userQueue.queue)
+            } else setQueuedSongs([{name: '', artists: [{name: ''}]}]);
         }   
     }, [props]);    
-
-    let recentSongs = [{track: {name: '', artists: [{name: ''}]}}];
-
-    //if (props.recentlyPlayed) {recentSongs = props.recentlyPlayed.items};
-    
-    console.log(recentSongs);
     
     if ((props.userQueue) && (props.loggedIn)) {
 
