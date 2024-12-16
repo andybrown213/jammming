@@ -113,6 +113,29 @@ async function getUserQueue(accessToken) {
   return json;
 }
 
+async function getRecentlyPlayed(accessToken) {
+
+  let json;
+
+  try {
+    const response = await fetch(`https://api.spotify.com/v1/me/player/recently-played?limit=50`, {
+      method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
+    });
+  
+    json = await response.json();         
+  
+    if (!response.ok) {
+      throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
+    }
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      console.log('There was a Syntax Error with your request: ', error);
+    } else {console.log('There was an error with your request: ', error)}
+  }
+  
+  return json;
+}
+
 async function getPlayerState () {
 
   const accessToken = localStorage.getItem('access token');
@@ -167,6 +190,7 @@ function App() {
   const [userProfile, setUserProfile] = useState();
   const [userPlaylists, setUserPlaylists] = useState();
   const [userQueue, setUserQueue] = useState();
+  const [recentlyPlayed, setRecentlyPlayed] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackInfo, setTrackInfo] = useState(blankTrack);
 
@@ -175,6 +199,8 @@ function App() {
       let interval;
       
       if (loggedIn) {
+
+          refreshQueue();
 
           const current = {isPlaying, trackInfo}, updater = {setIsPlaying, setTrackInfo};
           syncInterface(current, updater);
@@ -231,6 +257,20 @@ function App() {
       .catch(error => console.log(`Error fetching user queue data: ${error}`));
   }
 
+  async function refreshQueue () {
+
+    const accessToken = localStorage.getItem('access token');
+
+    getUserQueue(accessToken)
+      .then(response => setUserQueue(response))
+      .catch(error => console.log(`Error fetching user queue data: ${error}`));
+
+    getRecentlyPlayed(accessToken)
+      .then(response => setRecentlyPlayed(response))
+      .catch(error => console.log(`Error fetching user recently played data: ${error}`));
+
+  }
+
   if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
 
   return (
@@ -242,7 +282,7 @@ function App() {
 
         <PlayerInterface loggedIn={loggedIn} trackInfo={trackInfo} isPlaying={isPlaying}/>
 
-        <UserQueue loggedIn={loggedIn} userQueue={userQueue} />
+        <UserQueue loggedIn={loggedIn} userQueue={userQueue} recentlyPlayed={recentlyPlayed} />
 
     </div>
   );

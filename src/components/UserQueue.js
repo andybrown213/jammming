@@ -3,11 +3,15 @@ import {playHandler} from './PlayerInterface';
 
 export default function UserQueue (props) {
 
+    let recentSongs = [{track: {artists: [{name: ''}]}}];
+
+    if (props.recentlyPlayed) {recentSongs = props.recentlyPlayed.items};
+
     const [currentSong, setCurrentSong] = useState({name: '', artists: [{name: ''}]});
     const [queuedSongs, setQueuedSongs] = useState([{name: '', artists: [{name: ''}]}]);
     
-    useEffect(() => {
-
+    useEffect(() => {        
+        
         console.log(props.userQueue);
 
         if (props.userQueue) {
@@ -32,16 +36,23 @@ export default function UserQueue (props) {
 
                 <h3>Queue</h3>
 
+                {recentSongs.items.map((track) => (
+                    <div id='recent-song'>
+                        <h5>{track.name}</h5>
+                        <h6>{track.artists.map(artists => {return artists.name}).toString(' ')}</h6>
+                    </div>
+                ))}
+
                 <div id='current-song'>
                     <h5>{currentSong.name}</h5>
                     <h6>{currentSong.artists.map(artists => {return artists.name}).toString(' ')}</h6>
                 </div>
 
-                {queuedSongs.map((item) => (
+                {queuedSongs.map((track) => (
                     <div id='queued-song'>
-                        <h5>{item.name}</h5>
-                        <h6>{item.artists.map(artists => {return artists.name}).toString(' ')}</h6>
-                        <button onClick={() => playHandler(item.uri)}>Play</button>
+                        <h5>{track.name}</h5>
+                        <h6>{track.artists.map(artists => {return artists.name}).toString(' ')}</h6>
+                        <button onClick={() => playHandler(track.uri)}>Play</button>
                     </div>
                 ))}           
 
