@@ -36,10 +36,10 @@ export default function UserQueue (props) {
 
                 <h3>Queue</h3>
 
-                {recentSongs.map((track) => (
+                {recentSongs.map((item) => (
                     <div id='recent-song'>
-                        <h5>{track.name}</h5>
-                        <h6>{track.artists.map(artists => {return artists.name}).toString(' ')}</h6>
+                        <h5>{item.track.name}</h5>
+                        <h6>{item.track.artists.map(artist => {return artist.name}).toString(' ')}</h6>
                     </div>
                 ))}
 
