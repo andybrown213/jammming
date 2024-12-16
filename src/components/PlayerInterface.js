@@ -95,7 +95,7 @@ export async function playHandler(uri, setIsPlaying) {
                 method: 'put', headers: {Authorization: `Bearer ${accessToken}`}});
         }
         
-        setIsPlaying(true);
+        setIsPlaying();
 
         if (!response.ok) {
             throw new Error(`status code: ${response.status}`);
