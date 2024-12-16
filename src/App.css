@@ -81,7 +81,7 @@ header button:active {
   margin-top: 20px;
   margin-bottom: 20px;
   color: rgb(213, 36, 35);
-  display: fixed;
+  position: fixed;
 }
 
 .playlist {
