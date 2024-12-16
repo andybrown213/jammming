@@ -111,9 +111,55 @@ async function getUserQueue(accessToken) {
   }
   
   return json;
-
 }
 
+async function getPlayerState () {
+
+  const accessToken = localStorage.getItem('access token');
+
+  let json = {is_playing: false, item: {name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}}};
+  
+  try {
+      const response = await fetch('https://api.spotify.com/v1/me/player', {
+          method: 'get', headers: {Authorization: `Bearer ${accessToken}`}
+      })
+      
+      if (response.status === 204) {
+          console.log(`No response from player status. Default Response: ${JSON.stringify(response)}`);
+          return json;
+      }
+
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+          json = await response.json();
+      } else {throw new Error('Response is not a JSON. Response: ', response)}       
+
+      if (!response.ok) {
+          throw new Error(`status code: ${response.status} Error: ${JSON.stringify(json)}`)
+      }
+
+  } catch (error) {
+      if (error instanceof SyntaxError) {
+          console.log('There was a Syntax Error with your request: ', error);
+      } else {console.log('There was an error with your request: ', error)}
+  }
+  
+  console.log(`Player Status Retrieved: ${JSON.stringify(json)}`);
+  return json;
+  
+}
+
+function syncInterface(current, updater) {
+
+  getPlayerState()
+  .then((response) => {
+      if (current.isPlaying !== response.is_playing) {updater.setIsPlaying(response.is_playing)};
+      if (current.trackInfo.id !== response.item.id) {updater.setTrackInfo(response.item)};
+  })
+  .catch((error) => console.log(`Error retrieving player status: ${error}`));
+}
+
+const blankTrack = {name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}};
 
 function App() {
   
@@ -121,11 +167,31 @@ function App() {
   const [userProfile, setUserProfile] = useState();
   const [userPlaylists, setUserPlaylists] = useState();
   const [userQueue, setUserQueue] = useState();
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [trackInfo, setTrackInfo] = useState(blankTrack);
+
+  useEffect(() => {
+      
+      let interval;
+      
+      if (loggedIn) {
+
+          const current = {isPlaying, trackInfo}, updater = {setIsPlaying, setTrackInfo};
+          syncInterface(current, updater);
+      
+          interval = setInterval(() => {syncInterface(current, updater)}, 1000);
+
+          console.log(isPlaying, trackInfo);
+      }   
+
+      return () => {if (interval) clearInterval(interval)};
+
+  }, [isPlaying, trackInfo, loggedIn])
 
   useEffect(() => { 
     
     let interval;
-    
+
     if (loggedIn) {
       
       populateUI();
@@ -133,21 +199,13 @@ function App() {
       interval = setInterval(() => {
 
         let tokenExpiration = localStorage.getItem('access expiration');
-
         const refreshTimer = (tokenExpiration - Date.now());
-
         const oneMinute = 60000;
-        
-        console.log(`checking token status.. Token refresh in ${refreshTimer / oneMinute} minutes.`);
-
         if (refreshTimer < (oneMinute*5)) {reAuth()};
 
       }, 120000);
-
     }
-
     return () => {if (interval) {clearInterval(interval)}};
-
   }, [loggedIn])
 
   const checkAccess = () => {
@@ -182,7 +240,7 @@ function App() {
 
         <UserPlaylists loggedIn={loggedIn} userPlaylists={userPlaylists} />
 
-        <PlayerInterface loggedIn={loggedIn} />
+        <PlayerInterface loggedIn={loggedIn} trackInfo={trackInfo} isPlaying={isPlaying}/>
 
         <UserQueue loggedIn={loggedIn} userQueue={userQueue} />
 

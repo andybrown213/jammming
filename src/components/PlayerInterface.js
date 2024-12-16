@@ -2,52 +2,6 @@ import React, {useState, useEffect} from 'react';
 import RecordPlayer from './RecordPlayer'
 import NowPlaying from './NowPlaying'
 
-async function getPlayerState () {
-
-    const accessToken = localStorage.getItem('access token');
-
-    let json = {is_playing: false, item: {name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}}};
-    
-    try {
-        const response = await fetch('https://api.spotify.com/v1/me/player', {
-            method: 'get', headers: {Authorization: `Bearer ${accessToken}`}
-        })
-        
-        if (response.status === 204) {
-            console.log(`No response from player status. Default Response: ${JSON.stringify(response)}`);
-            return json;
-        }
-
-        const contentType = response.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-            json = await response.json();
-        } else {throw new Error('Response is not a JSON. Response: ', response)}       
-
-        if (!response.ok) {
-            throw new Error(`status code: ${response.status} Error: ${JSON.stringify(json)}`)
-        }
-
-    } catch (error) {
-        if (error instanceof SyntaxError) {
-            console.log('There was a Syntax Error with your request: ', error);
-        } else {console.log('There was an error with your request: ', error)}
-    }
-    
-    console.log(`Player Status Retrieved: ${JSON.stringify(json)}`);
-    return json;
-    
-}
-
-function syncInterface(current, updater) {
-
-    getPlayerState()
-    .then((response) => {
-        if (current.isPlaying !== response.is_playing) {updater.setIsPlaying(response.is_playing)};
-        if (current.trackInfo.id !== response.item.id) {updater.setTrackInfo(response.item)};
-    })
-    .catch((error) => console.log(`Error retrieving player status: ${error}`));
-}
-
 async function getDevices() {
 
     let accessToken = localStorage.getItem('access token');
@@ -147,32 +101,7 @@ async function prevHandler() {
     } catch (error) {console.log(`Skip to previous error: ${error}`)};
 }
 
-
-const blankTrack = {name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}};
-
 export default function PlayerInterface(props) {
-    
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [trackInfo, setTrackInfo] = useState(blankTrack);
-
-    useEffect(() => {
-        
-        let interval;
-        
-        if (props.loggedIn) {
-
-            const current = {isPlaying, trackInfo}, updater = {setIsPlaying, setTrackInfo};
-            syncInterface(current, updater);
-        
-            interval = setInterval(() => {syncInterface(current, updater)}, 1000);
-
-            console.log(isPlaying, trackInfo);
-        }   
-
-        return () => {if (interval) clearInterval(interval)};
-
-    }, [isPlaying, trackInfo, props.loggedIn])
-
     
     if (props.loggedIn) {
 
@@ -180,15 +109,15 @@ export default function PlayerInterface(props) {
 
             <div className="player-interface">
     
-                <RecordPlayer isPlaying={isPlaying} />
+                <RecordPlayer isPlaying={props.isPlaying} />
     
-                <NowPlaying trackInfo={trackInfo} />
+                <NowPlaying trackInfo={props.trackInfo} />
 
                 <div className='player-controls'>
 
                     <button onClick={getDevices}>Devices</button>
                     <button onClick={prevHandler}>Previous</button>
-                    <button onClick={isPlaying ? pauseHandler : () => {playHandler('')}}>{isPlaying ? 'Pause' : 'Play'}</button>
+                    <button onClick={props.isPlaying ? pauseHandler : () => {playHandler('')}}>{props.isPlaying ? 'Pause' : 'Play'}</button>
                     <button onClick={nextHandler}>Next</button>
 
                 </div>    

@@ -30,7 +30,7 @@ export default function UserQueue (props) {
 
             <div className='user-queue'>
 
-                <h3>User Queue</h3>
+                <h3>Queue</h3>
 
                 <div id='current-song'>
                     <h5>{currentSong.name}</h5>
