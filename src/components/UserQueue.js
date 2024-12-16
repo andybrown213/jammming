@@ -12,8 +12,6 @@ export default function UserQueue (props) {
         if (props.recentlyPlayed) {
             setRecentSongs(props.recentlyPlayed.items);
         } else setRecentSongs([{track: {name: '', artists: [{name: ''}]}}])
-
-        console.log(recentSongs);
         
         if (props.userQueue) {
 
@@ -28,6 +26,8 @@ export default function UserQueue (props) {
             } else setQueuedSongs([{name: '', artists: [{name: ''}]}]);
         }   
     }, [props]);    
+
+    console.log(recentSongs);
     
     if ((props.userQueue) && (props.loggedIn)) {
 
