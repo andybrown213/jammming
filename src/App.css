@@ -248,6 +248,7 @@ header button:active {
 
 #now-playing h6 {
   color: grey;
+  margin-top: 10px;
 }
 
 .player-controls {
