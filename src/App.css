@@ -143,7 +143,7 @@ header button:active {
   grid-row: 2;
   grid-column: auto;
   border: 1px solid black;
-  overflow: auto;
+  overflow-y: scroll;
   direction: rtl;
   text-align: center;
 }
