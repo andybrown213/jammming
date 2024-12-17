@@ -88,9 +88,11 @@ export default function UserQueue (props) {
 
     }, [props.trackInfo, props.loggedIn, recentSongs, currentSong, lastSong, queuedSongs]);    
 
+    console.log(recentSongs);
     const recentSongsReversed = recentSongs.toReversed();
+    console.log(recentSongsReversed);
     
-    if ((props.userQueue) && (props.loggedIn)) {
+    if ((props.loggedIn)) {
 
         return (
 
