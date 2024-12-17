@@ -1,8 +1,6 @@
 import React from 'react';
 
 export default function NowPlaying(props) {
-
-    console.log(props.trackInfo)
     
     const song = props.trackInfo.name;
     const artists = props.trackInfo.artists.map(artists => {return artists.name}).toString(' ');

@@ -137,6 +137,8 @@ header button:active {
   margin-bottom: 20px;
   color: rgb(213, 36, 35);
   direction: ltr;
+  position: fixed;
+  z-index: 3;
 }
 
 .user-queue h5 {
@@ -188,7 +190,7 @@ header button:active {
   grid-template-columns: 20% 80%;
   background-color: rgb(143, 23, 23);
   direction: ltr;
-  border: 1px solid black;
+  border: 0px solid black;
   border-bottom: 1px solid rgb(170, 29, 29);
 }
 
