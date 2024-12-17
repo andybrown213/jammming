@@ -12,7 +12,10 @@ export default function UserQueue (props) {
         if (props.recentlyPlayed) {
             console.log(props.recentlyPlayed);
             setRecentSongs(props.recentlyPlayed.items);
-        } else setRecentSongs([{track: {name: '', artists: [{name: ''}]}}])
+        } else {
+            setRecentSongs([{track: {name: '', artists: [{name: ''}]}}]);
+            document.getElementById('recent-song').style.display='none';
+        }
         
         if (props.userQueue) {
 
