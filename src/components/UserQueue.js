@@ -66,7 +66,7 @@ async function refreshQueue(current, updater) {
 
     getRecentlyPlayed(accessToken)
         .then(response => {
-            if (current.recentSongs !== response.items) {updater.setRecentSongs(response)};
+            if (current.recentSongs !== response.items) {updater.setRecentSongs(response.items)};
         }).catch(error => console.log(`Error fetching user recently played data: ${error}`));
 }
 
@@ -80,7 +80,7 @@ export default function UserQueue (props) {
     
     useEffect(() => {        
 
-        if (props.loggedIn) {
+        if ((props.loggedIn) && (props.trackInfo.id !== currentSong.id)) {
             const current = {recentSongs, currentSong, lastSong, queuedSongs};
             const updater = {setRecentSongs, setCurrentSong, setLastSong, setQueuedSongs};
             refreshQueue(current, updater);
