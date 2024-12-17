@@ -170,7 +170,7 @@ async function getPlayerState () {
       } else {console.log('There was an error with your request: ', error)}
   }
   
-  console.log(`Player Status Retrieved: ${JSON.stringify(json)}`);
+  //console.log(`Player Status Retrieved: ${JSON.stringify(json)}`);
   return json;
   
 }
