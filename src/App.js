@@ -117,8 +117,11 @@ async function getRecentlyPlayed(accessToken) {
 
   let json;
 
+  const params = new URLSearchParams('limit=20&before=' + Date.now()).toString();
+  const url = new URL(`https://api.spotify.com/v1/me/player/recently-played${params}`);
+
   try {
-    const response = await fetch(`https://api.spotify.com/v1/me/player/recently-played?limit=20`, {
+    const response = await fetch(url, {
       method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
     });
   
@@ -130,7 +133,7 @@ async function getRecentlyPlayed(accessToken) {
   } catch (error) {
     if (error instanceof SyntaxError) {
       console.log('There was a Syntax Error with your request: ', error);
-    } else {console.log('There was an error with your request: ', error)}
+    } else {console.log('There was an error with your request: ', error)};
   }
   
   return json;
