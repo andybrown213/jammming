@@ -11,8 +11,8 @@ export default function UserQueue (props) {
 
         if (props.recentlyPlayed) {
             console.log(props.recentlyPlayed.items);
+            console.log(props.recentlyPlayed.items.toSorted((a, b) => (a.played_at - b.played_at)));
             setRecentSongs(props.recentlyPlayed.items.toSorted((a, b) => (a.played_at - b.played_at)));
-            console.log(recentSongs);
         } else {
             setRecentSongs([{track: {name: 'Nothing Played Recently', artists: [{name: ''}]}}]);
         }
