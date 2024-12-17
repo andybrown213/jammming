@@ -37,7 +37,6 @@ export default function UserQueue (props) {
         return (
 
                 <>
-
                 <h3>Queue</h3>
 
                 <div className='user-queue'>
@@ -60,12 +59,11 @@ export default function UserQueue (props) {
                         <h5>{track.name}</h5>
                         <h6>{track.artists.map(artists => {return artists.name}).toString(' ')}</h6>
                         <button onClick={() => playHandler(track.uri)}>Play</button>
-                    </div>
+                    </div>                
+                ))}          
 
+                </div>
                 </>
-                ))}           
-
-            </div>
         )
     }
 }
