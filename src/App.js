@@ -139,9 +139,7 @@ async function getRecentlyPlayed(accessToken) {
   return json;
 }
 
-async function getPlayerState () {
-
-  const accessToken = localStorage.getItem('access token');
+async function getPlayerState (accessToken) {
 
   let json = {is_playing: false, item: {name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}}};
   
@@ -175,14 +173,27 @@ async function getPlayerState () {
   
 }
 
-function syncInterface(current, updater) {
+async function syncInterface(current, updater) {
 
-  getPlayerState()
-  .then((response) => {
+  const accessToken = localStorage.getItem('access token');
+  let updateIndicator = false;
+
+  await getPlayerState(accessToken)
+    .then((response) => {
       if (current.isPlaying !== response.is_playing) {updater.setIsPlaying(response.is_playing)};
-      if (current.trackInfo.id !== response.item.id) {updater.setTrackInfo(response.item)};
+      if (current.trackInfo.id !== response.item.id) {updater.setTrackInfo(response.item); updateIndicator = true};
   })
   .catch((error) => console.log(`Error retrieving player status: ${error}`));
+
+  if (updateIndicator) {
+    await getUserQueue(accessToken)
+      .then(response => updater.setUserQueue(response))
+      .catch(error => console.log(`Error fetching user queue data: ${error}`));
+
+    getRecentlyPlayed(accessToken)
+      .then(response => updater.setRecentlyPlayed(response))
+      .catch(error => console.log(`Error fetching user recently played data: ${error}`));
+  }
 }
 
 const blankTrack = {name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}};
@@ -203,9 +214,8 @@ function App() {
       
       if (loggedIn) {
 
-          refreshQueue();
-
-          const current = {isPlaying, trackInfo}, updater = {setIsPlaying, setTrackInfo};
+          const current = {isPlaying, trackInfo, userQueue, recentlyPlayed}
+          const updater = {setIsPlaying, setTrackInfo, setUserQueue, setRecentlyPlayed};
           syncInterface(current, updater);
       
           interval = setInterval(() => {syncInterface(current, updater)}, 1000);
@@ -215,7 +225,7 @@ function App() {
 
       return () => {if (interval) clearInterval(interval)};
 
-  }, [isPlaying, trackInfo, loggedIn])
+  }, [isPlaying, trackInfo, loggedIn, userQueue, recentlyPlayed])
 
   useEffect(() => { 
     
@@ -258,20 +268,24 @@ function App() {
     getUserQueue(accessToken)
       .then(response => setUserQueue(response))
       .catch(error => console.log(`Error fetching user queue data: ${error}`));
+
+    getRecentlyPlayed(accessToken)
+      .then(response => setRecentlyPlayed(response))
+      .catch(error => console.log(`Error fetching user recently played data: ${error}`));
   }
 
   async function refreshQueue () {
 
     const accessToken = localStorage.getItem('access token');
-
+  
     getUserQueue(accessToken)
       .then(response => setUserQueue(response))
       .catch(error => console.log(`Error fetching user queue data: ${error}`));
-
+  
     getRecentlyPlayed(accessToken)
       .then(response => setRecentlyPlayed(response))
       .catch(error => console.log(`Error fetching user recently played data: ${error}`));
-
+  
   }
 
   if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
