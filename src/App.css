@@ -126,7 +126,7 @@ header button:active {
 .right-side-container {
   grid-column: 3;
   grid-row: 1 / span 3;
-  grid-template-rows: 5% 95%;
+  grid-template-rows: 5% auto;
   grid-template-columns: auto;
 }
 
