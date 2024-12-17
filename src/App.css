@@ -158,7 +158,7 @@ header button:active {
   grid-template-columns: 20% 80%;
   grid-template-rows: auto auto;
   direction: ltr;
-  background-color: rgb(143, 23, 23);
+  background-color:#1a1d22;
   border-bottom: 1px solid rgb(170, 29, 29);
 }
 
@@ -186,7 +186,7 @@ header button:active {
 #current-song {
   display: grid;
   grid-template-columns: 20% 80%;
-  background-color:#1a1d22;
+  background-color: rgb(143, 23, 23);
   direction: ltr;
   border: 1px solid black;
   border-bottom: 1px solid rgb(170, 29, 29);
