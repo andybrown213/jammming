@@ -90,55 +90,6 @@ async function getPlaylists(accessToken) {
   return json;
 }
 
-async function getUserQueue(accessToken) {
-
-  let json;
-
-  try {
-    const response = await fetch(`https://api.spotify.com/v1/me/player/queue`, {
-      method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
-    });
-  
-    json = await response.json();         
-  
-    if (!response.ok) {
-      throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
-    }
-  } catch (error) {
-    if (error instanceof SyntaxError) {
-      console.log('There was a Syntax Error with your request: ', error);
-    } else {console.log('There was an error with your request: ', error)}
-  }
-  
-  return json;
-}
-
-async function getRecentlyPlayed(accessToken) {
-
-  let json;
-
-  const params = new URLSearchParams('limit=20&before=' + Date.now() + 5000).toString();
-  const url = new URL(`https://api.spotify.com/v1/me/player/recently-played?${params}`);
-
-  try {
-    const response = await fetch(url, {
-      method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
-    });
-  
-    json = await response.json();         
-  
-    if (!response.ok) {
-      throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
-    }
-  } catch (error) {
-    if (error instanceof SyntaxError) {
-      console.log('There was a Syntax Error with your request: ', error);
-    } else {console.log('There was an error with your request: ', error)};
-  }
-  
-  return json;
-}
-
 async function getPlayerState (accessToken) {
 
   let json = {is_playing: false, item: {name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}}};
@@ -176,24 +127,13 @@ async function getPlayerState (accessToken) {
 async function syncInterface(current, updater) {
 
   const accessToken = localStorage.getItem('access token');
-  let updateIndicator = false;
 
-  await getPlayerState(accessToken)
+  getPlayerState(accessToken)
     .then((response) => {
       if (current.isPlaying !== response.is_playing) {updater.setIsPlaying(response.is_playing)};
-      if (current.trackInfo.id !== response.item.id) {updater.setTrackInfo(response.item); updateIndicator = true};
+      if (current.trackInfo.id !== response.item.id) {updater.setTrackInfo(response.item)};
   })
   .catch((error) => console.log(`Error retrieving player status: ${error}`));
-
-  if (updateIndicator) {
-    await getUserQueue(accessToken)
-      .then(response => updater.setUserQueue(response))
-      .catch(error => console.log(`Error fetching user queue data: ${error}`));
-
-    getRecentlyPlayed(accessToken)
-      .then(response => updater.setRecentlyPlayed(response))
-      .catch(error => console.log(`Error fetching user recently played data: ${error}`));
-  }
 }
 
 const blankTrack = {name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}};
@@ -203,8 +143,6 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState();
   const [userPlaylists, setUserPlaylists] = useState();
-  const [userQueue, setUserQueue] = useState();
-  const [recentlyPlayed, setRecentlyPlayed] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackInfo, setTrackInfo] = useState(blankTrack);
 
@@ -214,8 +152,8 @@ function App() {
       
       if (loggedIn) {
 
-          const current = {isPlaying, trackInfo, userQueue, recentlyPlayed}
-          const updater = {setIsPlaying, setTrackInfo, setUserQueue, setRecentlyPlayed};
+          const current = {isPlaying, trackInfo}
+          const updater = {setIsPlaying, setTrackInfo};
           syncInterface(current, updater);
       
           interval = setInterval(() => {syncInterface(current, updater)}, 1000);
@@ -225,7 +163,7 @@ function App() {
 
       return () => {if (interval) clearInterval(interval)};
 
-  }, [isPlaying, trackInfo, loggedIn, userQueue, recentlyPlayed])
+  }, [isPlaying, trackInfo, loggedIn])
 
   useEffect(() => { 
     
@@ -264,14 +202,6 @@ function App() {
     getPlaylists(accessToken)
       .then(response => setUserPlaylists(response))
       .catch(error => console.log(`Error fetching user playlist data: ${error}`));
-
-    getUserQueue(accessToken)
-      .then(response => setUserQueue(response))
-      .catch(error => console.log(`Error fetching user queue data: ${error}`));
-
-    getRecentlyPlayed(accessToken)
-      .then(response => setRecentlyPlayed(response))
-      .catch(error => console.log(`Error fetching user recently played data: ${error}`));
   }
 
   if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
@@ -285,7 +215,7 @@ function App() {
 
         <PlayerInterface loggedIn={loggedIn} trackInfo={trackInfo} isPlaying={isPlaying}/>
 
-        <UserQueue loggedIn={loggedIn} userQueue={userQueue} recentlyPlayed={recentlyPlayed} />
+        <UserQueue loggedIn={loggedIn} trackInfo={trackInfo} />
 
     </div>
   );
