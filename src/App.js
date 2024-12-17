@@ -274,20 +274,6 @@ function App() {
       .catch(error => console.log(`Error fetching user recently played data: ${error}`));
   }
 
-  async function refreshQueue () {
-
-    const accessToken = localStorage.getItem('access token');
-  
-    getUserQueue(accessToken)
-      .then(response => setUserQueue(response))
-      .catch(error => console.log(`Error fetching user queue data: ${error}`));
-  
-    getRecentlyPlayed(accessToken)
-      .then(response => setRecentlyPlayed(response))
-      .catch(error => console.log(`Error fetching user recently played data: ${error}`));
-  
-  }
-
   if (checkAccess() !== loggedIn) {setLoggedIn(checkAccess)};
 
   return (
