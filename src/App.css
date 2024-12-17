@@ -129,11 +129,11 @@ header button:active {
   grid-template-rows: 5% auto;
   grid-template-columns: 100%;
   max-height: 100%;
+  display: grid;
 }
 
 #user-queue-header {
   grid-row: 1;
-  grid-column: auto;
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -142,7 +142,6 @@ header button:active {
 
 .user-queue {
   grid-row: 2;
-  grid-column: auto;
   border: 1px solid black;
   overflow: auto;
   direction: rtl;
