@@ -40,9 +40,7 @@ export default function UserQueue (props) {
                 
                 <h3 id='user-queue-header'>Queue</h3>
 
-                <div className='user-queue'>
-
-                
+                <div className='user-queue'>                
 
                 {recentSongs.map((item) => (
                     <div id='recent-song'>
