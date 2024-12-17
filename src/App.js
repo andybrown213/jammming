@@ -118,7 +118,7 @@ async function getRecentlyPlayed(accessToken) {
   let json;
 
   const params = new URLSearchParams('limit=20&before=' + Date.now()).toString();
-  const url = new URL(`https://api.spotify.com/v1/me/player/recently-played${params}`);
+  const url = new URL(`https://api.spotify.com/v1/me/player/recently-played?${params}`);
 
   try {
     const response = await fetch(url, {
