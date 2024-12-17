@@ -14,7 +14,7 @@ export default function UserQueue (props) {
             setRecentSongs(props.recentlyPlayed.items.reverse());
         } else {
             setRecentSongs([{track: {name: '', artists: [{name: ''}]}}]);
-            document.getElementById('recent-song').style.display='none';
+            document.getElementById('recent-song').styles.display='none';
         }
         
         if (props.userQueue) {
