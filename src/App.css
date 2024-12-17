@@ -123,22 +123,27 @@ header button:active {
   border: 2px solid black;
 }
 
-.user-queue {
+.right-side-container {
   grid-column: 3;
   grid-row: 1 / span 3;
+  grid-template-rows: 5% 95%;
+  grid-template-columns: auto;
+}
+
+#user-queue-header {
+  grid-row: 1;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: rgb(213, 36, 35);
+}
+
+.user-queue {
+  grid-row: 2;
   border: 0px solid black;
   overflow: auto;
   direction: rtl;
   text-align: center;
-}
-
-.user-queue h3 {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: rgb(213, 36, 35);
-  direction: ltr;
-  position: fixed;
-  z-index: 3;
 }
 
 .user-queue h5 {

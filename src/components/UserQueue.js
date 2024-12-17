@@ -36,10 +36,13 @@ export default function UserQueue (props) {
 
         return (
 
-                <>
-                <h3>Queue</h3>
+                <div className='right-side-container'>
+                
+                <h3 id='user-queue-header'>Queue</h3>
 
                 <div className='user-queue'>
+
+                
 
                 {recentSongs.map((item) => (
                     <div id='recent-song'>
