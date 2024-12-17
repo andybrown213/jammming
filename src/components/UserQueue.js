@@ -42,6 +42,7 @@ export default function UserQueue (props) {
                     <div id='recent-song'>
                         <h5>{item.track.name}</h5>
                         <h6>{item.track.artists.map(artist => {return artist.name}).toString(' ')}</h6>
+                        <button onClick={() => playHandler(item.track.uri)}>Play</button>
                     </div>
                 ))}
 
