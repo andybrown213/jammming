@@ -7,9 +7,12 @@ function UserPlaylists (props) {
     if ((props.userPlaylists) && (props.loggedIn)) {
 
         return (
-            <div className='user-playlists'>
+            
+            <div className='left-side-container'>
 
-                <h3>Your Playlists</h3>
+            <h3 id='user-playlists-header'>Your Playlists</h3>
+
+            <div className='user-playlists'>
     
                 {props.userPlaylists.items.map((item) => (
                     <div className='playlist'>
@@ -19,6 +22,7 @@ function UserPlaylists (props) {
                     </div>
                 ))}
     
+            </div>
             </div>
         )
     }

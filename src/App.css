@@ -69,12 +69,28 @@ header button:active {
   border: 2px solid black;
 }
 
-.user-playlists {
-  border: 0px solid yellowgreen;
+.left-side-container {
+  grid-template-rows: 10% auto;
+  grid-template-columns: 100%;
+  max-height: 100%;
+  display: grid;
   grid-column: 1;
   grid-row: 1 / span 3;
+}
+
+#user-playlists-header {
+  grid-row: 1;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: rgb(213, 36, 35);
+}
+
+.user-playlists {
+  border: 0px solid yellowgreen;
   text-align: center;
   overflow: auto;
+  border: 1px solid black;
 }
 
 .user-playlists h3 {
