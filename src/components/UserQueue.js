@@ -80,7 +80,7 @@ export default function UserQueue (props) {
     
     useEffect(() => {        
 
-        if ((props.loggedIn) && (props.trackInfo.id !== currentSong.id)) {
+        if ((props.loggedIn)) {
             const current = {recentSongs, currentSong, lastSong, queuedSongs};
             const updater = {setRecentSongs, setCurrentSong, setLastSong, setQueuedSongs};
             refreshQueue(current, updater);
