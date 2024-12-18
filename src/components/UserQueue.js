@@ -57,16 +57,17 @@ async function refreshQueue(current, updater) {
 
     getUserQueue(accessToken)
         .then(response => {
-            if (current.queuedSongs !== response.queue) {updater.setQueuedSongs(response.queue)};
+            if (current.queuedSongs !== response.queue) {console.log('updating queued songs')};//updater.setQueuedSongs(response.queue)};
             if (current.currentSong !== response.currently_playing) {
-                updater.setLastSong(current.currentSong); 
-                updater.setCurrentSong(response.currently_playing);
+                //updater.setLastSong(current.currentSong); 
+                //updater.setCurrentSong(response.currently_playing);
+                console.log('updating current and last song')
             };
         }).catch(error => console.log(`Error fetching user queue data: ${error}`));
 
     getRecentlyPlayed(accessToken)
         .then(response => {
-            if (current.recentSongs !== response.items) {updater.setRecentSongs(response.items)};
+            if (current.recentSongs !== response.items) {console.log('updating recent songs')};//updater.setRecentSongs(response.items)};
         }).catch(error => console.log(`Error fetching user recently played data: ${error}`));
 }
 
@@ -78,7 +79,10 @@ export default function UserQueue (props) {
     const [lastSong, setLastSong] = useState(null);
     const [queuedSongs, setQueuedSongs] = useState([]);
     
-    useEffect(() => {        
+    useEffect(() => { 
+        
+        console.log(`useeffect running. Trackinfo: ${props.trackInfo} currentSong: ${currentSong}`);
+        
 
         if ((props.loggedIn) && (props.trackInfo !== currentSong)) {
             const current = {recentSongs, currentSong, lastSong, queuedSongs};
