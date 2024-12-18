@@ -131,7 +131,8 @@ async function syncInterface(current, updater) {
   getPlayerState(accessToken)
     .then((response) => {
       if (current.isPlaying !== response.is_playing) {updater.setIsPlaying(response.is_playing)};
-      if (current.trackInfo.id !== response.item.id) {updater.setTrackInfo(response.item)};
+      if (!current.trackInfo) {updater.setTrackInfo(response.item)}
+      else if (current.trackInfo.id !== response.item.id) {updater.setTrackInfo(response.item)};
   })
   .catch((error) => console.log(`Error retrieving player status: ${error}`));
 }
