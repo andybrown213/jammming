@@ -104,7 +104,7 @@ function removeDuplicates (queue) {
 
     lastSongIds.forEach(trackId => {
         const queueMatches = queue.queuedSongs.filter(song => song.id.includes(trackId));
-        const recentMatches = queue.recentSongs.filter(song => song.id.includes(trackId));
+        const recentMatches = queue.recentSongs.filter(song => song.track.id.includes(trackId));
         if (queueMatches.length > 0) {duplicateIds.push(...queueMatches)};
         if (recentMatches.length > 0) {duplicateIds.push(...recentMatches)};
     })
