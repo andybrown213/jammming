@@ -138,11 +138,13 @@ export default function UserQueue (props) {
         }
         
         if (lastSong.length > 0) {    
-            lastSongDisplay =   <div id='recent-song'>
-                                    <h5>{lastSong.name}</h5>
-                                    <h6>{lastSong.artists.map(artists => {return artists.name}).toString(' ')}</h6>
-                                    <button onClick={() => playHandler(lastSong.uri)}>Play</button>
-                                </div>;
+            lastSongDisplay =   lastSong.map((track) => (
+                                    <div id='recent-song'>
+                                        <h5>{track.name}</h5>
+                                        <h6>{track.artists.map(artists => {return artists.name}).toString(' ')}</h6>
+                                        <button onClick={() => playHandler(track.uri)}>Play</button>
+                                    </div>
+                                 ));
         } else {lastSongDisplay = <></>}
 
         
