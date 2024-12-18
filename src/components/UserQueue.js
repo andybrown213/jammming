@@ -80,7 +80,11 @@ async function refreshQueue(current, updater) {
             updatedQueue.lastSong.push(current.currentSong);
         };
         updatedQueue.currentSong = userQueueResponse.currently_playing;
-        if (updatedQueue.lastSong.length > 0) {updatedQueue = removeDuplicates(updatedQueue)};        
+        if (updatedQueue.lastSong.length > 0) {
+            console.log('queue right before using remove duplicate function:');
+            console.dir(updatedQueue);
+            updatedQueue = removeDuplicates(updatedQueue)
+        };        
     }
 
     console.log('Updating Queue. New Queue information:');
