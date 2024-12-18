@@ -26,7 +26,7 @@ async function reAuth() {
 
     json = await response.json();
 
-    if (!response.ok) {
+    if ((!response.ok) || (response.status !== 200)) {
       throw new Error(`Error during ReAuth process. Status code: ${response.status} Error: ${json.error} Description: ${json.error_description}`)
     }
 
@@ -55,7 +55,7 @@ async function getProfile(accessToken) {
       
       json = await response.json();         
 
-      if ((!response.ok) || (response.status === 401)) {
+      if ((!response.ok) || (response.status !== 200)) {
           throw new Error(`status code: ${response.status} Error: ${JSON.stringify(json)}`);
       }
   } catch (error) {
@@ -78,7 +78,7 @@ async function getPlaylists(accessToken) {
   
     json = await response.json();         
   
-    if (!response.ok) {
+    if ((!response.ok) || (response.status !== 200)) {
       throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
     }
   } catch (error) {
@@ -109,7 +109,7 @@ async function getPlayerState (accessToken) {
           json = await response.json();
       } else {throw new Error('Response is not a JSON. Response: ', response)}       
 
-      if (!response.ok) {
+      if ((!response.ok) || (response.status !== 200)) {
           throw new Error(`status code: ${response.status} Error: ${JSON.stringify(json)}`)
       }
 
