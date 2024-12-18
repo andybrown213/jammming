@@ -57,7 +57,10 @@ async function refreshQueue(current, updater) {
 
     getUserQueue(accessToken)
         .then(response => {
-            if (current.queuedSongs !== response.queue) {console.log('updating queued songs')};//updater.setQueuedSongs(response.queue)};
+            if (current.queuedSongs !== response.queue) {
+                console.log('updating queued songs');
+                updater.setQueuedSongs(response.queue);
+            }
             if (current.currentSong !== response.currently_playing) {
                 updater.setLastSong(current.currentSong); 
                 updater.setCurrentSong(response.currently_playing);
