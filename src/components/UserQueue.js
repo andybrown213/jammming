@@ -76,11 +76,11 @@ export default function UserQueue (props) {
     const [recentSongs, setRecentSongs] = useState([]);
     const [currentSong, setCurrentSong] = useState(null);
     const [lastSong, setLastSong] = useState(null);
-    const [queuedSongs, setQueuedSongs] = useState([{name: '', artists: [{name: ''}]}]);
+    const [queuedSongs, setQueuedSongs] = useState([]);
     
     useEffect(() => {        
 
-        if ((props.loggedIn)) {
+        if ((props.loggedIn) && (props.trackInfo !== currentSong)) {
             const current = {recentSongs, currentSong, lastSong, queuedSongs};
             const updater = {setRecentSongs, setCurrentSong, setLastSong, setQueuedSongs};
             refreshQueue(current, updater);
@@ -103,7 +103,7 @@ export default function UserQueue (props) {
                                         </div>
                                     ));
         }else {
-            recentSongsDisplay =    <div id='recent-song'>
+            recentSongsDisplay =    <div id='recent-song' style={{gridTemplateColumns: 'auto'}}>
                                         <h5>No Recent Songs</h5>
                                     </div>;
         }
@@ -122,7 +122,7 @@ export default function UserQueue (props) {
                                         <h5>{currentSong.name}</h5>
                                         <h6>{currentSong.artists.map(artists => {return artists.name}).toString(' ')}</h6>
                                     </div>;
-        } else {currentSongDisplay =    <div id='current-song'>
+        } else {currentSongDisplay =    <div id='current-song' style={{gridTemplateColumns: 'auto'}}>
                                             <h5>Get JAMMMING</h5>
                                         </div>;
         }
@@ -145,10 +145,10 @@ export default function UserQueue (props) {
 
                     <div className='user-queue'> 
 
-                        {recentSongsDisplay};
-                        {lastSongDisplay};
-                        {currentSongDisplay};
-                        {queuedSongsDisplay};      
+                        {recentSongsDisplay}
+                        {lastSongDisplay}
+                        {currentSongDisplay}
+                        {queuedSongsDisplay}      
 
                     </div>
                 </div>
