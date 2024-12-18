@@ -77,19 +77,44 @@ async function refreshQueue(current, updater) {
     if (current.currentSong !== userQueueResponse.currently_playing) {
         if (current.lastSong.length > 0) {updatedQueue.lastSong = [...current.lastSong]};        
         if (current.currentSong) {updatedQueue.lastSong.push(current.currentSong)};
-        const duplicates = updatedQueue.recentSongs.filter((track) => updatedQueue.lastSong.includes(track.id));
-        if (duplicates.length > 0) {
-            const duplicateIndexes = duplicates.forEach(duplicate => updatedQueue.lastSong.indexOf(duplicate));
-            duplicateIndexes.forEach(duplicateIndex => updatedQueue.lastSong.splice(duplicateIndex));
-        }
         updatedQueue.currentSong = userQueueResponse.currently_playing;
+        if (updatedQueue.lastSong.length > 0) {updatedQueue = removeDuplicates(updatedQueue)};        
     }
+
+    console.log('Updating Queue. New Queue information:');
+    console.dir(updatedQueue);
 
     updater.setRecentSongs(updatedQueue.recentSongs);
     updater.setLastSong(updatedQueue.lastSong);
     updater.setCurrentSong(updatedQueue.currentSong);
     updater.setQueuedSongs(updatedQueue.queuedSongs); 
+}
 
+function removeDuplicates (queue) {
+    
+    const duplicateIds = [];
+
+    const lastSongIds = queue.lastSong.forEach(track => lastSongIds.push(track.id));
+
+    lastSongIds.forEach(trackId => {
+        const queueMatches = queue.queuedSongs.filter(song => song.id.includes(trackId));
+        const recentMatches = queue.recentSongs.filter(song => song.id.includes(trackId));
+        if (queueMatches.length > 0) {duplicateIds.push(...queueMatches)};
+        if (recentMatches.length > 0) {duplicateIds.push(...recentMatches)};
+    })
+
+    console.log(`duplicates found: ${duplicateIds}`);
+    console.log('lastSong before duplicate removal:', queue.lastSong);
+    
+    
+    if (duplicateIds.length > 0) {
+        duplicateIds.forEach(id => {
+            const duplicates = queue.lastSong.filter(song => song.id.includes(id));
+            const duplicateIndexes = duplicates.forEach(duplicate => queue.lastSong.indexOf(duplicate));
+            duplicateIndexes.forEach(duplicateIndex => queue.lastSong.splice(duplicateIndex));
+    })}
+
+    console.log('lastSong after duplicate removal:', queue.lastSong);
 }
 
 
@@ -137,10 +162,9 @@ export default function UserQueue (props) {
                                     </div>;
         }
         
-        console.log(lastSong);
         if (lastSong.length > 0) {    
             lastSongDisplay =   lastSong.map((track) => (
-                                    <div id='recent-song'>
+                                    <div id='recent-song' style={{backgroundColor: 'green'}}>
                                         <h5>{track.name}</h5>
                                         <h6>{track.artists.map(artists => {return artists.name}).toString(' ')}</h6>
                                         <button onClick={() => playHandler(track.uri)}>Play</button>
