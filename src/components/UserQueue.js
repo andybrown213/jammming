@@ -75,7 +75,7 @@ async function refreshQueue(current, updater) {
     } else {updatedQueue.queuedSongs = current.queuedSongs};
 
     if (current.currentSong !== userQueueResponse.currently_playing) {
-        updatedQueue.lastSong = [...current.lastSong];
+        if (current.lastSong) {updatedQueue.lastSong = [...current.lastSong]};        
         updatedQueue.lastSong.push(current.currentSong);
         const duplicates = updatedQueue.recentSongs.filter((track) => updatedQueue.lastSong.includes(track));
         if (duplicates) {
