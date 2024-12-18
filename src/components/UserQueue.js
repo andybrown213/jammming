@@ -12,7 +12,7 @@ async function getUserQueue(accessToken) {
     
       json = await response.json();         
     
-      if (!response.ok) {
+      if ((!response.ok) || (response.status !== 200)) {
         throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
       }
     } catch (error) {
@@ -38,7 +38,7 @@ async function getRecentlyPlayed(accessToken) {
     
       json = await response.json();         
     
-      if (!response.ok) {
+      if ((!response.ok) || (response.status !== 200)) {
         throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
       }
     } catch (error) {
@@ -140,7 +140,7 @@ export default function UserQueue (props) {
         return (
 
                 <div className='right-side-container'>
-                
+
                     <h3 id='user-queue-header'>Queue</h3>
 
                     <div className='user-queue'> 
