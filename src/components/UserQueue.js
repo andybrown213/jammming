@@ -134,14 +134,17 @@ function removeDuplicates (queue) {
     
     console.log('lastSong after duplicate removal:', queue.lastSong);
 
-    queue.recentSongs.forEach(song => {
-        const recentSongDuplicates = recentSongIds.filter(id => (id === song.id));
-        if (recentSongDuplicates.length > 0) {
-            const matchIndex = [];
-            recentSongDuplicates.forEach(duplicate => matchIndex.push(recentSongIds.indexOf(duplicate)));
-            matchIndex.forEach(index => queue.recentSongs.splice(index));
-        }
+    const recentSongDuplicates = [];
+    queue.recentSongs.forEach(song => {        
+        let instanceCounter = 0;
+        recentSongIds.forEach(id => {if (id === song.id) {instanceCounter++}});
+        if (instanceCounter > 1) {recentSongDuplicates.push(song.id)};    
     })
+    if (recentSongDuplicates.length > 0) {
+        const matchIndex = [];
+        recentSongDuplicates.forEach(duplicate => matchIndex.push(recentSongIds.indexOf(duplicate)));
+        matchIndex.forEach(index => queue.recentSongs.splice(index));
+    }
 
     const currentMatchWithRecent = queue.recentSongs.filter(song => song.track.id.includes(queue.currentSong.id))
     if (currentMatchWithRecent.length > 0) {
