@@ -66,8 +66,10 @@ async function refreshQueue(current, updater) {
 
     const userQueueResponse = await getUserQueue(accessToken);
 
+    console.log('Responses for the queue back? :', recentlyPlayedResponse, userQueueResponse);
+
     if (current.recentSongs !== recentlyPlayedResponse.items) {
-        updatedQueue.recentSongs = await recentlyPlayedResponse.items;
+        updatedQueue.recentSongs = recentlyPlayedResponse.items;
         console.log('Recent Songs returned and saved:');
         console.dir(updatedQueue.recentSongs);
     } else {updatedQueue.recentSongs = current.recentSongs};
