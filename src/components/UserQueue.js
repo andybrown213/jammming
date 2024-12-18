@@ -95,11 +95,12 @@ async function refreshQueue(current, updater) {
 function removeDuplicates (queue) {
     
     const duplicateIds = [];
+    const lastSongIds = [];
 
     console.log('preparing the following queue for duplication removal:');
     console.dir(queue);
 
-    const lastSongIds = queue.lastSong.forEach(track => lastSongIds.push(track.id));
+    queue.lastSong.forEach(track => lastSongIds.push(track.id));
 
     lastSongIds.forEach(trackId => {
         const queueMatches = queue.queuedSongs.filter(song => song.id.includes(trackId));
