@@ -136,15 +136,13 @@ async function syncInterface(current, updater) {
   .catch((error) => console.log(`Error retrieving player status: ${error}`));
 }
 
-const blankTrack = {name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}};
-
 function App() {
   
   const [loggedIn, setLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState();
   const [userPlaylists, setUserPlaylists] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [trackInfo, setTrackInfo] = useState(blankTrack);
+  const [trackInfo, setTrackInfo] = useState(null);
 
   useEffect(() => {
       
