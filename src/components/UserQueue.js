@@ -75,10 +75,10 @@ async function refreshQueue(current, updater) {
     } else {updatedQueue.queuedSongs = current.queuedSongs};
 
     if (current.currentSong !== userQueueResponse.currently_playing) {
-        if (current.lastSong) {updatedQueue.lastSong = [...current.lastSong]};        
+        if (current.lastSong.length > 0) {updatedQueue.lastSong = [...current.lastSong]};        
         updatedQueue.lastSong.push(current.currentSong);
         const duplicates = updatedQueue.recentSongs.filter((track) => updatedQueue.lastSong.includes(track));
-        if (duplicates) {
+        if (duplicates.length > 0) {
             const duplicateIndexes = duplicates.forEach(duplicate => updatedQueue.lastSong.indexOf(duplicate));
             duplicateIndexes.forEach(duplicateIndex => updatedQueue.lastSong.splice(duplicateIndex));
         }
@@ -97,7 +97,7 @@ export default function UserQueue (props) {
 
     const [recentSongs, setRecentSongs] = useState([]);
     const [currentSong, setCurrentSong] = useState(null);
-    const [lastSong, setLastSong] = useState(null);
+    const [lastSong, setLastSong] = useState([]);
     const [queuedSongs, setQueuedSongs] = useState([]);
     
     useEffect(() => { 
@@ -122,7 +122,7 @@ export default function UserQueue (props) {
 
         let recentSongsDisplay, lastSongDisplay, currentSongDisplay, queuedSongsDisplay;
         
-        if (recentSongs) {
+        if (recentSongs.length > 0) {
             const recentSongsReversed = recentSongs.toReversed();
             recentSongsDisplay =    recentSongsReversed.map((item) => (
                                         <div id='recent-song'>
@@ -132,12 +132,12 @@ export default function UserQueue (props) {
                                         </div>
                                     ));
         }else {
-            recentSongsDisplay =    <div id='recent-song' style={{gridTemplateColumns: 'auto'}}>
+            recentSongsDisplay =    <div id='recent-song' style={{gridTemplateColumns: '100%', textAlign: 'center'}}>
                                         <h5>No Recent Songs</h5>
                                     </div>;
         }
         
-        if (lastSong) {    
+        if (lastSong.length > 0) {    
             lastSongDisplay =   <div id='recent-song'>
                                     <h5>{lastSong.name}</h5>
                                     <h6>{lastSong.artists.map(artists => {return artists.name}).toString(' ')}</h6>
@@ -151,12 +151,12 @@ export default function UserQueue (props) {
                                         <h5>{currentSong.name}</h5>
                                         <h6>{currentSong.artists.map(artists => {return artists.name}).toString(' ')}</h6>
                                     </div>;
-        } else {currentSongDisplay =    <div id='current-song' style={{gridTemplateColumns: 'auto'}}>
+        } else {currentSongDisplay =    <div id='current-song' style={{gridTemplateColumns: '100%', textAlign: 'center'}}>
                                             <h5>Get JAMMMING</h5>
                                         </div>;
         }
 
-        if (queuedSongs) {
+        if (queuedSongs.length > 0) {
             queuedSongsDisplay =    queuedSongs.map((track) => (
                                         <div id='queued-song'>
                                             <h5>{track.name}</h5>
