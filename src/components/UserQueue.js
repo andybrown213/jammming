@@ -105,8 +105,15 @@ function removeDuplicates (queue) {
     lastSongIds.forEach(trackId => {
         const queueMatches = queue.queuedSongs.filter(song => song.id.includes(trackId));
         const recentMatches = queue.recentSongs.filter(song => song.track.id.includes(trackId));
-        if (queueMatches.length > 0) {duplicateIds.push(...queueMatches)};
-        if (recentMatches.length > 0) {duplicateIds.push(...recentMatches)};
+        if (queueMatches.length > 0) {
+            const queueMatchIds = [];
+            queueMatches.forEach(match => queueMatchIds.push(match.id))
+            duplicateIds.push(...queueMatchIds)
+        };
+        if (recentMatches.length > 0) {
+            const recentMatchIds = [];
+            recentMatches.forEach(match => recentMatchIds.push(match.track.id))
+            duplicateIds.push(...recentMatchIds)};
     })
 
     console.log(`duplicates found: ${JSON.stringify(duplicateIds)}`);
