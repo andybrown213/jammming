@@ -76,7 +76,9 @@ async function refreshQueue(current, updater) {
 
     if (current.currentSong !== userQueueResponse.currently_playing) {
         if (current.lastSong.length > 0) {updatedQueue.lastSong = [...current.lastSong]};        
-        if (current.currentSong) {updatedQueue.lastSong.push(current.currentSong)};
+        if (current.currentSong) {
+            updatedQueue.lastSong.push(current.currentSong);
+        };
         updatedQueue.currentSong = userQueueResponse.currently_playing;
         if (updatedQueue.lastSong.length > 0) {updatedQueue = removeDuplicates(updatedQueue)};        
     }
@@ -93,6 +95,9 @@ async function refreshQueue(current, updater) {
 function removeDuplicates (queue) {
     
     const duplicateIds = [];
+
+    console.log('preparing the following queue for duplication removal:');
+    console.dir(queue);
 
     const lastSongIds = queue.lastSong.forEach(track => lastSongIds.push(track.id));
 
