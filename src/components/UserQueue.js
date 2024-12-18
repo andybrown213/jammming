@@ -121,6 +121,8 @@ function removeDuplicates (queue) {
     })}
 
     console.log('lastSong after duplicate removal:', queue.lastSong);
+
+    return queue;
 }
 
 
