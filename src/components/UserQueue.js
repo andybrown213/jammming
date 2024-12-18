@@ -73,9 +73,9 @@ async function refreshQueue(current, updater) {
 
 export default function UserQueue (props) {
 
-    const [recentSongs, setRecentSongs] = useState([{track: {name: '', artists: [{name: ''}]}}]);
-    const [currentSong, setCurrentSong] = useState({name: '', artists: [{name: ''}]});
-    const [lastSong, setLastSong] = useState({name: '', artists: [{name: ''}]});
+    const [recentSongs, setRecentSongs] = useState([]);
+    const [currentSong, setCurrentSong] = useState(null);
+    const [lastSong, setLastSong] = useState(null);
     const [queuedSongs, setQueuedSongs] = useState([{name: '', artists: [{name: ''}]}]);
     
     useEffect(() => {        
@@ -87,49 +87,70 @@ export default function UserQueue (props) {
         }
 
     }, [props.trackInfo, props.loggedIn, recentSongs, currentSong, lastSong, queuedSongs]);    
-
-    console.log(recentSongs);
-    const recentSongsReversed = recentSongs.toReversed();
-    console.log(recentSongsReversed);
+    
     
     if ((props.loggedIn)) {
+
+        let recentSongsDisplay, lastSongDisplay, currentSongDisplay, queuedSongsDisplay;
+        
+        if (recentSongs) {
+            const recentSongsReversed = recentSongs.toReversed();
+            recentSongsDisplay =    recentSongsReversed.map((item) => (
+                                        <div id='recent-song'>
+                                            <h5>{item.track.name}</h5>
+                                            <h6>{item.track.artists.map(artist => {return artist.name}).toString(' ')}</h6>
+                                            <button onClick={() => playHandler(item.track.uri)}>Play</button>
+                                        </div>
+                                    ));
+        }else {
+            recentSongsDisplay =    <div id='recent-song'>
+                                        <h5>No Recent Songs</h5>
+                                    </div>;
+        }
+        
+        if (lastSong) {    
+            lastSongDisplay =   <div id='recent-song'>
+                                    <h5>{lastSong.name}</h5>
+                                    <h6>{lastSong.artists.map(artists => {return artists.name}).toString(' ')}</h6>
+                                    <button onClick={() => playHandler(lastSong.uri)}>Play</button>
+                                </div>;
+        } else {lastSongDisplay = <></>}
+
+        
+        if (currentSong) {
+            currentSongDisplay =    <div id='current-song'>
+                                        <h5>{currentSong.name}</h5>
+                                        <h6>{currentSong.artists.map(artists => {return artists.name}).toString(' ')}</h6>
+                                    </div>;
+        } else {currentSongDisplay =    <div id='current-song'>
+                                            <h5>Get JAMMMING</h5>
+                                        </div>;
+        }
+
+        if (queuedSongs) {
+            queuedSongsDisplay =    queuedSongs.map((track) => (
+                                        <div id='queued-song'>
+                                            <h5>{track.name}</h5>
+                                            <h6>{track.artists.map(artists => {return artists.name}).toString(' ')}</h6>
+                                            <button onClick={() => playHandler(track.uri)}>Play</button>
+                                        </div>
+                                    ));
+        } else {queuedSongsDisplay = <></>}    
 
         return (
 
                 <div className='right-side-container'>
                 
-                <h3 id='user-queue-header'>Queue</h3>
+                    <h3 id='user-queue-header'>Queue</h3>
 
-                <div className='user-queue'>                
+                    <div className='user-queue'> 
 
-                {recentSongsReversed.map((item) => (
-                    <div id='recent-song'>
-                        <h5>{item.track.name}</h5>
-                        <h6>{item.track.artists.map(artist => {return artist.name}).toString(' ')}</h6>
-                        <button onClick={() => playHandler(item.track.uri)}>Play</button>
+                        {recentSongsDisplay};
+                        {lastSongDisplay};
+                        {currentSongDisplay};
+                        {queuedSongsDisplay};      
+
                     </div>
-                ))}
-
-                <div id='recent-song'>
-                    <h5>{lastSong.name}</h5>
-                    <h6>{lastSong.artists.map(artists => {return artists.name}).toString(' ')}</h6>
-                    <button onClick={() => playHandler(lastSong.uri)}>Play</button>
-                </div>
-
-                <div id='current-song'>
-                    <h5>{currentSong.name}</h5>
-                    <h6>{currentSong.artists.map(artists => {return artists.name}).toString(' ')}</h6>
-                </div>
-
-                {queuedSongs.map((track) => (
-                    <div id='queued-song'>
-                        <h5>{track.name}</h5>
-                        <h6>{track.artists.map(artists => {return artists.name}).toString(' ')}</h6>
-                        <button onClick={() => playHandler(track.uri)}>Play</button>
-                    </div>                
-                ))}          
-
-                </div>
                 </div>
         )
     }
