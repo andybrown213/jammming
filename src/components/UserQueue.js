@@ -150,10 +150,13 @@ function removeDuplicates (queue) {
     const recentSongDuplicates = [];
     queue.recentSongs.forEach(song => {        
         let instanceCounter = 0;
-        recentSongIds.forEach(id => {if (id === song.id) {instanceCounter++}});
+        recentSongIds.forEach(id => {
+            console.log(`comparing song id: ${id} to song ${song} with id ${song.id}`);
+            if (id === song.id) {instanceCounter++; console.log('increasing instance counter')}});
         if (instanceCounter > 1) {
+            console.log(`${instanceCounter} instances of ${id} found.`);
             recentSongDuplicates.push(song.id);
-            console.log(`duplicate added: ${song}`);
+            console.log(`duplicate added: ${song.name}`);
             instanceCounter = 0;
         }
     })
