@@ -109,7 +109,7 @@ function removeDuplicates (queue) {
         if (recentMatches.length > 0) {duplicateIds.push(...recentMatches)};
     })
 
-    console.log(`duplicates found: ${duplicateIds}`);
+    console.log(`duplicates found: ${JSON.stringify(duplicateIds)}`);
     console.log('lastSong before duplicate removal:', queue.lastSong);
     
     
@@ -135,7 +135,7 @@ export default function UserQueue (props) {
     
     useEffect(() => { 
         
-        console.log(`useeffect running. Trackinfo: ${props.trackInfo} currentSong: ${currentSong}`);
+        console.log(`useEffect running. Trackinfo: ${JSON.stringify(props.trackInfo)} currentSong: ${JSON.stringify(currentSong)}`);
         
 
         if ((!currentSong) && (props.loggedIn)) {
