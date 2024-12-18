@@ -12,7 +12,7 @@ export default function NowPlaying(props) {
     
             <div id='now-playing'>
         
-            <h4>{song}</h4>
+            <h5>{song}</h5>
             <h6>by: {artists}</h6>
             <h6>Album: {album}</h6>
     

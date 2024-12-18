@@ -55,23 +55,41 @@ async function refreshQueue(current, updater) {
 
     let accessToken = localStorage.getItem('access token');
 
-    getUserQueue(accessToken)
-        .then(response => {
-            if (current.queuedSongs !== response.queue) {
-                console.log('updating queued songs');
-                updater.setQueuedSongs(response.queue);
-            }
-            if (current.currentSong !== response.currently_playing) {
-                updater.setLastSong(current.currentSong); 
-                updater.setCurrentSong(response.currently_playing);
-                console.log('updating current and last song')
-            };
-        }).catch(error => console.log(`Error fetching user queue data: ${error}`));
+    let updatedQueue = {
+            recentSongs: [],
+            lastSong: [],
+            currentSong: {},
+            queuedSongs: []
+    }
 
-    getRecentlyPlayed(accessToken)
-        .then(response => {
-            if (current.recentSongs !== response.items) {console.log('updating recent songs')};//updater.setRecentSongs(response.items)};
-        }).catch(error => console.log(`Error fetching user recently played data: ${error}`));
+    const recentlyPlayedResponse = await getRecentlyPlayed(accessToken);
+
+    const userQueueResponse = await getUserQueue(accessToken);
+
+    if (current.recentSongs !== recentlyPlayedResponse.items) {
+        updatedQueue.recentSongs = recentlyPlayedResponse.items;
+    } else {updatedQueue.recentSongs = current.recentSongs};
+
+    if (current.queuedSongs !== userQueueResponse.queue) {
+        updatedQueue.queuedSongs = userQueueResponse.queue;
+    } else {updatedQueue.queuedSongs = current.queuedSongs};
+
+    if (current.currentSong !== userQueueResponse.currently_playing) {
+        updatedQueue.lastSong = [...current.lastSong];
+        updatedQueue.lastSong.push(current.currentSong);
+        const duplicates = updatedQueue.recentSongs.filter((track) => updatedQueue.lastSong.includes(track));
+        if (duplicates) {
+            const duplicateIndexes = duplicates.forEach(duplicate => updatedQueue.lastSong.indexOf(duplicate));
+            duplicateIndexes.forEach(duplicateIndex => updatedQueue.lastSong.splice(duplicateIndex));
+        }
+        updatedQueue.currentSong = userQueueResponse.currently_playing;
+    }
+
+    updater.setRecentSongs(updatedQueue.recentSongs);
+    updater.setLastSong(updatedQueue.lastSong);
+    updater.setCurrentSong(updatedQueue.currentSong);
+    updater.setQueuedSongs(updatedQueue.queuedSongs); 
+
 }
 
 
