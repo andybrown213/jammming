@@ -137,6 +137,7 @@ export default function UserQueue (props) {
                                     </div>;
         }
         
+        console.log(lastSong);
         if (lastSong.length > 0) {    
             lastSongDisplay =   lastSong.map((track) => (
                                     <div id='recent-song'>
