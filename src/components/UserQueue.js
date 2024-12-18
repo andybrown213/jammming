@@ -134,17 +134,27 @@ function removeDuplicates (queue) {
     
     console.log('lastSong after duplicate removal:', queue.lastSong);
 
+    console.log('removing duplicates from recent songs. Recent Songs Before:')
+    console.dir(queue.recentSongs);
+
     const recentSongDuplicates = [];
     queue.recentSongs.forEach(song => {        
         let instanceCounter = 0;
         recentSongIds.forEach(id => {if (id === song.id) {instanceCounter++}});
-        if (instanceCounter > 1) {recentSongDuplicates.push(song.id)};    
+        if (instanceCounter > 1) {
+            recentSongDuplicates.push(song.id);
+            console.log(`duplicate added: ${song}`);
+            instanceCounter = 0;
+        }
     })
     if (recentSongDuplicates.length > 0) {
         const matchIndex = [];
         recentSongDuplicates.forEach(duplicate => matchIndex.push(recentSongIds.indexOf(duplicate)));
         matchIndex.forEach(index => queue.recentSongs.splice(index));
     }
+
+    console.log('Recent Songs After:')
+    console.dir(queue.recentSongs);
 
     const currentMatchWithRecent = queue.recentSongs.filter(song => song.track.id.includes(queue.currentSong.id))
     if (currentMatchWithRecent.length > 0) {
