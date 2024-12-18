@@ -36,7 +36,9 @@ async function getRecentlyPlayed(accessToken) {
         method: 'get', headers: {Authorization: `Bearer ${accessToken}`}           
       });
     
-      json = await response.json();         
+      json = await response.json();
+      
+      console.log(`Recently Played Fetch Request Status Code: ${response.status}`);
     
       if ((!response.ok) || (response.status !== 200)) {
         throw new Error(`status code: ${response.status} Error: ${JSON.stringify(response)}`);
