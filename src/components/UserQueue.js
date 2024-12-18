@@ -59,8 +59,8 @@ async function refreshQueue(current, updater) {
         .then(response => {
             if (current.queuedSongs !== response.queue) {console.log('updating queued songs')};//updater.setQueuedSongs(response.queue)};
             if (current.currentSong !== response.currently_playing) {
-                //updater.setLastSong(current.currentSong); 
-                //updater.setCurrentSong(response.currently_playing);
+                updater.setLastSong(current.currentSong); 
+                updater.setCurrentSong(response.currently_playing);
                 console.log('updating current and last song')
             };
         }).catch(error => console.log(`Error fetching user queue data: ${error}`));
@@ -84,7 +84,11 @@ export default function UserQueue (props) {
         console.log(`useeffect running. Trackinfo: ${props.trackInfo} currentSong: ${currentSong}`);
         
 
-        if ((props.loggedIn) && (props.trackInfo !== currentSong)) {
+        if ((!currentSong) && (props.loggedIn)) {
+            const current = {recentSongs, currentSong, lastSong, queuedSongs};
+            const updater = {setRecentSongs, setCurrentSong, setLastSong, setQueuedSongs};
+            refreshQueue(current, updater);
+        } else if ((props.loggedIn) && (props.trackInfo.id !== currentSong.id)) {
             const current = {recentSongs, currentSong, lastSong, queuedSongs};
             const updater = {setRecentSongs, setCurrentSong, setLastSong, setQueuedSongs};
             refreshQueue(current, updater);
