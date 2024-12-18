@@ -128,6 +128,15 @@ function removeDuplicates (queue) {
         duplicateIndexes.forEach(duplicateIndex => queue.lastSong.splice(duplicateIndex));
     }
 
+    const currentMatch = queue.recentSongs.filter(song => song.track.id.includes(queue.currentSong.id))
+    if (currentMatch.length > 0) {
+        const recentSongIds = [];
+        queue.recentSongs.forEach(song => recentSongIds.push(song.id));
+        const currentMatchIndex = [];
+        currentMatchIndex.push(recentSongIds.indexOf(queue.currentSong.id));
+        queue.recentSongs.splice(currentMatchIndex);
+    }
+
     console.log('lastSong after duplicate removal:', queue.lastSong);
 
     return queue;
