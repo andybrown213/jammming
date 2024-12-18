@@ -67,13 +67,13 @@ async function refreshQueue(current, updater) {
     const userQueueResponse = await getUserQueue(accessToken);
 
     if (current.recentSongs !== recentlyPlayedResponse.items) {
-        updatedQueue.recentSongs = recentlyPlayedResponse.items;
+        updatedQueue.recentSongs = await recentlyPlayedResponse.items;
         console.log('Recent Songs returned and saved:');
         console.dir(updatedQueue.recentSongs);
     } else {updatedQueue.recentSongs = current.recentSongs};
 
     if (current.queuedSongs !== userQueueResponse.queue) {
-        updatedQueue.queuedSongs = userQueueResponse.queue;
+        updatedQueue.queuedSongs = await userQueueResponse.queue;
     } else {updatedQueue.queuedSongs = current.queuedSongs};
 
     if (current.currentSong !== userQueueResponse.currently_playing) {
@@ -81,7 +81,7 @@ async function refreshQueue(current, updater) {
         if (current.currentSong) {
             updatedQueue.lastSong.push(current.currentSong);
         };
-        updatedQueue.currentSong = userQueueResponse.currently_playing;
+        updatedQueue.currentSong = await userQueueResponse.currently_playing;
         if (updatedQueue.lastSong.length > 0) {
             console.log('queue right before using remove duplicate function:');
             console.dir(updatedQueue);
