@@ -121,13 +121,12 @@ function removeDuplicates (queue) {
     
     
     if (duplicateIds.length > 0) {
+        const duplicateIndexes = [];
         duplicateIds.forEach(id => {
-            const duplicates = queue.lastSong.filter(song => song.id.includes(id));
-            console.log(`Duplicate Information:`)
-            console.dir(duplicates)
-            const duplicateIndexes = duplicates.forEach(duplicate => queue.lastSong.indexOf(duplicate));
-            duplicateIndexes.forEach(duplicateIndex => queue.lastSong.splice(duplicateIndex));
-    })}
+            duplicateIndexes.push(lastSongIds.indexOf(id));
+        });
+        duplicateIndexes.forEach(duplicateIndex => queue.lastSong.splice(duplicateIndex));
+    }
 
     console.log('lastSong after duplicate removal:', queue.lastSong);
 
@@ -144,11 +143,11 @@ export default function UserQueue (props) {
     
     useEffect(() => { 
         
-        console.log('useEffect running.');
-        console.log('Trackinfo:');
-        console.dir(props.trackInfo)
-        console.log('currentSong:');
-        console.dir(currentSong);
+        //console.log('useEffect running.');
+        //console.log('Trackinfo:');
+        //console.dir(props.trackInfo)
+        //console.log('currentSong:');
+        //console.dir(currentSong);
         
 
         if ((!currentSong) && (props.loggedIn)) {

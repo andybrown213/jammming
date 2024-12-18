@@ -157,7 +157,7 @@ function App() {
       
           interval = setInterval(() => {syncInterface(current, updater)}, 1000);
 
-          console.log(`Playing music?${isPlaying}. Track Info:`)
+          console.log(`Playing music? ${isPlaying}. Track Info:`)
           console.dir(trackInfo);
       }   
 
