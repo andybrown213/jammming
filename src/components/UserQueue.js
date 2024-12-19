@@ -201,23 +201,25 @@ function removeDuplicates (queue) {
     
     //checking recent songs against queued songs
     
+    const recentAndQueueMatches = []
     recentSongIds.forEach(trackId => {
-        const matches = queuedSongIds.filter(id => id === trackId);
-        console.log(`match ids for matches in recent and queue: `, matches);
-        if (matches.length > 0) {
-            const matchIndex =[];
-            matches.forEach(match => {
-                const indexTest = matchIndex.indexOf(match);
-                if (indexTest === -1) {matchIndex.push(recentSongIds.indexOf(match))}
-            });
-            matchIndex.sort(function(a,b){ return b - a; });
-            console.log('sorted indexes of matches in recent and queue', matchIndex);
-            matchIndex.forEach(index => {
-                console.log(`removing recent and queue duplicate: ${queue.recentSongs[index].track.name} from recent songs.`);
-                queue.recentSongs.splice(index, 1);
-            })
-        }
+        queuedSongIds.forEach(id => {if (id === trackId) {recentAndQueueMatches.push(id)}});
     })
+    if (recentAndQueueMatches.length > 0) {
+        console.log(`match ids for matches in recent and queue: `, recentAndQueueMatches);
+        const matchIndexes =[];
+        recentAndQueueMatches.forEach(matchId => {
+            const matchIndex = recentSongIds.indexOf(matchId);
+            if (matchIndexes.indexOf(matchIndex) === -1) {matchIndexes.push(matchIndex)};
+        });
+        matchIndexes.sort(function(a,b){ return b - a; });
+        console.log('sorted indexes of matches in recent and queue', matchIndexes);
+        matchIndexes.forEach(index => {
+            console.log(`removing recent and queue duplicate: ${queue.recentSongs[index].track.name} from recent songs.`);
+            queue.recentSongs.splice(index, 1);
+        })
+    }
+  
 
     recentSongIds.splice(0);
     queue.recentSongs.forEach(song => recentSongIds.push(song.track.id));
