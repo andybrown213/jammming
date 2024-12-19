@@ -38,6 +38,8 @@ export async function playHandler(uri) {
         let response;
 
         if (uri) {
+
+            if (uri.startsWith('uri:')){uri.splice(0, 4)};
     
             let reqBody = JSON.stringify({context_uri: uri});
 
