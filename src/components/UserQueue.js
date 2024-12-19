@@ -239,7 +239,7 @@ function removeDuplicates (queue) {
 
 function scrollToCurrentSong (recentSongsCount, lastSongCount) {     
 
-    console.log(`scrolling to current song. There are ${recentSongsCount} recent songs and ${lastSongCount} last songs.`);  
+    //console.log(`scrolling to current song. There are ${recentSongsCount} recent songs and ${lastSongCount} last songs.`);  
     const userQueueWindow = document.getElementsByClassName('user-queue')[0];
     const recentSongHeight = document.getElementById('recent-song').offsetHeight;
     const currentSongPosition = (recentSongsCount + lastSongCount) * recentSongHeight;
@@ -247,7 +247,7 @@ function scrollToCurrentSong (recentSongsCount, lastSongCount) {
     const queueWindowHeight = userQueueWindow.offsetHeight;
     const currentScrollPositionBottom = queueWindowHeight + currentScrollPositionTop;
 
-    console.log(`Queue is ${queueWindowHeight}px tall. Current scroll position top is ${currentScrollPositionTop}. Current song is located ${currentSongPosition} down.`);
+    console.log(`Queue is ${queueWindowHeight}px tall. Scroll top is ${currentScrollPositionTop}. Scroll bottom is ${currentScrollPositionBottom}. Current song is located ${currentSongPosition} down.`);
 
     if (currentScrollPositionBottom < currentSongPosition) {
         console.log(`current song is located off the screen to the bottom. Scrolling to current song.`);
@@ -256,7 +256,7 @@ function scrollToCurrentSong (recentSongsCount, lastSongCount) {
 
     if (currentScrollPositionTop > currentSongPosition) {
         console.log(`current song is located off the screen to the top. Scrolling to current song.`);
-        userQueueWindow.scrollTop -= (currentScrollPositionTop - currentSongPosition - (recentSongHeight * 3));
+        userQueueWindow.scrollTop -= (currentScrollPositionTop - currentSongPosition + (recentSongHeight * 3));
     }
 }
 
@@ -287,14 +287,10 @@ export default function UserQueue (props) {
             refreshQueue(current, updater);
         }
 
-    }, [props.trackInfo, props.loggedIn, recentSongs, currentSong, lastSong, queuedSongs]); 
-    
-    useEffect(() => {
-
         scrollToCurrentSong(recentSongs.length, lastSong.length);
 
-    }, [recentSongs.length, lastSong.length])
-    
+    }, [props.trackInfo, props.loggedIn, recentSongs, currentSong, lastSong, queuedSongs]);     
+ 
     
     if ((props.loggedIn)) {
 
