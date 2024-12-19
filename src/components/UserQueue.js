@@ -154,7 +154,7 @@ function removeDuplicates (queue) {
             while (duplicateCounter > 0) {
                 console.log('previous duplicate index: ', prevDuplicateIndex);
                 console.log('Duplicates left to get indexes for: ', duplicateCounter);
-                const duplicateIndex = recentSongIds.indexOf(duplicate[0], prevDuplicateIndex);
+                const duplicateIndex = recentSongIds.indexOf(duplicate[0], prevDuplicateIndex + 1);
                 prevDuplicateIndex = duplicateIndex;
                 console.log('found duplicate at index ', duplicateIndex);
                 matchIndex.push(duplicateIndex);

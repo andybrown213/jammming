@@ -39,9 +39,13 @@ export async function playHandler(uri) {
 
         if (uri) {
 
-            if (uri.startsWith('uri:')){uri.splice(0, 4)};
+            if (uri.startsWith('uri:')) {uri.splice(0, 5)};
+
+            console.log('uri going into request after modification: ', uri);
     
             let reqBody = JSON.stringify({context_uri: uri});
+
+            console.log('request body', reqBody);
 
             response = await fetch('https://api.spotify.com/v1/me/player/play?device_id=346b6f8e191335c432116dc4ed9829adbfe95ba8', {
                 method: 'put', headers: {Authorization: `Bearer ${accessToken}`},
