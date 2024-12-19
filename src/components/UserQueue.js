@@ -200,9 +200,9 @@ function removeDuplicates (queue) {
 function scrollToCurrentSong (recentSongsCount, lastSongCount) {       
     const userQueueWindow = document.getElementsByClassName('user-queue');
     const recentSongHeight = document.getElementById('recent-song').offsetHeight;
-    const currentSongPosition = (recentSongsCount + lastSongCount - 2) * recentSongHeight;
-    if (userQueueWindow.offsetHeight < ((recentSongsCount + lastSongCount) * recentSongHeight)) {
-        userQueueWindow.scrollBy(0, currentSongPosition);
+    const currentSongPosition = (recentSongsCount + lastSongCount) * recentSongHeight;
+    if (userQueueWindow.offsetHeight < currentSongPosition) {
+        userQueueWindow.scrollTop += currentSongPosition;
     }
 }
 
