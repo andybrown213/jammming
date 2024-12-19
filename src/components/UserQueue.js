@@ -203,6 +203,7 @@ function removeDuplicates (queue) {
     
     recentSongIds.forEach(trackId => {
         const matches = queuedSongIds.filter(id => id === trackId);
+        console.log(`match ids for matches in recent and queue: `, matches);
         if (matches.length > 0) {
             const matchIndex =[];
             matches.forEach(match => {
@@ -210,8 +211,9 @@ function removeDuplicates (queue) {
                 if (indexTest === -1) {matchIndex.push(recentSongIds.indexOf(match))}
             });
             matchIndex.sort(function(a,b){ return b - a; });
+            console.log('sorted indexes of matches in recent and queue', matchIndex);
             matchIndex.forEach(index => {
-                console.log(`duplicate found in recent and queue. Removing ${queue.recentSongs[index].track.name} from recent songs.`);
+                console.log(`removing recent and queue duplicate: ${queue.recentSongs[index].track.name} from recent songs.`);
                 queue.recentSongs.splice(index, 1);
             })
         }
