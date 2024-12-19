@@ -252,7 +252,7 @@ export default function UserQueue (props) {
         } else {lastSongDisplay = <></>}
 
         
-        if (currentSong.length > 0) {
+        if ((currentSong) && (currentSong !== {})) {
             currentSongDisplay =    <div id='current-song'>
                                         <h5>{currentSong.name}</h5>
                                         <h6>{currentSong.artists.map(artists => {return artists.name}).toString(' ')}</h6>
