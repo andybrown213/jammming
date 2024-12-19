@@ -145,7 +145,7 @@ function removeDuplicates (queue) {
         duplicateIds.forEach(id => {
             duplicateIndexes.push(lastSongIds.indexOf(id));
         });
-        duplicateIndexes.forEach(duplicateIndex => queue.lastSong.splice(duplicateIndex));
+        duplicateIndexes.forEach(duplicateIndex => queue.lastSong.splice(duplicateIndex, 1));
     }
 
     
@@ -174,7 +174,7 @@ function removeDuplicates (queue) {
     if (recentSongDuplicates.length > 0) {
         const matchIndex = [];
         recentSongDuplicates.forEach(duplicate => matchIndex.push(recentSongIds.indexOf(duplicate)));
-        matchIndex.forEach(index => queue.recentSongs.splice(index));
+        matchIndex.forEach(index => queue.recentSongs.splice(index, 1));
     }
 
     //console.log('Recent Songs After:')
@@ -184,14 +184,14 @@ function removeDuplicates (queue) {
     if (currentMatchWithRecent.length > 0) {
         const matchIndex = [];
         matchIndex.push(recentSongIds.indexOf(queue.currentSong.id));
-        queue.recentSongs.splice(matchIndex);
+        queue.recentSongs.splice(matchIndex, 1);
     }
 
     const currentMatchWithQueue = queue.queuedSongs.filter(song => song.id.includes(queue.currentSong.id))
     if (currentMatchWithQueue.length > 0) {
         const matchIndex = [];
         matchIndex.push(queuedSongIds.indexOf(queue.currentSong.id));
-        queue.queuedSongs.splice(matchIndex);
+        queue.queuedSongs.splice(matchIndex, 1);
     }
 
     return queue;
@@ -199,7 +199,7 @@ function removeDuplicates (queue) {
 
 function scrollToCurrentSong (recentSongsCount, lastSongCount) {     
     console.log(`scrolling to current song. There are ${recentSongsCount} recent songs and ${lastSongCount} last songs.`);  
-    const userQueueWindow = document.getElementsByClassName('user-queue');
+    const userQueueWindow = document.getElementsByClassName('user-queue')[0];
     const recentSongHeight = document.getElementById('recent-song').offsetHeight;
     const currentSongPosition = (recentSongsCount + lastSongCount) * recentSongHeight;
     console.log(`Queue is ${userQueueWindow.offsetHeight}px tall. Current song is located ${currentSongPosition} down.`);
