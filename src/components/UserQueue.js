@@ -88,7 +88,7 @@ async function refreshQueue(current, updater) {
 
     if (current.currentSong !== currentSongResponse) {
         if (current.lastSong.length > 0) {updatedQueue.lastSong = [...current.lastSong]};        
-        if (current.currentSong) {
+        if (current.currentSong.length > 0) {
             updatedQueue.lastSong.push(current.currentSong);
         };
         updatedQueue.currentSong = currentSongResponse;
@@ -157,10 +157,14 @@ function removeDuplicates (queue) {
     queue.recentSongs.forEach(song => {        
         let instanceCounter = 0;
         recentSongIds.forEach(id => {
-            console.log(`comparing id: ${id} to song ${song.name} with id ${song.id}`);
-            if (id === song.id) {instanceCounter++; console.log('increasing instance counter')}});
+            //console.log(`comparing id: ${id} to song ${song.name} with id ${song.id}`);
+            if (id === song.id) {
+                instanceCounter++;
+                //console.log('increasing instance counter');
+            }
+        })
         if (instanceCounter > 1) {
-            console.log(`${instanceCounter} instances of ${song.id} found.`);
+            //console.log(`${instanceCounter} instances of ${song.id} found.`);
             recentSongDuplicates.push(song.id);
             console.log(`duplicate added: ${song.name}`);
             instanceCounter = 0;
