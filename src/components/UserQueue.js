@@ -102,6 +102,8 @@ async function refreshQueue(current, updater) {
     console.log('Updating Queue. New Queue information:');
     console.dir(updatedQueue);
 
+    scrollToCurrentSong(updatedQueue.recentSongs.length, updatedQueue.lastSong.length);
+
     updater.setRecentSongs(updatedQueue.recentSongs);
     updater.setLastSong(updatedQueue.lastSong);
     updater.setCurrentSong(updatedQueue.currentSong);
@@ -301,8 +303,6 @@ export default function UserQueue (props) {
             const updater = {setRecentSongs, setCurrentSong, setLastSong, setQueuedSongs};
             refreshQueue(current, updater);
         }
-
-        scrollToCurrentSong(recentSongs.length, lastSong.length);
 
     }, [props.trackInfo, props.loggedIn, recentSongs, currentSong, lastSong, queuedSongs]);     
  

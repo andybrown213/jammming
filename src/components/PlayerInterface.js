@@ -30,6 +30,8 @@ async function getDevices() {
 
 export async function playHandler(uri) {
 
+    console.log(`Attempting to play song with uri: `, uri);
+    
     try{
         const accessToken = localStorage.getItem('access token')
 
