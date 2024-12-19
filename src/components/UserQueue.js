@@ -196,7 +196,7 @@ function removeDuplicates (queue) {
 export default function UserQueue (props) {
 
     const [recentSongs, setRecentSongs] = useState([]);
-    const [currentSong, setCurrentSong] = useState(null);
+    const [currentSong, setCurrentSong] = useState({});
     const [lastSong, setLastSong] = useState([]);
     const [queuedSongs, setQueuedSongs] = useState([]);
     
@@ -252,7 +252,7 @@ export default function UserQueue (props) {
         } else {lastSongDisplay = <></>}
 
         
-        if ((currentSong) && (currentSong !== {})) {
+        if (currentSong.length > 0) {
             currentSongDisplay =    <div id='current-song'>
                                         <h5>{currentSong.name}</h5>
                                         <h6>{currentSong.artists.map(artists => {return artists.name}).toString(' ')}</h6>
