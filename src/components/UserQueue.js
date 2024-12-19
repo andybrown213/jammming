@@ -174,6 +174,7 @@ function removeDuplicates (queue) {
     if (recentSongDuplicates.length > 0) {
         const matchIndex = [];
         recentSongDuplicates.forEach(duplicate => matchIndex.push(recentSongIds.indexOf(duplicate)));
+        console.log(`indexes of duplicates in recent songs. checking for redundancy. ${matchIndex}`);
         matchIndex.forEach(index => queue.recentSongs.splice(index, 1));
     }
 
@@ -198,7 +199,7 @@ function removeDuplicates (queue) {
 }
 
 function scrollToCurrentSong (recentSongsCount, lastSongCount) {     
-    
+
     console.log(`scrolling to current song. There are ${recentSongsCount} recent songs and ${lastSongCount} last songs.`);  
     const userQueueWindow = document.getElementsByClassName('user-queue')[0];
     const recentSongHeight = document.getElementById('recent-song').offsetHeight;
