@@ -74,12 +74,12 @@ async function refreshQueue(current, updater) {
 
     const currentSongResponse = await userQueueResponse.currently_playing;
 
-    console.log('Responses for the queue back? :', recentlyPlayedResponse, userQueueResponse);
+    //console.log('Responses for the queue back? :', recentlyPlayedResponse, userQueueResponse);
 
     if (current.recentSongs !== recentlyPlayed) {
         updatedQueue.recentSongs = recentlyPlayed;
-        console.log('Recent Songs returned and saved:');
-        console.dir(updatedQueue.recentSongs);
+        //console.log('Recent Songs returned and saved:');
+        //console.dir(updatedQueue.recentSongs);
     } else {updatedQueue.recentSongs = current.recentSongs};
 
     if (current.queuedSongs !== queueResponse) {
@@ -93,8 +93,8 @@ async function refreshQueue(current, updater) {
         };
         updatedQueue.currentSong = currentSongResponse;
         if (updatedQueue.lastSong.length > 0) {
-            console.log('queue right before using remove duplicate function:');
-            console.dir(updatedQueue);
+            //console.log('queue right before using remove duplicate function:');
+            //console.dir(updatedQueue);
             updatedQueue = removeDuplicates(updatedQueue)
         };        
     }
@@ -114,8 +114,8 @@ function removeDuplicates (queue) {
     const duplicateIds = [] , queuedSongIds = [], lastSongIds = [], recentSongIds = [];
 
 
-    console.log('preparing the following queue for duplication removal:');
-    console.dir(queue);
+    //console.log('preparing the following queue for duplication removal:');
+    //console.dir(queue);
 
     queue.lastSong.forEach(song => lastSongIds.push(song.id));
     queue.queuedSongs.forEach(song => queuedSongIds.push(song.id));
@@ -136,8 +136,8 @@ function removeDuplicates (queue) {
             duplicateIds.push(...recentMatchIds)};
     })
 
-    console.log(`duplicate Ids found: ${JSON.stringify(duplicateIds)}`);
-    console.log('lastSong before duplicate removal:', queue.lastSong);
+    //console.log(`duplicate Ids found: ${JSON.stringify(duplicateIds)}`);
+    //console.log('lastSong before duplicate removal:', queue.lastSong);
     
     
     if (duplicateIds.length > 0) {
@@ -149,7 +149,7 @@ function removeDuplicates (queue) {
     }
 
     
-    console.log('lastSong after duplicate removal:', queue.lastSong);
+    //console.log('lastSong after duplicate removal:', queue.lastSong);
 
     console.log('removing duplicates from recent songs. Recent Songs Before:')
     console.dir(queue.recentSongs);
@@ -197,10 +197,13 @@ function removeDuplicates (queue) {
     return queue;
 }
 
-function scrollToCurrentSong (recentSongsCount, lastSongCount) {        
+function scrollToCurrentSong (recentSongsCount, lastSongCount) {       
+    const userQueueWindow = document.getElementsByClassName('user-queue');
     const recentSongHeight = document.getElementById('recent-song').offsetHeight;
     const currentSongPosition = (recentSongsCount + lastSongCount - 2) * recentSongHeight;
-    document.getElementsByClassName('user-queue').scrollBy(0, currentSongPosition);
+    if (userQueueWindow.offsetHeight < ((recentSongsCount + lastSongCount) * recentSongHeight)) {
+        userQueueWindow.scrollBy(0, currentSongPosition);
+    }
 }
 
 

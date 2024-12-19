@@ -7,7 +7,7 @@ import './App.css';
 
 async function reAuth() {
 
-  console.log('ReAuthorizing...');
+  //console.log('ReAuthorizing...');
 
   const refreshToken = localStorage.getItem('refresh token');
   const clientId = 'a1eeb89897404526bb54efd92df7a6f2';
@@ -34,7 +34,7 @@ async function reAuth() {
     localStorage.setItem('access expiration', Date.now() + (json.expires_in * 1000));
     localStorage.setItem('refresh token', json.refresh_token);
 
-    console.log('reAuth process completed');
+    //console.log('reAuth process completed');
 
 
   } catch (error) {
