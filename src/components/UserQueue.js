@@ -325,7 +325,7 @@ export default function UserQueue (props) {
 
         let recentSongsDisplay, lastSongDisplay, currentSongDisplay, queuedSongsDisplay;
         
-        if (recentSongs.length > 0) {
+        if (recentSongs.items.length > 0) {
             const recentSongsReversed = recentSongs.toReversed();
             recentSongsDisplay =    recentSongsReversed.map((item) => (
                                         <div id='recent-song'>
@@ -342,7 +342,7 @@ export default function UserQueue (props) {
         
         if (lastSong.length > 0) {    
             lastSongDisplay =   lastSong.map((track) => (
-                                    <div id='recent-song' style={{backgroundColor: 'green'}}>
+                                    <div id='recent-song'>
                                         <h5>{track.name}</h5>
                                         <h6>{track.artists.map(artists => {return artists.name}).toString(' ')}</h6>
                                         <button onClick={() => playHandler(track.uri)}>Play</button>
