@@ -205,7 +205,10 @@ function removeDuplicates (queue) {
         const matches = queuedSongIds.filter(id => id === trackId);
         if (matches.length > 0) {
             const matchIndex =[];
-            matches.forEach(match => matchIndex.push(recentSongIds.indexOf(match)));
+            matches.forEach(match => {
+                const indexTest = matchIndex.indexOf(match);
+                if (indexTest === -1) {matchIndex.push(recentSongIds.indexOf(match))}
+            });
             matchIndex.sort(function(a,b){ return b - a; });
             matchIndex.forEach(index => {
                 console.log(`duplicate found in recent and queue. Removing ${queue.recentSongs[index].track.name} from recent songs.`);
