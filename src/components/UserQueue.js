@@ -198,14 +198,24 @@ function removeDuplicates (queue) {
 }
 
 function scrollToCurrentSong (recentSongsCount, lastSongCount) {     
+    
     console.log(`scrolling to current song. There are ${recentSongsCount} recent songs and ${lastSongCount} last songs.`);  
     const userQueueWindow = document.getElementsByClassName('user-queue')[0];
     const recentSongHeight = document.getElementById('recent-song').offsetHeight;
     const currentSongPosition = (recentSongsCount + lastSongCount) * recentSongHeight;
-    console.log(`Queue is ${userQueueWindow.offsetHeight}px tall. Current song is located ${currentSongPosition} down.`);
-    if (userQueueWindow.offsetHeight < currentSongPosition) {
-        console.log(`current song is located off the screen. Scrolling to current song.`);
-        userQueueWindow.scrollTop += (currentSongPosition - userQueueWindow.scrollTop);
+    const currentScrollPosition = userQueueWindow.scrollTop;
+    const queueWindowHeight = userQueueWindow.offsetHeight;
+
+    console.log(`Queue is ${userQueueWindow.offsetHeight}px tall. Current scroll position is ${currentScrollPosition}. Current song is located ${currentSongPosition} down.`);
+
+    if ((queueWindowHeight + currentScrollPosition) < currentSongPosition) {
+        console.log(`current song is located off the screen to the bottom. Scrolling to current song.`);
+        userQueueWindow.scrollTop += (currentSongPosition - currentScrollPosition);
+    }
+
+    if ((currentScrollPosition) > currentSongPosition) {
+        console.log(`current song is located off the screen to the bottom. Scrolling to current song.`);
+        userQueueWindow.scrollTop -= (currentScrollPosition - currentSongPosition);
     }
 }
 
