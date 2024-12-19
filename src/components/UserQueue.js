@@ -105,7 +105,8 @@ async function refreshQueue(current, updater) {
     updater.setRecentSongs(updatedQueue.recentSongs);
     updater.setLastSong(updatedQueue.lastSong);
     updater.setCurrentSong(updatedQueue.currentSong);
-    updater.setQueuedSongs(updatedQueue.queuedSongs); 
+    updater.setQueuedSongs(updatedQueue.queuedSongs);
+
 }
 
 function removeDuplicates (queue) {
@@ -157,14 +158,14 @@ function removeDuplicates (queue) {
     queue.recentSongs.forEach(song => {        
         let instanceCounter = 0;
         recentSongIds.forEach(id => {
-            //console.log(`comparing id: ${id} to song ${song.name} with id ${song.id}`);
+            console.log(`comparing id: ${id} to song ${song.name} with id ${song.id}`);
             if (id === song.track.id) {
                 instanceCounter++;
-                //console.log('increasing instance counter');
+                console.log('increasing instance counter');
             }
         })
         if (instanceCounter > 1) {
-            //console.log(`${instanceCounter} instances of ${song.id} found.`);
+            console.log(`${instanceCounter} instances of ${song.id} found.`);
             recentSongDuplicates.push(song.track.id);
             console.log(`duplicate added: ${song.track.name}`);
             instanceCounter = 0;
@@ -274,7 +275,13 @@ export default function UserQueue (props) {
                                             <button onClick={() => playHandler(track.uri)}>Play</button>
                                         </div>
                                     ));
-        } else {queuedSongsDisplay = <></>}    
+        } else {queuedSongsDisplay = <></>}
+
+        function scrollToCurrentSong () {        
+            const recentSongComponent = document.getElementById('recent-song');
+            const currentSongPosition = (recentSongs.length + lastSong.length - 2) * recentSongComponent.offsetHeight;
+            document.getElementsByClassName('user-queue').scrollBy(0, currentSongPosition);
+        }
 
         return (
 
@@ -287,7 +294,9 @@ export default function UserQueue (props) {
                         {recentSongsDisplay}
                         {lastSongDisplay}
                         {currentSongDisplay}
-                        {queuedSongsDisplay}      
+                        {queuedSongsDisplay}
+
+                        {scrollToCurrentSong}
 
                     </div>
                 </div>
