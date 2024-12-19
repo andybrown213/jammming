@@ -239,7 +239,8 @@ function removeDuplicates (queue) {
     if (duplicateIds.length > 0) {
         const duplicateIndexes = [];
         duplicateIds.forEach(id => {
-            if (duplicateIndexes.indexOf(id) === -1) {duplicateIndexes.push(lastSongIds.indexOf(id))};            
+            const indexOfId = lastSongIds.indexOf(id)
+            if (duplicateIndexes.indexOf(indexOfId) === -1) {duplicateIndexes.push(indexOfId)};            
         })
         duplicateIndexes.sort(function(a,b){ return b - a; });
         duplicateIndexes.forEach(index => {
