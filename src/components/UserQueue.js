@@ -132,16 +132,18 @@ function removeDuplicates (queue) {
         })
         if (instanceCounter > 1) {
             console.log(`${instanceCounter} instances of ${song.track.id} found.`);
-            recentSongDuplicates.push(song.track.id);
-            console.log(`duplicate added: ${song.track.name}`);
+            if (recentSongDuplicates.indexOf(song.track.id) === -1) {
+                recentSongDuplicates.push(song.track.id);
+                console.log(`duplicate in recent songs: ${song.track.name}`);
+            }
             instanceCounter = 0;
         } else instanceCounter = 0;
     })
     if (recentSongDuplicates.length > 0) {
         const matchIndex = [];
         recentSongDuplicates.forEach(duplicate => matchIndex.push(recentSongIds.indexOf(duplicate)));
-        console.log(`indexes of duplicates in recent songs. checking for redundancy. ${matchIndex}`);
         matchIndex.sort(function(a,b){ return b - a; });
+        console.log(`indexes of duplicates in recent songs. checking for redundancy. ${matchIndex}`);        
         matchIndex.forEach(index => {
             console.log(`Removing duplicate ${queue.recentSongs[index].track.name} from recent songs.`);
             queue.recentSongs.splice(index, 1);
