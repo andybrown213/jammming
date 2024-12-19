@@ -91,6 +91,7 @@ header button:active {
   text-align: center;
   overflow: auto;
   border: 1px solid black;
+  scroll-behavior: smooth;
 }
 
 .user-playlists h3 {
@@ -162,6 +163,7 @@ header button:active {
   overflow: auto;
   direction: rtl;
   text-align: center;
+  scroll-behavior: smooth;
 }
 
 .user-queue h5 {

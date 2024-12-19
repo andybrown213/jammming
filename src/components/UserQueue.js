@@ -205,7 +205,7 @@ function scrollToCurrentSong (recentSongsCount, lastSongCount) {
     console.log(`Queue is ${userQueueWindow.offsetHeight}px tall. Current song is located ${currentSongPosition} down.`);
     if (userQueueWindow.offsetHeight < currentSongPosition) {
         console.log(`current song is located off the screen. Scrolling to current song.`);
-        userQueueWindow.scrollTop += currentSongPosition;
+        userQueueWindow.scrollTop += (currentSongPosition - userQueueWindow.scrollTop);
     }
 }
 
