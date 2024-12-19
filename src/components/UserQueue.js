@@ -88,7 +88,7 @@ async function refreshQueue(current, updater) {
 
     if (current.currentSong !== currentSongResponse) {
         if (current.lastSong.length > 0) {updatedQueue.lastSong = [...current.lastSong]};        
-        if (current.currentSong.length > 0) {
+        if (Object.values(current.currentSong).length > 0) {
             updatedQueue.lastSong.push(current.currentSong);
         };
         updatedQueue.currentSong = currentSongResponse;
@@ -213,7 +213,7 @@ export default function UserQueue (props) {
         //console.dir(currentSong);
         
 
-        if ((!currentSong) && (props.loggedIn)) {
+        if ((Object.values(currentSong) < 1) && (props.loggedIn)) {
             const current = {recentSongs, currentSong, lastSong, queuedSongs};
             const updater = {setRecentSongs, setCurrentSong, setLastSong, setQueuedSongs};
             refreshQueue(current, updater);
@@ -256,7 +256,7 @@ export default function UserQueue (props) {
         } else {lastSongDisplay = <></>}
 
         
-        if (currentSong.length > 0) {
+        if (Object.values(currentSong).length > 0) {
             currentSongDisplay =    <div id='current-song'>
                                         <h5>{currentSong.name}</h5>
                                         <h6>{currentSong.artists.map(artists => {return artists.name}).toString(' ')}</h6>
