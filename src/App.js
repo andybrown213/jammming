@@ -143,7 +143,7 @@ function App() {
   const [userProfile, setUserProfile] = useState();
   const [userPlaylists, setUserPlaylists] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [trackInfo, setTrackInfo] = useState(null);
+  const [trackInfo, setTrackInfo] = useState({});
 
   useEffect(() => {
       
