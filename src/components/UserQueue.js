@@ -142,9 +142,16 @@ function removeDuplicates (queue) {
         const duplicateIndexes = [];
         duplicateIds.forEach(id => {
             duplicateIndexes.push(lastSongIds.indexOf(id));
-        });
-        duplicateIndexes.forEach(index => queue.lastSong.splice(index, 1));
+        })
+        duplicateIndexes.sort(function(a,b){ return b - a; });
+        duplicateIndexes.forEach(index => {
+            console.log(`Removing duplicate ${queue.lastSong[index].name} from last songs.`);
+            queue.lastSong.splice(index, 1);
+        })
     }
+
+    lastSongIds.splice(0);
+    queue.lastSong.forEach(song => lastSongIds.push(song.id));
 
     
     //console.log('lastSong after duplicate removal:', queue.lastSong);
@@ -173,9 +180,17 @@ function removeDuplicates (queue) {
         const matchIndex = [];
         recentSongDuplicates.forEach(duplicate => matchIndex.push(recentSongIds.indexOf(duplicate)));
         console.log(`indexes of duplicates in recent songs. checking for redundancy. ${matchIndex}`);
-        matchIndex.forEach(index => queue.recentSongs.splice(index, 1));
+        matchIndex.sort(function(a,b){ return b - a; });
+        matchIndex.forEach(index => {
+            console.log(`Removing duplicate ${queue.recentSongs[index].track.name} from recent songs.`);
+            queue.recentSongs.splice(index, 1);
+        })
     }
 
+    recentSongIds.splice(0);
+    queue.recentSongs.forEach(song => recentSongIds.push(song.track.id));
+    
+    
     //console.log('Recent Songs After:')
     //console.dir(queue.recentSongs);
 
@@ -183,15 +198,37 @@ function removeDuplicates (queue) {
     if (currentMatchWithRecent.length > 0) {
         const matchIndex = [];
         matchIndex.push(recentSongIds.indexOf(queue.currentSong.id));
+        console.log(`Removing duplicate ${queue.recentSongs[matchIndex].track.name} from recent songs.`);
         queue.recentSongs.splice(matchIndex, 1);
+        recentSongIds.splice(0);
+        queue.recentSongs.forEach(song => recentSongIds.push(song.track.id));
     }
 
     const currentMatchWithQueue = queue.queuedSongs.filter(song => song.id.includes(queue.currentSong.id))
     if (currentMatchWithQueue.length > 0) {
         const matchIndex = [];
         matchIndex.push(queuedSongIds.indexOf(queue.currentSong.id));
+        console.log(`Removing duplicate ${queue.queuedSongs[matchIndex].name} from queued songs.`);
         queue.queuedSongs.splice(matchIndex, 1);
+        queuedSongIds.splice(0);
+        queue.queuedSongs.forEach(song => queuedSongIds.push(song.id));
     }
+
+    
+    //checking recent songs against queued songs
+    
+    recentSongIds.forEach(trackId => {
+        const matches = queuedSongIds.filter(id => id === trackId);
+        if (matches.length > 0) {
+            const matchIndex =[];
+            matches.forEach(match => matchIndex.push(recentSongIds.indexOf(match)));
+            matchIndex.sort(function(a,b){ return b - a; });
+            matchIndex.forEach(index => {
+                console.log(`duplicate found in recent and queue. Removing ${queue.recentSongs[index].track.name} from recent songs.`);
+                queue.recentSongs.splice(index, 1);
+            })
+        }
+    })
 
     return queue;
 }
@@ -204,16 +241,17 @@ function scrollToCurrentSong (recentSongsCount, lastSongCount) {
     const currentSongPosition = (recentSongsCount + lastSongCount) * recentSongHeight;
     const currentScrollPosition = userQueueWindow.scrollTop;
     const queueWindowHeight = userQueueWindow.offsetHeight;
+    const queueWindowBottom = queueWindowHeight + currentScrollPosition;
 
-    console.log(`Queue is ${userQueueWindow.offsetHeight}px tall. Current scroll position is ${currentScrollPosition}. Current song is located ${currentSongPosition} down.`);
+    console.log(`Queue is ${queueWindowHeight}px tall. Current scroll position is ${currentScrollPosition}. Current song is located ${currentSongPosition} down.`);
 
-    if ((queueWindowHeight + currentScrollPosition) < currentSongPosition) {
+    if (queueWindowBottom < currentSongPosition) {
         console.log(`current song is located off the screen to the bottom. Scrolling to current song.`);
         userQueueWindow.scrollTop += (currentSongPosition - currentScrollPosition);
     }
 
-    if ((currentScrollPosition) > currentSongPosition) {
-        console.log(`current song is located off the screen to the bottom. Scrolling to current song.`);
+    if (currentScrollPosition > currentSongPosition) {
+        console.log(`current song is located off the screen to the top. Scrolling to current song.`);
         userQueueWindow.scrollTop -= (currentScrollPosition - currentSongPosition);
     }
 }
