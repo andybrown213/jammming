@@ -158,14 +158,14 @@ function removeDuplicates (queue) {
     queue.recentSongs.forEach(song => {        
         let instanceCounter = 0;
         recentSongIds.forEach(id => {
-            console.log(`comparing id: ${id} to song ${song.name} with id ${song.id}`);
+            console.log(`comparing id: ${id} to song ${song.track.name} with id ${song.track.id}`);
             if (id === song.track.id) {
                 instanceCounter++;
                 console.log('increasing instance counter');
             }
         })
         if (instanceCounter > 1) {
-            console.log(`${instanceCounter} instances of ${song.id} found.`);
+            console.log(`${instanceCounter} instances of ${song.track.id} found.`);
             recentSongDuplicates.push(song.track.id);
             console.log(`duplicate added: ${song.track.name}`);
             instanceCounter = 0;
@@ -177,8 +177,8 @@ function removeDuplicates (queue) {
         matchIndex.forEach(index => queue.recentSongs.splice(index));
     }
 
-    console.log('Recent Songs After:')
-    console.dir(queue.recentSongs);
+    //console.log('Recent Songs After:')
+    //console.dir(queue.recentSongs);
 
     const currentMatchWithRecent = queue.recentSongs.filter(song => song.track.id.includes(queue.currentSong.id))
     if (currentMatchWithRecent.length > 0) {
@@ -195,6 +195,12 @@ function removeDuplicates (queue) {
     }
 
     return queue;
+}
+
+function scrollToCurrentSong (recentSongsCount, lastSongCount) {        
+    const recentSongHeight = document.getElementById('recent-song').offsetHeight;
+    const currentSongPosition = (recentSongsCount + lastSongCount - 2) * recentSongHeight;
+    document.getElementsByClassName('user-queue').scrollBy(0, currentSongPosition);
 }
 
 
@@ -224,7 +230,15 @@ export default function UserQueue (props) {
             refreshQueue(current, updater);
         }
 
-    }, [props.trackInfo, props.loggedIn, recentSongs, currentSong, lastSong, queuedSongs]);    
+    }, [props.trackInfo, props.loggedIn, recentSongs, currentSong, lastSong, queuedSongs]); 
+    
+    useEffect(() => {
+
+        console.log('scrolling to current song');
+
+        scrollToCurrentSong(recentSongs.length, lastSong.length);
+
+    }, [recentSongs.length, lastSong.length])
     
     
     if ((props.loggedIn)) {
@@ -276,12 +290,6 @@ export default function UserQueue (props) {
                                         </div>
                                     ));
         } else {queuedSongsDisplay = <></>}
-
-        function scrollToCurrentSong () {        
-            const recentSongComponent = document.getElementById('recent-song');
-            const currentSongPosition = (recentSongs.length + lastSong.length - 2) * recentSongComponent.offsetHeight;
-            document.getElementsByClassName('user-queue').scrollBy(0, currentSongPosition);
-        }
 
         return (
 
