@@ -152,6 +152,8 @@ function removeDuplicates (queue) {
             let prevDuplicateIndex = 0;
             let duplicateCounter = (duplicate[1] - 1)
             while (duplicateCounter > 0) {
+                console.log('previous duplicate index: ', prevDuplicateIndex);
+                console.log('Duplicates left to get indexes for: ', duplicateCounter);
                 const duplicateIndex = recentSongIds.indexOf(duplicate[0], prevDuplicateIndex);
                 prevDuplicateIndex = duplicateIndex;
                 console.log('found duplicate at index ', duplicateIndex);
@@ -180,7 +182,7 @@ function removeDuplicates (queue) {
     if (currentMatchWithRecent.length > 0) {
         const matchIndex = [];
         matchIndex.push(recentSongIds.indexOf(queue.currentSong.id));
-        console.log(`Removing duplicate ${queue.recentSongs[matchIndex].track.name} from recent songs.`);
+        console.log(`Removing duplicate of current song${queue.recentSongs[matchIndex].track.name} from recent songs.`);
         queue.recentSongs.splice(matchIndex, 1);
         recentSongIds.splice(0);
         queue.recentSongs.forEach(song => recentSongIds.push(song.track.id));
@@ -190,7 +192,7 @@ function removeDuplicates (queue) {
     if (currentMatchWithQueue.length > 0) {
         const matchIndex = [];
         matchIndex.push(queuedSongIds.indexOf(queue.currentSong.id));
-        console.log(`Removing duplicate ${queue.queuedSongs[matchIndex].name} from queued songs.`);
+        console.log(`Removing duplicate of current song ${queue.queuedSongs[matchIndex].name} from queued songs.`);
         queue.queuedSongs.splice(matchIndex, 1);
         queuedSongIds.splice(0);
         queue.queuedSongs.forEach(song => queuedSongIds.push(song.id));
