@@ -67,25 +67,31 @@ async function refreshQueue(current, updater) {
     const recentlyPlayedResponse = await getRecentlyPlayed(accessToken);
 
     const userQueueResponse = await getUserQueue(accessToken);
+    
+    const recentlyPlayed = await recentlyPlayedResponse.items;
+
+    const queueResponse = await userQueueResponse.queue;
+
+    const currentSongResponse = await userQueueResponse.currently_playing;
 
     console.log('Responses for the queue back? :', recentlyPlayedResponse, userQueueResponse);
 
-    if (current.recentSongs !== recentlyPlayedResponse.items) {
-        updatedQueue.recentSongs = recentlyPlayedResponse.items;
+    if (current.recentSongs !== recentlyPlayed) {
+        updatedQueue.recentSongs = recentlyPlayed;
         console.log('Recent Songs returned and saved:');
         console.dir(updatedQueue.recentSongs);
     } else {updatedQueue.recentSongs = current.recentSongs};
 
-    if (current.queuedSongs !== userQueueResponse.queue) {
-        updatedQueue.queuedSongs = await userQueueResponse.queue;
+    if (current.queuedSongs !== queueResponse) {
+        updatedQueue.queuedSongs = queueResponse;
     } else {updatedQueue.queuedSongs = current.queuedSongs};
 
-    if (current.currentSong !== userQueueResponse.currently_playing) {
+    if (current.currentSong !== currentSongResponse) {
         if (current.lastSong.length > 0) {updatedQueue.lastSong = [...current.lastSong]};        
         if (current.currentSong) {
             updatedQueue.lastSong.push(current.currentSong);
         };
-        updatedQueue.currentSong = await userQueueResponse.currently_playing;
+        updatedQueue.currentSong = currentSongResponse;
         if (updatedQueue.lastSong.length > 0) {
             console.log('queue right before using remove duplicate function:');
             console.dir(updatedQueue);
@@ -151,7 +157,7 @@ function removeDuplicates (queue) {
     queue.recentSongs.forEach(song => {        
         let instanceCounter = 0;
         recentSongIds.forEach(id => {
-            console.log(`comparing id: ${id} to song ${song} with id ${song.id}`);
+            console.log(`comparing id: ${id} to song ${song.name} with id ${song.id}`);
             if (id === song.id) {instanceCounter++; console.log('increasing instance counter')}});
         if (instanceCounter > 1) {
             console.log(`${instanceCounter} instances of ${song.id} found.`);
@@ -246,7 +252,7 @@ export default function UserQueue (props) {
         } else {lastSongDisplay = <></>}
 
         
-        if (currentSong) {
+        if (currentSong.length > 0) {
             currentSongDisplay =    <div id='current-song'>
                                         <h5>{currentSong.name}</h5>
                                         <h6>{currentSong.artists.map(artists => {return artists.name}).toString(' ')}</h6>
