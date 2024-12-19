@@ -239,7 +239,7 @@ function removeDuplicates (queue) {
     if (duplicateIds.length > 0) {
         const duplicateIndexes = [];
         duplicateIds.forEach(id => {
-            duplicateIndexes.push(lastSongIds.indexOf(id));
+            if (duplicateIndexes.indexOf(id) === -1) {duplicateIndexes.push(lastSongIds.indexOf(id))};            
         })
         duplicateIndexes.sort(function(a,b){ return b - a; });
         duplicateIndexes.forEach(index => {
@@ -271,11 +271,13 @@ function scrollToCurrentSong (recentSongsCount, lastSongCount) {
     if (currentScrollPositionBottom < currentSongPosition) {
         console.log(`current song is located off the screen to the bottom. Scrolling to current song.`);
         userQueueWindow.scrollTop += (currentSongPosition - currentScrollPositionTop - (recentSongHeight * 3));
+        console.log('setting scroll top to ', userQueueWindow.scrollTop);
     }
 
     if (currentScrollPositionTop > currentSongPosition) {
         console.log(`current song is located off the screen to the top. Scrolling to current song.`);
         userQueueWindow.scrollTop -= (currentScrollPositionTop - currentSongPosition + (recentSongHeight * 3));
+        console.log('setting scroll top to ', userQueueWindow.scrollTop);
     }
 }
 
