@@ -269,19 +269,21 @@ function scrollToCurrentSong (recentSongsCount, lastSongCount) {
     const currentScrollPositionTop = userQueueWindow.scrollTop;
     const queueWindowHeight = userQueueWindow.offsetHeight;
     const currentScrollPositionBottom = queueWindowHeight + currentScrollPositionTop;
+    const upwardCorrection = (currentSongPosition - currentScrollPositionTop - (recentSongHeight * 3));
+    const downwardCorrection = (currentScrollPositionTop - currentSongPosition + (recentSongHeight * 3));
 
     console.log(`Queue is ${queueWindowHeight}px tall. Scroll top is ${currentScrollPositionTop}. Scroll bottom is ${currentScrollPositionBottom}. Current song is located ${currentSongPosition} down.`);
 
     if (currentScrollPositionBottom < currentSongPosition) {
         console.log(`current song is located off the screen to the bottom. Scrolling to current song.`);
-        userQueueWindow.scrollTop += (currentSongPosition - currentScrollPositionTop - (recentSongHeight * 3));
-        console.log('setting scroll top to ', userQueueWindow.scrollTop);
+        userQueueWindow.scrollTop += upwardCorrection;
+        console.log(`setting scroll top to ${currentScrollPositionTop + upwardCorrection} by moving up ${downwardCorrection}.`);
     }
 
     if (currentScrollPositionTop > currentSongPosition) {
         console.log(`current song is located off the screen to the top. Scrolling to current song.`);
-        userQueueWindow.scrollTop -= (currentScrollPositionTop - currentSongPosition + (recentSongHeight * 3));
-        console.log('setting scroll top to ', userQueueWindow.scrollTop);
+        userQueueWindow.scrollTop -= downwardCorrection;
+        console.log(`setting scroll top to ${currentScrollPositionTop - downwardCorrection} by moving down ${downwardCorrection}.`);
     }
 }
 
