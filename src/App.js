@@ -92,7 +92,7 @@ async function getPlaylists(accessToken) {
 
 async function getPlayerState (accessToken) {
 
-  let json = {is_playing: false, item: {name: 'Find a Song!', artists: [{name: ''}], album: {name: ''}}};
+  let json = {};
   
   try {
       const response = await fetch('https://api.spotify.com/v1/me/player', {
