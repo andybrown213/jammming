@@ -24,7 +24,7 @@ export default function NowPlaying(props) {
 
             <div id='now-playing'>
         
-            <h4>Find a Song to Jammm!</h4>
+            <h4>Find a Song to Jammm!!</h4>
 
             </div>
 
