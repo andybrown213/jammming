@@ -91,7 +91,7 @@ async function refreshQueue(current, updater) {
         if (Object.values(current.currentSong).length > 0) {
             updatedQueue.lastSong.push(current.currentSong);
         };
-        updatedQueue.currentSong = currentSongResponse;
+        if (currentSongResponse !== null) {updatedQueue.currentSong = currentSongResponse} else {updatedQueue.currentSong = {}};
         if (updatedQueue.lastSong.length > 0) {
             //console.log('queue right before using remove duplicate function:');
             //console.dir(updatedQueue);
@@ -102,7 +102,9 @@ async function refreshQueue(current, updater) {
     console.log('Updating Queue. New Queue information:');
     console.dir(updatedQueue);
 
-    scrollToCurrentSong(updatedQueue.recentSongs.length, updatedQueue.lastSong.length);
+    if (document.getElementsByClassName('user-queue')[0] !== null) {
+        scrollToCurrentSong(updatedQueue.recentSongs.length, updatedQueue.lastSong.length);
+    }
 
     updater.setRecentSongs(updatedQueue.recentSongs);
     updater.setLastSong(updatedQueue.lastSong);
