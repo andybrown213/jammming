@@ -2,7 +2,9 @@ import React from 'react';
 
 export default function NowPlaying(props) {
     
-    if ((props.trackInfo) && (Object.values(props.trackInfo).length > 0)) {
+    if (typeof props.trackInfo === 'object') {
+        
+        if ((props.trackInfo) && (Object.values(props.trackInfo).length > 0)) {
     
         const song = props.trackInfo.name;
         const artists = props.trackInfo.artists.map(artists => {return artists.name}).toString(' ');
@@ -17,8 +19,19 @@ export default function NowPlaying(props) {
             <h6>Album: {album}</h6>
     
             </div>
-    
         )
+        } else {
+
+            return (
+
+                <div id='now-playing'>
+        
+                <h4>Find a Song to Jammm!!</h4>
+    
+                </div>
+
+            )
+        }    
     } else {
         return (
 
