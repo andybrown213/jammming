@@ -7,6 +7,9 @@
 
 # testing
 /coverage
+*.test.js
+setupTests.js
+
 
 # production
 /build
@@ -23,3 +26,4 @@ yarn-debug.log*
 yarn-error.log*
 *.code-workspace
 /misc-not-synced
+
