@@ -5,6 +5,8 @@ import PlayerInterface from './components/PlayerInterface';
 import UserQueue from './components/UserQueue.js';
 import './App.css';
 
+
+
 async function reAuth() {
 
   //console.log('ReAuthorizing...');
